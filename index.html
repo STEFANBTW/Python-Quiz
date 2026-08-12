@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics Quizzes</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DengXian', '等线', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            color: #2d3748;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #eef2f5;
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .quiz-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0b7285;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quiz-subtitle {
+            font-size: 0.85rem;
+            color: #868e96;
+            margin-top: 2px;
+        }
+
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #15aabf;
+            margin-bottom: 0.8rem;
+        }
+
+        .quiz-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .quiz-link {
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 12px;
+            padding: 1.1rem 1.3rem;
+            text-decoration: none;
+            color: #1a202c;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .quiz-link:hover {
+            border-color: #c5f6fa;
+            background: #f8f9fa;
+            transform: translateY(-1px);
+        }
+
+        .quiz-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: #e3fafc;
+            color: #0b7285;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        footer {
+            background: #ffffff;
+            border-top: 1px solid #eef2f5;
+            padding: 1.5rem 2rem;
+            margin-top: auto;
+            text-align: center;
+            color: #868e96;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 800px) {
+            .main-container {
+                padding: 1.2rem;
+            }
+
+            header {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="quiz-title">
+                <span>🐍</span> Python Basics Quizzes
+            </div>
+            <div class="quiz-subtitle">
+                COS 102 quiz collection, ordered by difficulty
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="section">
+            <div class="section-title">Easy</div>
+            <div class="quiz-list">
+                <a class="quiz-link" href="python-basics-easy-quiz-v3.html">
+                    <span class="quiz-icon">1</span> Python Basics: Easy Quiz (v3)
+                </a>
+                <a class="quiz-link" href="python-basics-easy-quiz-batch2.html">
+                    <span class="quiz-icon">2</span> Python Basics: Easy Quiz (Batch 2)
+                </a>
+                <a class="quiz-link" href="python-basics-easy-quiz-batch3.html">
+                    <span class="quiz-icon">3</span> Python Basics: Easy Quiz (Batch 3)
+                </a>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Medium</div>
+            <div class="quiz-list">
+                <a class="quiz-link" href="python-basics-medium-quiz-batch1.html">
+                    <span class="quiz-icon">1</span> Python Basics: Medium Quiz (Batch 1)
+                </a>
+                <a class="quiz-link" href="python-basics-medium-quiz-batch2.html">
+                    <span class="quiz-icon">2</span> Python Basics: Medium Quiz (Batch 2)
+                </a>
+                <a class="quiz-link" href="python-basics-medium-quiz-batch3.html">
+                    <span class="quiz-icon">3</span> Python Basics: Medium Quiz (Batch 3)
+                </a>
+                <a class="quiz-link" href="python-basics-medium-quiz-v2.html">
+                    <span class="quiz-icon">4</span> Python Basics: Medium Quiz (v2)
+                </a>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Hard</div>
+            <div class="quiz-list">
+                <a class="quiz-link" href="python-basics-hard-quiz-v2.html">
+                    <span class="quiz-icon">1</span> Python Basics: Hard Quiz (v2)
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Python Basics Quiz Collection
+    </footer>
+</body>
+</html>

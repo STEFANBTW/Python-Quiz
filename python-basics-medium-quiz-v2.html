@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics - Medium Quiz</title>
+    <style>
+        /* Fonts & Global Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DengXian', '等线', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            color: #2d3748;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header / Tracker */
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #eef2f5;
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .quiz-title-area {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quiz-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0b7285;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quiz-subtitle {
+            font-size: 0.85rem;
+            color: #868e96;
+            margin-top: 2px;
+        }
+
+        .score-box {
+            background: #e3fafc;
+            border: 1px solid #c5f6fa;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            color: #0b7285;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background-color: #f1f3f5;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #15aabf;
+            transition: width 0.3s ease;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        #mobile-show-exp-btn {
+            display: none;
+            width: 100%;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+        @media (max-width: 800px) {
+            .question-card.is-answered #mobile-show-exp-btn {
+                display: flex;
+            }
+        }
+
+        /* Main Workspace */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        /* Left Column (Questions) */
+        .question-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .question-card {
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .question-number {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #15aabf;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1a202c;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option-button {
+            width: 100%;
+            background: #ffffff;
+            border: 1.5px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.1rem 1.3rem;
+            font-size: 1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            font-family: inherit;
+            color: #495057;
+            position: relative;
+        }
+
+        .option-button:hover:not(:disabled) {
+            background: #f8f9fa;
+            border-color: #ced4da;
+            transform: translateY(-1px);
+        }
+
+        .option-prefix {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: #f1f3f5;
+            font-weight: 700;
+            margin-right: 1rem;
+            font-size: 0.9rem;
+            color: #495057;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        /* Option States */
+        .option-button.correct {
+            background: #ebfbee;
+            border-color: #8ce99a;
+            color: #2b8a3e;
+            font-weight: 700;
+        }
+        .option-button.correct .option-prefix {
+            background: #a9e34b;
+            color: #ffffff;
+        }
+
+        .option-button.incorrect {
+            background: #fff5f5;
+            border-color: #ffc9c9;
+            color: #c92a2a;
+        }
+        .option-button.incorrect .option-prefix {
+            background: #ff8787;
+            color: #ffffff;
+        }
+
+        .option-button:disabled {
+            cursor: not-allowed;
+        }
+
+        /* Right Column (Dynamic Feedback & Explanations) */
+        .feedback-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feedback-pane {
+            background: #fdfdfd;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 2rem;
+            position: sticky;
+            top: 100px;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Welcome State (unanswered) */
+        .feedback-welcome {
+            text-align: center;
+            padding: 3rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #868e96;
+            gap: 1rem;
+        }
+
+        .feedback-welcome-icon {
+            font-size: 3rem;
+            color: #e3fafc;
+            background: #e3fafc;
+            width: 80px;
+            height: 80px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #15aabf;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Answered State Layout */
+        .feedback-active {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        .feedback-badge {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .badge-correct {
+            background: #d3f9d8;
+            color: #2b8a3e;
+        }
+
+        .badge-incorrect {
+            background: #ffe3e3;
+            color: #c92a2a;
+        }
+
+        .feedback-heading-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        /* Dynamic Dual-Cards */
+        .dual-explanations {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .explanation-card {
+            border-radius: 8px;
+            padding: 1.2rem;
+            border-left: 4px solid;
+            background: #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+        }
+
+        .explanation-card.user-selected-wrong {
+            border-left-color: #ff8787;
+            background: #fffafb;
+            border-top: 1px solid #ffe3e3;
+            border-right: 1px solid #ffe3e3;
+            border-bottom: 1px solid #ffe3e3;
+        }
+
+        .explanation-card.correct-answer {
+            border-left-color: #40c057;
+            background: #fbfdfb;
+            border-top: 1px solid #d3f9d8;
+            border-right: 1px solid #d3f9d8;
+            border-bottom: 1px solid #d3f9d8;
+        }
+
+        .explanation-card-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-title-wrong { color: #c92a2a; }
+        .card-title-correct { color: #2b8a3e; }
+
+        .explanation-card-text {
+            font-size: 0.92rem;
+            color: #495057;
+        }
+
+        /* Show All Explanations Button */
+        .show-all-btn {
+            background: #f1f3f5;
+            border: 1px solid #dee2e6;
+            color: #495057;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .show-all-btn:hover {
+            background: #e9ecef;
+            border-color: #ced4da;
+        }
+
+        /* Grid of All Explanations (Initially Hidden) */
+        .all-explanations-grid {
+            display: none;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #dee2e6;
+        }
+
+        .grid-exp-card {
+            padding: 1rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        .grid-exp-card.is-correct {
+            border-left: 3px solid #40c057;
+            background: #fbfdfb;
+        }
+
+        .grid-exp-card.is-wrong {
+            border-left: 3px solid #adb5bd;
+        }
+
+        .grid-exp-option {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Navigation Footer */
+        .nav-footer {
+            background: #ffffff;
+            border-top: 1px solid #eef2f5;
+            padding: 1.5rem 2rem;
+            margin-top: auto;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: #ffffff;
+            border: 1px solid #ced4da;
+            color: #495057;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: #f8f9fa;
+            border-color: #adb5bd;
+            color: #212529;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: #15aabf;
+            border-color: #15aabf;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #0b7285;
+            border-color: #0b7285;
+            color: #ffffff;
+        }
+
+        /* Dot Grid Navigator */
+        .dot-navigator {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+            max-width: 500px;
+        }
+
+        .nav-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            background: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #868e96;
+            transition: all 0.2s;
+        }
+
+        .nav-dot:hover {
+            border-color: #adb5bd;
+            background: #f8f9fa;
+            color: #495057;
+        }
+
+        .nav-dot.active {
+            border-color: #15aabf;
+            background: #e3fafc;
+            color: #0b7285;
+            box-shadow: 0 0 0 2px rgba(21, 170, 191, 0.2);
+        }
+
+        .nav-dot.answered-correct {
+            background: #d3f9d8;
+            border-color: #8ce99a;
+            color: #2b8a3e;
+        }
+
+        .nav-dot.answered-incorrect {
+            background: #ffe3e3;
+            border-color: #ffc9c9;
+            color: #c92a2a;
+        }
+
+        /* Mobile Map Toggle Button */
+        .map-toggle-btn {
+            display: none;
+            background: #e3fafc;
+            border: 1px solid #c5f6fa;
+            color: #0b7285;
+            border-radius: 8px;
+            padding: 0.45rem 0.8rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: inherit;
+        }
+
+        .map-toggle-btn:hover {
+            background: #c5f6fa;
+        }
+
+        /* Mobile Map Drawer */
+        .map-drawer {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border-radius: 16px 16px 0 0;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            padding: 1.5rem;
+            transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .map-drawer.show {
+            bottom: 0;
+        }
+
+        .map-drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        .map-drawer-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .map-dot-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+        }
+
+        /* Mobile Drawer / Bottom Sheet & Backdrop */
+        .backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .backdrop.show {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 800px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 1.2rem;
+            }
+
+            header {
+                padding: 1rem;
+            }
+
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .header-actions {
+                align-self: flex-end;
+            }
+
+            .dot-navigator {
+                display: none; /* Hide in mobile footer to save space */
+            }
+
+            .map-toggle-btn {
+                display: inline-flex;
+            }
+
+            /* Transform right column to slide-up bottom drawer */
+            .feedback-column {
+                position: fixed;
+                bottom: -100%;
+                left: 0;
+                right: 0;
+                width: 100%;
+                z-index: 1000;
+                transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .feedback-column.show {
+                bottom: 0;
+            }
+
+            .feedback-pane {
+                border-radius: 16px 16px 0 0;
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+                max-height: 80vh;
+                border: none;
+                top: auto;
+            }
+
+            /* Pull bar handle for mobile drawer */
+            .feedback-pane::before {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 4px;
+                background: #dee2e6;
+                border-radius: 2px;
+                margin: -0.8rem auto 1rem auto;
+                flex-shrink: 0;
+            }
+
+            /* Add close button to mobile feedback pane header */
+            .feedback-header {
+                justify-content: space-between;
+            }
+
+            .mobile-close-btn {
+                display: flex;
+                background: none;
+                border: none;
+                font-size: 1.2rem;
+                cursor: pointer;
+                color: #adb5bd;
+                padding: 4px;
+            }
+        }
+
+        @media (min-width: 801px) {
+            .mobile-close-btn {
+                display: none;
+            }
+        }
+
+        /* Code Block Styling */
+        pre {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin-bottom: 1.2rem;
+            color: #2b3a42;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="quiz-title-area">
+                <div class="quiz-title">
+                    <span>🐍</span> Python Basics: Medium Quiz (Version 2)
+                </div>
+                <div class="quiz-subtitle">
+                    50 Intermediate level questions to strengthen your Python fundamentals
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="score-box">
+                    Score: <span id="current-score">0</span> / <span id="completed-count">0</span>
+                </div>
+                <button class="map-toggle-btn" onclick="openQuestionMap()">
+                    㗊 Map
+                </button>
+            </div>
+        </div>
+        <div class="max-width-wrapper" style="max-width: 1200px; margin: 0 auto; width: 100%;">
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Left: Question Workspace -->
+        <div class="question-column">
+            <div class="question-card" id="question-card">
+                <div class="question-number" id="question-num-label">Question 1 of 50</div>
+                <div class="question-text" id="question-text-content">Loading question...</div>
+                
+                <div class="options-grid" id="options-container">
+                    <!-- Option buttons will be rendered dynamically here -->
+                </div>
+                <button id="mobile-show-exp-btn" class="btn btn-primary" onclick="openFeedbackMobile()">Show Explanation</button>
+            </div>
+        </div>
+
+        <!-- Right / Mobile Bottom Sheet: Feedback Panel -->
+        <div class="feedback-column" id="feedback-column-element">
+            <div class="feedback-pane" id="feedback-pane-content">
+                <!-- Dynamic feedback content rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="nav-footer">
+        <div class="nav-container">
+            <button class="btn" id="prev-btn" onclick="previousQuestion()" disabled>
+                ← Previous
+            </button>
+            
+            <div class="dot-navigator" id="dot-grid">
+                <!-- 50 Jump Dots will be rendered here -->
+            </div>
+
+            <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()">
+                Next Question →
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Question Map Drawer -->
+    <div class="map-drawer" id="question-map-drawer">
+        <div class="map-drawer-header">
+            <span class="map-drawer-title">Question Map</span>
+            <button class="btn" onclick="closeQuestionMap()" style="padding: 0.4rem 0.8rem;">✕</button>
+        </div>
+        <div class="map-dot-grid" id="map-dot-grid">
+            <!-- Map dots rendered here -->
+        </div>
+    </div>
+
+    <!-- Backdrop Overlay for Mobile Bottom Sheet -->
+    <div class="backdrop" id="drawer-backdrop" onclick="closeFeedbackMobile()"></div>
+
+    <script>
+        // Question list injected dynamically
+                const questions = [
+    {
+        "id": 1,
+        "question": "What is the correct way to define a function 'greet' that prints 'Hi' in Python?",
+        "options": {
+            "A": "function greet(): print('Hi')",
+            "B": "def greet(): print('Hi')",
+            "C": "void greet() { print('Hi'); }",
+            "D": "declare greet(): print('Hi')"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. 'function' is used in JavaScript and PHP, but not in Python.",
+            "B": "Correct! The 'def' keyword is Python's syntax to define a function.",
+            "C": "Incorrect. This is C++/Java syntax which is not valid in Python.",
+            "D": "Incorrect. 'declare' is not a valid Python keyword for functions."
+        }
+    },
+    {
+        "id": 2,
+        "question": "What is the output of the following function call?\ndef add(a, b=5):\n    return a + b\nprint(add(3))",
+        "options": {
+            "A": "8",
+            "B": "3",
+            "C": "TypeError",
+            "D": "None"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! The parameter 'b' has a default value of 5. Calling add(3) sets 'a' to 3 and uses the default value for 'b', returning 3 + 5 = 8.",
+            "B": "Incorrect. The default value of 'b' (5) is added to 3.",
+            "C": "Incorrect. Since the second parameter has a default argument, passing a single argument is completely valid.",
+            "D": "Incorrect. The function explicitly returns a sum, not None."
+        }
+    },
+    {
+        "id": 3,
+        "question": "Which of the following creates an empty set in Python?",
+        "options": {
+            "A": "s = {}",
+            "B": "s = set()",
+            "C": "s = []",
+            "D": "s = set([])"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. s = {} creates an empty dictionary, not a set.",
+            "B": "Correct! set() is the only constructor that creates a clean, empty set in Python.",
+            "C": "Incorrect. This creates an empty list, not a set.",
+            "D": "Incorrect. While set([]) creates a set from an empty list, set() is the preferred and direct syntax."
+        }
+    },
+    {
+        "id": 4,
+        "question": "What is the result of 'apple' in {'apple': 1, 'banana': 2}?",
+        "options": {
+            "A": "True",
+            "B": "1",
+            "C": "False",
+            "D": "TypeError"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! The 'in' operator checks whether a value exists as a key in the dictionary, which is True here.",
+            "B": "Incorrect. It returns True (membership boolean), not the value associated with the key.",
+            "C": "Incorrect. 'apple' is indeed a key in the dictionary.",
+            "D": "Incorrect. Using 'in' with dictionaries is a fully supported operation."
+        }
+    },
+    {
+        "id": 5,
+        "question": "What will my_dict.get('cherry', 0) return if my_dict = {'apple': 1, 'banana': 2}?",
+        "options": {
+            "A": "0",
+            "B": "None",
+            "C": "KeyError",
+            "D": "cherry"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! The .get() method returns the default value specified (0) if the key is not found in the dictionary.",
+            "B": "Incorrect. If no default value was provided, it would return None. Since 0 is specified, it returns 0.",
+            "C": "Incorrect. .get() is specifically designed to handle missing keys gracefully without raising a KeyError.",
+            "D": "Incorrect. It returns the value associated with the key, or the default value, not the key itself."
+        }
+    },
+    {
+        "id": 6,
+        "question": "How do you loop through both keys and values of a dictionary 'my_dict'?",
+        "options": {
+            "A": "for k, v in my_dict.items():",
+            "B": "for k, v in my_dict:",
+            "C": "for k, v in my_dict.keys_values():",
+            "D": "for k, v in my_dict.entries():"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! The .items() method returns a sequence of key-value tuples, which can be unpacked in a loop.",
+            "B": "Incorrect. Looping directly over a dictionary only yields its keys.",
+            "C": "Incorrect. There is no method named .keys_values() in Python.",
+            "D": "Incorrect. .entries() is used in JavaScript, but not in Python."
+        }
+    },
+    {
+        "id": 7,
+        "question": "Which of the following is true about tuples in Python?",
+        "options": {
+            "A": "They are identical to lists, but faster.",
+            "B": "They are immutable, meaning they cannot be modified after creation.",
+            "C": "They can only contain integers.",
+            "D": "They must always be defined using brackets []."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. While tuples are generally slightly faster than lists, their main difference is mutability.",
+            "B": "Correct! Tuples are immutable sequence collections, meaning their elements cannot be changed, added, or removed in-place.",
+            "C": "Incorrect. Tuples can contain any data types, including strings, lists, or nested tuples.",
+            "D": "Incorrect. Tuples are defined using parentheses () or comma-separated values, not brackets []."
+        }
+    },
+    {
+        "id": 8,
+        "question": "What is tuple unpacking in Python?",
+        "options": {
+            "A": "Deleting all elements in a tuple.",
+            "B": "Assigning elements of a tuple to multiple individual variables on a single line.",
+            "C": "Converting a tuple to a string.",
+            "D": "Accessing items using their index numbers."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Tuples are immutable and cannot be deleted element-by-element.",
+            "B": "Correct! Unpacking allows you to assign each item in a tuple to separate variables (e.g. x, y = (10, 20)).",
+            "C": "Incorrect. Unpacking is not a typecast conversion.",
+            "D": "Incorrect. This is standard index accessing, not unpacking."
+        }
+    },
+    {
+        "id": 9,
+        "question": "What does the code: s = {1, 2, 2, 3}; print(s) output?",
+        "options": {
+            "A": "{1, 2, 2, 3}",
+            "B": "{1, 2, 3}",
+            "C": "[1, 2, 3]",
+            "D": "TypeError"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Sets do not keep duplicate values.",
+            "B": "Correct! Sets are collections of unique elements, so duplicates (like the second 2) are automatically removed.",
+            "C": "Incorrect. The curly braces define a set, not a list.",
+            "D": "Incorrect. Declaring a set with duplicates is completely valid."
+        }
+    },
+    {
+        "id": 10,
+        "question": "Given sets a = {1, 2, 3} and b = {3, 4, 5}, what is a & b?",
+        "options": {
+            "A": "{1, 2, 3, 4, 5}",
+            "B": "{3}",
+            "C": "{1, 2, 4, 5}",
+            "D": "None"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. This represents the union of the sets, which is represented by a | b.",
+            "B": "Correct! The ampersand (&) operator calculates the mathematical intersection, returning elements present in both sets.",
+            "C": "Incorrect. This represents the symmetric difference (elements in either set but not both).",
+            "D": "Incorrect. The intersection has one common element (3), so it is not empty."
+        }
+    },
+    {
+        "id": 11,
+        "question": "Which f-string expression correctly formats the variable pi = 3.14159 to two decimal places?",
+        "options": {
+            "A": "f\"{pi:2}\"",
+            "B": "f\"{pi:.2f}\"",
+            "C": "f\"{pi:float:.2}\"",
+            "D": "f\"{round(pi, 2)}\""
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. This format specifier specifies spacing/width, not decimals.",
+            "B": "Correct! The format specifier '.2f' formats the float to exactly 2 decimal places.",
+            "C": "Incorrect. This is invalid Python f-string syntax.",
+            "D": "Incorrect. While round(pi, 2) returns 3.14, using format specifiers (:.2f) is the standard string formatting convention."
+        }
+    },
+    {
+        "id": 12,
+        "question": "What is the difference between global and local variable scope?",
+        "options": {
+            "A": "Global variables are only inside functions; local variables are outside.",
+            "B": "Global variables are defined outside functions and accessible anywhere; local variables are defined inside a function and only accessible there.",
+            "C": "They are exactly the same in Python.",
+            "D": "Global variables are immutable, local variables are mutable."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. It is the exact opposite.",
+            "B": "Correct! Global variables are defined at module-level, while local variables exist only within their defining function frame.",
+            "C": "Incorrect. Their accessibility levels and lifetimes are completely different.",
+            "D": "Incorrect. Scope does not dictate mutability."
+        }
+    },
+    {
+        "id": 13,
+        "question": "How can you modify a global variable 'x' from inside a local function scope?",
+        "options": {
+            "A": "By writing global x at the start of the function.",
+            "B": "By writing global(x) inside the function.",
+            "C": "Global variables cannot be modified inside local functions.",
+            "D": "By passing x as a parameter and re-assigning it."
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! The 'global' keyword explicitly tells the compiler that assignments should bind to the module-level global variable.",
+            "B": "Incorrect. 'global' is a statement keyword, not a function call.",
+            "C": "Incorrect. They can be modified by declaring them global.",
+            "D": "Incorrect. Passing a parameter creates a local variable reference and does not modify the global one directly."
+        }
+    },
+    {
+        "id": 14,
+        "question": "What is the primary advantage of opening a file with the 'with' statement?",
+        "options": {
+            "A": "It automatically reads all lines at once.",
+            "B": "It ensures the file is automatically closed when the block exits, even on exceptions.",
+            "C": "It speeds up file reading.",
+            "D": "It makes the file write-protected."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. You still have to call file methods to read content.",
+            "B": "Correct! 'with' acts as a context manager that guarantees proper resource cleanup (closing the file) when leaving the scope.",
+            "C": "Incorrect. It provides safety and clean resource management, not increased performance.",
+            "D": "Incorrect. File modes ('r', 'w', etc.) dictate write permissions, not the context manager."
+        }
+    },
+    {
+        "id": 15,
+        "question": "Which mode is used to write to a file without overwriting its existing content?",
+        "options": {
+            "A": "'w'",
+            "B": "'a'",
+            "C": "'r'",
+            "D": "'x'"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. 'w' mode opens the file for writing but truncates (overwrites) its current content completely.",
+            "B": "Correct! 'a' (append) mode opens a file and writes new data starting at the end of the current content.",
+            "C": "Incorrect. 'r' is strictly for reading files.",
+            "D": "Incorrect. 'x' mode is for exclusive creation; it fails if the file already exists."
+        }
+    },
+    {
+        "id": 16,
+        "question": "What does built-in function enumerate() yield when looping over a list?",
+        "options": {
+            "A": "A list of values.",
+            "B": "Pairs of index and item value: (index, item).",
+            "C": "The total length and elements.",
+            "D": "Randomly ordered elements."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. It yields tuples, not single items.",
+            "B": "Correct! enumerate() generates tuples of index-value pairs, which is highly useful to track index positions during loops.",
+            "C": "Incorrect. It yields individual element metadata, not the whole length.",
+            "D": "Incorrect. It preserves the exact positional order of the original list."
+        }
+    },
+    {
+        "id": 17,
+        "question": "What is the purpose of the zip() function in Python?",
+        "options": {
+            "A": "To compress files into an archive.",
+            "B": "To iterate over multiple iterables in parallel, yielding tuples of matched elements.",
+            "C": "To speed up list creation.",
+            "D": "To sort two lists simultaneously."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. While zip files compress data, the built-in zip() function is purely for parallel element pairing.",
+            "B": "Correct! zip() takes multiple sequences and pairs up corresponding elements, stopping at the shortest sequence.",
+            "C": "Incorrect. It returns a lazy iterator, not directly a list.",
+            "D": "Incorrect. It does not perform sorting operations."
+        }
+    },
+    {
+        "id": 18,
+        "question": "What is the difference between my_list.sort() and sorted(my_list)?",
+        "options": {
+            "A": "my_list.sort() returns a new sorted list; sorted() modifies in-place.",
+            "B": "my_list.sort() modifies the list in-place and returns None; sorted() returns a new sorted list.",
+            "C": "They are exactly identical in performance and behavior.",
+            "D": "sorted() is for tuples only; .sort() is for lists only."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. It is the opposite.",
+            "B": "Correct! The list method .sort() alters the original object directly, while the built-in sorted() creates and returns a separate sorted list.",
+            "C": "Incorrect. One is in-place and the other is non-destructive.",
+            "D": "Incorrect. sorted() can accept any iterable object, not just tuples."
+        }
+    },
+    {
+        "id": 19,
+        "question": "Which of the following slicing expressions reverses a string 's'?",
+        "options": {
+            "A": "s[len(s):0]",
+            "B": "s[::-1]",
+            "C": "s[0:-1]",
+            "D": "s[-1:0]"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. This does not specify a negative step size.",
+            "B": "Correct! The slice [::-1] uses a negative step of -1 to iterate through the entire sequence backward.",
+            "C": "Incorrect. This slice excludes the last element and iterates forward.",
+            "D": "Incorrect. Step is missing, so it defaults to +1, yielding an empty string."
+        }
+    },
+    {
+        "id": 20,
+        "question": "Is the upper boundary included in random.randint(1, 10)?",
+        "options": {
+            "A": "No, it stops at 9.",
+            "B": "Yes, both 1 and 10 are inclusive boundaries.",
+            "C": "It depends on the operating system.",
+            "D": "randint is exclusive of both boundaries."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. range() stops early, but randint() is fully inclusive.",
+            "B": "Correct! Unlike most Python bounds, random.randint(a, b) includes both limits, so 10 is a possible return value.",
+            "C": "Incorrect. Python standard library behavior is consistent across OS platforms.",
+            "D": "Incorrect. Both endpoints can be returned."
+        }
+    },
+    {
+        "id": 21,
+        "question": "What is the correct syntax to import only the sqrt function from the math module?",
+        "options": {
+            "A": "import sqrt from math",
+            "B": "from math import sqrt",
+            "C": "import math.sqrt",
+            "D": "load sqrt from math"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. This is Python-reverse syntax used in other languages.",
+            "B": "Correct! 'from module import function' is the proper Python syntax.",
+            "C": "Incorrect. This is a common mistake; you cannot write 'import math.sqrt' directly unless importing submodules.",
+            "D": "Incorrect. There is no 'load' keyword in Python."
+        }
+    },
+    {
+        "id": 22,
+        "question": "What is the difference between my_dict.pop(key) and del my_dict[key]?",
+        "options": {
+            "A": "pop() removes the key; del does not.",
+            "B": "pop() returns the removed value; del does not return anything.",
+            "C": "del is faster; pop() is slower.",
+            "D": "pop() works with keys; del only works with indices."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Both successfully remove the key from the dictionary.",
+            "B": "Correct! .pop() extracts and returns the value of the removed key, while 'del' is a statement that simply deletes the entry.",
+            "C": "Incorrect. Their execution overhead is practically identical.",
+            "D": "Incorrect. 'del' is a general delete keyword that works perfectly with dictionary keys."
+        }
+    },
+    {
+        "id": 23,
+        "question": "How can you check if a variable 'x' is an instance of a list or tuple?",
+        "options": {
+            "A": "type(x) == list or type(x) == tuple",
+            "B": "isinstance(x, (list, tuple))",
+            "C": "x.is_sequence()",
+            "D": "isinstance(x, list or tuple)"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. While this works, isinstance() is the preferred, pythonic way and accounts for subclass inheritance.",
+            "B": "Correct! isinstance(x, tuple_of_types) checks if x belongs to any of the types listed in the tuple.",
+            "C": "Incorrect. There is no such built-in method on objects.",
+            "D": "Incorrect. 'list or tuple' evaluates to 'list' (first truthy item), checking only list membership."
+        }
+    },
+    {
+        "id": 24,
+        "question": "How do you sort a list of strings 'words' by their character lengths?",
+        "options": {
+            "A": "words.sort(key=len)",
+            "B": "words.sort(by='length')",
+            "C": "sort_by_len(words)",
+            "D": "words.sort(key=length)"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! Passing 'len' as the custom sorting key tells Python to evaluate len(word) for comparison.",
+            "B": "Incorrect. There is no 'by' parameter in the list sort method.",
+            "C": "Incorrect. No global 'sort_by_len' function exists.",
+            "D": "Incorrect. 'length' is not a built-in Python function; the length function is named 'len'."
+        }
+    },
+    {
+        "id": 25,
+        "question": "What is the difference between string methods s.isdigit() and s.isnumeric()?",
+        "options": {
+            "A": "They are exactly identical.",
+            "B": "isdigit() only allows standard digits (0-9), while isnumeric() allows unicode numeric representations (e.g., Roman numerals, fractions).",
+            "C": "isnumeric() allows floating-point decimals, but isdigit() does not.",
+            "D": "isdigit() is only for integers, isnumeric() for floats."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. They exhibit differences when dealing with non-standard Unicode digits.",
+            "B": "Correct! .isdigit() is narrower and strictly matches standard digits and subscripts; .isnumeric() covers any numeric Unicode character.",
+            "C": "Incorrect. Neither method allows decimal dots (both return False for \"3.14\").",
+            "D": "Incorrect. Neither method handles fractional decimal strings with a dot."
+        }
+    },
+    {
+        "id": 26,
+        "question": "Given sets a = {1, 2, 3} and b = {3, 4, 5}, what does a - b evaluate to?",
+        "options": {
+            "A": "{1, 2, 4, 5}",
+            "B": "{1, 2}",
+            "C": "{4, 5}",
+            "D": "{1, 2, 3}"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. This represents the symmetric difference (a ^ b).",
+            "B": "Correct! Set difference (a - b) returns a new set containing elements that are strictly in 'a' but not in 'b'.",
+            "C": "Incorrect. This is b - a, not a - b.",
+            "D": "Incorrect. The common element (3) is removed."
+        }
+    },
+    {
+        "id": 27,
+        "question": "What does the 'break' statement do inside a loop?",
+        "options": {
+            "A": "It pauses execution for a short period.",
+            "B": "It immediately exits the entire loop block.",
+            "C": "It skips only the current iteration.",
+            "D": "It restarts the loop from index 0."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Pausing is done using time.sleep().",
+            "B": "Correct! 'break' immediately terminates the loop execution and resumes at the next statement outside the loop.",
+            "C": "Incorrect. Skipping current iteration is done using 'continue'.",
+            "D": "Incorrect. It terminates, never restarts."
+        }
+    },
+    {
+        "id": 28,
+        "question": "What does the 'continue' statement do inside a loop?",
+        "options": {
+            "A": "It allows a loop to complete without checking the conditions.",
+            "B": "It skips the rest of the current iteration and goes directly to the next loop pass.",
+            "C": "It breaks out of nested loops.",
+            "D": "It resets all loop variables."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Conditions are always checked before loop iterations.",
+            "B": "Correct! 'continue' skips any remaining code in the active iteration block and begins evaluating the next loop cycle.",
+            "C": "Incorrect. It only affects the innermost active loop scope.",
+            "D": "Incorrect. It does not re-initialize loop variables."
+        }
+    },
+    {
+        "id": 29,
+        "question": "When does the 'else' block of a 'for' loop execute?",
+        "options": {
+            "A": "If the loop condition initially evaluates to False.",
+            "B": "When the loop completes all iterations normally, without encountering a 'break' statement.",
+            "C": "Only if an exception is raised inside the loop.",
+            "D": "If the loop is exited early via 'break'."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. While true for 'while' loops, for 'for' loops it specifically runs when iteration finishes naturally.",
+            "B": "Correct! A loop-else block runs if and only if the loop completes its sequence without being aborted by a 'break'.",
+            "C": "Incorrect. Exceptions are handled by try-except blocks, not loop-else.",
+            "D": "Incorrect. The else block is completely bypassed if a 'break' is executed."
+        }
+    },
+    {
+        "id": 30,
+        "question": "How do you construct a dictionary from two paired lists: keys = ['a', 'b'] and values = [1, 2]?",
+        "options": {
+            "A": "d = dict(keys, values)",
+            "B": "d = dict(zip(keys, values))",
+            "C": "d = {keys: values}",
+            "D": "d = dict.fromkeys(keys, values)"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. The dict() constructor cannot match two plain lists directly.",
+            "B": "Correct! zip() pairs the keys and values into tuples, which are then accepted by the dict() constructor to build dictionary entries.",
+            "C": "Incorrect. This makes the lists themselves keys and values (raising a TypeError because lists are unhashable).",
+            "D": "Incorrect. dict.fromkeys() assigns the *entire* values list as the value for *every* individual key, which is not what's wanted."
+        }
+    },
+    {
+        "id": 31,
+        "question": "What is the result of running: a = [1, 2]; b = a; b.append(3); print(a)?",
+        "options": {
+            "A": "[1, 2]",
+            "B": "[1, 2, 3]",
+            "C": "TypeError",
+            "D": "[1, 2, [3]]"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Variables a and b point to the exact same list in memory.",
+            "B": "Correct! Assignment (b = a) does not copy list data; it simply references the same object, so changing b also updates a.",
+            "C": "Incorrect. List appending is completely valid.",
+            "D": "Incorrect. It appends the raw element 3, not a nested list."
+        }
+    },
+    {
+        "id": 32,
+        "question": "What is the rounding behavior of round(2.5) and round(3.5) in Python 3?",
+        "options": {
+            "A": "Both round up, yielding 3 and 4.",
+            "B": "Both round down, yielding 2 and 3.",
+            "C": "They round to the nearest even integer, yielding 2 and 4.",
+            "D": "round(2.5) rounds to 2, round(3.5) rounds to 3."
+        },
+        "correct": "C",
+        "explanations": {
+            "A": "Incorrect. This is standard arithmetic rounding, but not Python's Banker's rounding behavior.",
+            "B": "Incorrect. It does not simply truncate decimals.",
+            "C": "Correct! Python uses 'Banker's rounding' (round-to-nearest-even) for exact halves to minimize statistical bias.",
+            "D": "Incorrect. 3.5 rounds to 4, which is the nearest even integer."
+        }
+    },
+    {
+        "id": 33,
+        "question": "What is the standard role of checking if __name__ == '__main__'?",
+        "options": {
+            "A": "To verify if the script was downloaded properly.",
+            "B": "To ensure certain code only runs when the file is executed directly, rather than being imported.",
+            "C": "To declare a class constructor.",
+            "D": "To load global configurations."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. It is a runtime name verification check, not a file validation utility.",
+            "B": "Correct! When running a script directly, __name__ is set to '__main__'. This check blocks code execution when imported.",
+            "C": "Incorrect. Class constructors use the '__init__' name.",
+            "D": "Incorrect. It handles direct execution conditional logic."
+        }
+    },
+    {
+        "id": 34,
+        "question": "Where are command-line arguments stored when a script is executed?",
+        "options": {
+            "A": "sys.argv",
+            "B": "os.args",
+            "C": "sys.args",
+            "D": "main.args"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! The sys.argv list in the 'sys' module stores command line arguments, where sys.argv[0] is the script name.",
+            "B": "Incorrect. The 'os' module does not store execution arguments.",
+            "C": "Incorrect. The variable is named 'argv', not 'args'.",
+            "D": "Incorrect. No 'main.args' namespace exists in Python."
+        }
+    },
+    {
+        "id": 35,
+        "question": "How do you check if a file path 'data.json' exists using the standard library?",
+        "options": {
+            "A": "sys.exists('data.json')",
+            "B": "os.path.exists('data.json')",
+            "C": "file.exists('data.json')",
+            "D": "os.exists('data.json')"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. The sys module contains system parameters and execution options, not file operations.",
+            "B": "Correct! The os.path.exists(path) function returns True if the specified path or file exists on the system.",
+            "C": "Incorrect. Python does not have a global 'file' object with an exists method.",
+            "D": "Incorrect. The function is specifically inside the 'os.path' submodule, not directly in 'os'."
+        }
+    },
+    {
+        "id": 36,
+        "question": "How do you join elements of a list: ['A', 'B', 'C'] into a single string \"A-B-C\"?",
+        "options": {
+            "A": "join('-', ['A', 'B', 'C'])",
+            "B": "['-'].join(['A', 'B', 'C'])",
+            "C": "'-'.join(['A', 'B', 'C'])",
+            "D": "['A', 'B', 'C'].join('-')"
+        },
+        "correct": "C",
+        "explanations": {
+            "A": "Incorrect. join() is not a standalone global function.",
+            "B": "Incorrect. You cannot call it on a list containing the separator.",
+            "C": "Correct! .join() is a string method called on the separator string, which takes an iterable of strings as an argument.",
+            "D": "Incorrect. .join() is not a method defined on list objects."
+        }
+    },
+    {
+        "id": 37,
+        "question": "What is the behavior of the split() method when no arguments are provided (e.g. s.split())?",
+        "options": {
+            "A": "It splits the string by every individual character.",
+            "B": "It splits the string by any consecutive whitespace character sequence.",
+            "C": "It raises a TypeError.",
+            "D": "It returns the unmodified string inside a list."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Splitting by characters requires list(s), not .split().",
+            "B": "Correct! When no separator is specified, .split() automatically splits on any grouping of whitespace (spaces, tabs, newlines).",
+            "C": "Incorrect. split() is perfectly valid without arguments.",
+            "D": "Incorrect. It splits and returns individual words."
+        }
+    },
+    {
+        "id": 38,
+        "question": "What does a slash '/' in a function signature indicate (e.g., def f(a, /, b):)?",
+        "options": {
+            "A": "It represents division.",
+            "B": "Parameters before the '/' are positional-only.",
+            "C": "Parameters after the '/' are positional-only.",
+            "D": "It divides private and public arguments."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Within a signature definition, it represents parameter parsing constraints.",
+            "B": "Correct! The '/' symbol indicates that all arguments before it are strictly positional-only and cannot be passed as keywords.",
+            "C": "Incorrect. It regulates only the parameters that precede it.",
+            "D": "Incorrect. Python does not restrict parameters by access modifier keywords."
+        }
+    },
+    {
+        "id": 39,
+        "question": "What is the result of merging dictionaries d1 = {'a': 1} and d2 = {'b': 2} using the '|' operator (Python 3.9+)?",
+        "options": {
+            "A": "TypeError",
+            "B": "{'a': 1, 'b': 2}",
+            "C": "[('a', 1), ('b', 2)]",
+            "D": "{'a', 'b'}"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Dictionary union using | is fully supported starting in Python 3.9.",
+            "B": "Correct! The union operator (|) returns a new dictionary containing merged keys and values from both dictionaries.",
+            "C": "Incorrect. It returns a merged dict, not a list of key-value tuples.",
+            "D": "Incorrect. It retains the associated key-value structures, not converting them to a set of keys."
+        }
+    },
+    {
+        "id": 40,
+        "question": "What does the built-in function all([True, True, False]) return?",
+        "options": {
+            "A": "True",
+            "B": "False",
+            "C": "None",
+            "D": "[True]"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Not all elements are True; there is a False item present.",
+            "B": "Correct! all() returns True if and only if every single element in the iterable is truthy.",
+            "C": "Incorrect. It always returns a strict boolean.",
+            "D": "Incorrect. It evaluates list aggregates to return a scalar boolean."
+        }
+    },
+    {
+        "id": 41,
+        "question": "What does the built-in function any([False, True, False]) return?",
+        "options": {
+            "A": "True",
+            "B": "False",
+            "C": "None",
+            "D": "[True]"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! any() returns True if at least one element in the iterable is truthy (and False if empty).",
+            "B": "Incorrect. There is a True value present, so it evaluates to True.",
+            "C": "Incorrect. It returns a strict boolean value.",
+            "D": "Incorrect. It aggregates values to a boolean scalar."
+        }
+    },
+    {
+        "id": 42,
+        "question": "How can you remove duplicates from a list 'lst' while converting it back to a list?",
+        "options": {
+            "A": "lst.remove_duplicates()",
+            "B": "list(set(lst))",
+            "C": "list(unique(lst))",
+            "D": "dict.fromkeys(lst).values()"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. There is no list method with this name.",
+            "B": "Correct! set(lst) removes all duplicate items, and list() converts the set back into a list structure.",
+            "C": "Incorrect. There is no built-in 'unique()' function.",
+            "D": "Incorrect. This returns dictionary values, which is not correct (dict.fromkeys(lst) keys are unique, but values are default)."
+        }
+    },
+    {
+        "id": 43,
+        "question": "What is the return value of ord('A') in Python?",
+        "options": {
+            "A": "65",
+            "B": "97",
+            "C": "1",
+            "D": "TypeError"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! The ord() function returns the Unicode code point integer of a single character ('A' is 65).",
+            "B": "Incorrect. 97 is the Unicode code point for lowercase 'a'.",
+            "C": "Incorrect. It returns the actual unicode ordinal code.",
+            "D": "Incorrect. Converting single character strings is fully supported."
+        }
+    },
+    {
+        "id": 44,
+        "question": "What is the return value of chr(97) in Python?",
+        "options": {
+            "A": "'A'",
+            "B": "'a'",
+            "C": "TypeError",
+            "D": "97"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Capital 'A' represents character point 65.",
+            "B": "Correct! The chr() function takes an integer Unicode point and returns its corresponding string character ('a' for 97).",
+            "C": "Incorrect. This is a fully valid standard function call.",
+            "D": "Incorrect. It returns a character string representation, not the integer itself."
+        }
+    },
+    {
+        "id": 45,
+        "question": "Which operator is used to unpack elements of a list directly into a function call?",
+        "options": {
+            "A": "&",
+            "B": "*",
+            "C": "**",
+            "D": "unpack"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Ampersand (&) is used for bitwise AND or set intersections.",
+            "B": "Correct! The single asterisk (*) unpacks a list/tuple positional-argument sequence into a function call.",
+            "C": "Incorrect. Double asterisks (**) are used for unpacking dictionary key-values as keyword arguments.",
+            "D": "Incorrect. 'unpack' is not an operator keyword in Python."
+        }
+    },
+    {
+        "id": 46,
+        "question": "Which of the following describes the behavior of math.floor(3.9)?",
+        "options": {
+            "A": "It returns 4.0",
+            "B": "It returns 3",
+            "C": "It returns 3.0",
+            "D": "It returns 4"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. This would be ceiling or standard rounding.",
+            "B": "Correct! math.floor() rounds any decimal value down to the nearest lower integer (3).",
+            "C": "Incorrect. While it rounds down, the returned type is an integer (3), not float (3.0).",
+            "D": "Incorrect. This would be ceiling rounding."
+        }
+    },
+    {
+        "id": 47,
+        "question": "Which of the following describes the behavior of math.ceil(3.1)?",
+        "options": {
+            "A": "It returns 3",
+            "B": "It returns 4",
+            "C": "It returns 4.0",
+            "D": "It returns 3.0"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Rounding down is floor, not ceiling.",
+            "B": "Correct! math.ceil() rounds any decimal value up to the nearest higher integer (4).",
+            "C": "Incorrect. It returns an integer type (4), not a float type (4.0).",
+            "D": "Incorrect. This would be floor rounding returned as float."
+        }
+    },
+    {
+        "id": 48,
+        "question": "How do you swap the values of two variables 'a' and 'b' without a third variable?",
+        "options": {
+            "A": "swap(a, b)",
+            "B": "a, b = b, a",
+            "C": "a = b; b = a",
+            "D": "a = [b, b = a][0]"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Python has no global 'swap()' utility.",
+            "B": "Correct! Python handles multiple assignment by creating a temporary tuple in memory to swap references simultaneously.",
+            "C": "Incorrect. This overwrites 'a' first, assigning its new value to 'b', leaving both equal to the original 'b'.",
+            "D": "Incorrect. This is invalid code causing a SyntaxError."
+        }
+    },
+    {
+        "id": 49,
+        "question": "What is the primary function of dict.setdefault(key, default)?",
+        "options": {
+            "A": "It overwrites any key value to the default.",
+            "B": "It returns the key value if present; if not, it inserts the key with the default value and returns it.",
+            "C": "It locks the dictionary so no key values can be changed.",
+            "D": "It raises an exception if the key already exists."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. It only affects the key if it is currently missing.",
+            "B": "Correct! .setdefault() checks key existence, returning the active value if present, or initializing it safely if missing.",
+            "C": "Incorrect. It does not freeze or restrict dict modifications.",
+            "D": "Incorrect. It is designed specifically to handle existing keys gracefully."
+        }
+    },
+    {
+        "id": 50,
+        "question": "What is the return type of the sum() function on a list of floats?",
+        "options": {
+            "A": "int",
+            "B": "float",
+            "C": "list",
+            "D": "None"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Summing floats yields a float value.",
+            "B": "Correct! Since float addition yields floats, summing elements of floating numbers returns float precision values.",
+            "C": "Incorrect. It returns a scalar number, not a list.",
+            "D": "Incorrect. It returns the summation result."
+        }
+    }
+];
+
+
+        // User State tracker
+        let currentQuestionIndex = 0;
+        const userAnswers = Array(questions.length).fill(null); // stores selected option (A, B, C, D)
+        const allExplanationsRevealed = Array(questions.length).fill(false);
+
+        // DOM elements
+        const scoreElement = document.getElementById("current-score");
+        const completedCountElement = document.getElementById("completed-count");
+        const progressBar = document.getElementById("progress-bar");
+        const questionNumLabel = document.getElementById("question-num-label");
+        const questionTextContent = document.getElementById("question-text-content");
+        const optionsContainer = document.getElementById("options-container");
+        const feedbackPaneContent = document.getElementById("feedback-pane-content");
+        const feedbackColumn = document.getElementById("feedback-column-element");
+        const backdrop = document.getElementById("drawer-backdrop");
+        const dotGrid = document.getElementById("dot-grid");
+        const mapDotGrid = document.getElementById("map-dot-grid");
+        const mapDrawer = document.getElementById("question-map-drawer");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+
+        // Initialise
+        function initQuiz() {
+            renderDotNavigator();
+            renderMapDots();
+            renderQuestion();
+            updateScores();
+        }
+
+        // Render Jump Circles
+        function renderDotNavigator() {
+            dotGrid.innerHTML = "";
+            questions.forEach((q, idx) => {
+                const dot = document.createElement("button");
+                dot.className = "nav-dot";
+                dot.textContent = idx + 1;
+                dot.onclick = () => jumpToQuestion(idx);
+                dotGrid.appendChild(dot);
+            });
+            updateDots();
+        }
+
+        function updateDots() {
+            const dots = dotGrid.getElementsByClassName("nav-dot");
+            Array.from(dots).forEach((dot, idx) => {
+                dot.classList.remove("active", "answered-correct", "answered-incorrect");
+                
+                if (idx === currentQuestionIndex) {
+                    dot.classList.add("active");
+                }
+                
+                const answer = userAnswers[idx];
+                if (answer !== null) {
+                    const isCorrect = answer === questions[idx].correct;
+                    dot.classList.add(isCorrect ? "answered-correct" : "answered-incorrect");
+                }
+            });
+            updateMapDots();
+        }
+
+        function renderMapDots() {
+            mapDotGrid.innerHTML = "";
+            questions.forEach((q, idx) => {
+                const dot = document.createElement("button");
+                dot.className = "nav-dot";
+                dot.textContent = idx + 1;
+                dot.onclick = () => {
+                    closeQuestionMap();
+                    jumpToQuestion(idx);
+                };
+                mapDotGrid.appendChild(dot);
+            });
+            updateMapDots();
+        }
+
+        function updateMapDots() {
+            const dots = mapDotGrid.getElementsByClassName("nav-dot");
+            Array.from(dots).forEach((dot, idx) => {
+                dot.classList.remove("active", "answered-correct", "answered-incorrect");
+                if (idx === currentQuestionIndex) {
+                    dot.classList.add("active");
+                }
+                const answer = userAnswers[idx];
+                if (answer !== null) {
+                    const isCorrect = answer === questions[idx].correct;
+                    dot.classList.add(isCorrect ? "answered-correct" : "answered-incorrect");
+                }
+            });
+        }
+
+        function openQuestionMap() {
+            mapDrawer.classList.add("show");
+            updateMapDots();
+        }
+
+        function closeQuestionMap() {
+            mapDrawer.classList.remove("show");
+        }
+
+        // Render the Active Question
+        function renderQuestion() {
+            const q = questions[currentQuestionIndex];
+            questionNumLabel.textContent = `Question ${q.id} of ${questions.length}`;
+            questionTextContent.textContent = q.question;
+
+            // Generate Options
+            optionsContainer.innerHTML = "";
+            const savedAnswer = userAnswers[currentQuestionIndex];
+
+            Object.entries(q.options).forEach(([key, val]) => {
+                const btn = document.createElement("button");
+                btn.className = "option-button";
+                btn.disabled = savedAnswer !== null; // disable once answered
+
+                // Handle conditional colors if answered
+                if (savedAnswer !== null) {
+                    if (key === q.correct) {
+                        btn.classList.add("correct");
+                    } else if (key === savedAnswer) {
+                        btn.classList.add("incorrect");
+                    }
+                }
+
+                btn.onclick = () => selectOption(key);
+
+                const prefix = document.createElement("span");
+                prefix.className = "option-prefix";
+                prefix.textContent = key;
+
+                const textSpan = document.createElement("span");
+                textSpan.textContent = val;
+
+                btn.appendChild(prefix);
+                btn.appendChild(textSpan);
+                optionsContainer.appendChild(btn);
+            });
+
+            // Set up Back navigation status
+            prevBtn.disabled = currentQuestionIndex === 0;
+            
+            // Adjust forward button text for final question
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.textContent = "Finish Quiz 🏁";
+            } else {
+                nextBtn.textContent = "Next Question →";
+            }
+
+            renderFeedbackPane();
+            updateDots();
+
+            if (savedAnswer !== null) {
+                document.getElementById("question-card").classList.add("is-answered");
+            } else {
+                document.getElementById("question-card").classList.remove("is-answered");
+            }
+        }
+
+        // Handle Option Click
+        function selectOption(key) {
+            if (userAnswers[currentQuestionIndex] !== null) return; // double safeguard
+
+            userAnswers[currentQuestionIndex] = key;
+            updateScores();
+            
+            // Re-render current question immediately to display option colours (green/red)
+            renderQuestion();
+        }
+
+        // Mobile Bottom Sheet control
+        function openFeedbackMobile() {
+            feedbackColumn.classList.add("show");
+            backdrop.classList.add("show");
+        }
+
+        function closeFeedbackMobile() {
+            feedbackColumn.classList.remove("show");
+            backdrop.classList.remove("show");
+        }
+
+        // Dynamic Right Pane Generation
+        function renderFeedbackPane() {
+            const q = questions[currentQuestionIndex];
+            const savedAnswer = userAnswers[currentQuestionIndex];
+
+            // If unanswered
+            if (savedAnswer === null) {
+                feedbackPaneContent.innerHTML = `
+                    <div class="feedback-welcome">
+                        <div class="feedback-welcome-icon">🔍</div>
+                        <h3>Interactive Help Panel</h3>
+                        <p>Select any option card on the left to receive dynamic feedback, detailed answer verification, and comparisons.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const isCorrect = savedAnswer === q.correct;
+            const explanationHTML = getExplanationContentHTML(q, savedAnswer, isCorrect);
+
+            feedbackPaneContent.innerHTML = explanationHTML;
+
+            // Retain "Show All Explanations" display if already toggled earlier for this specific index
+            if (allExplanationsRevealed[currentQuestionIndex]) {
+                revealAllExplanationsInline();
+            }
+        }
+
+        // Generate HTML fragment for Explanations
+        function getExplanationContentHTML(q, answer, isCorrect) {
+            const wrongCardHTML = !isCorrect ? `
+                <div class="explanation-card user-selected-wrong">
+                    <div class="explanation-card-title card-title-wrong">
+                        <span>❌</span> Your Choice: Option ${answer}
+                    </div>
+                    <div class="explanation-card-text">
+                        ${q.explanations[answer]}
+                    </div>
+                </div>
+            ` : "";
+
+            const correctCardHTML = `
+                <div class="explanation-card correct-answer">
+                    <div class="explanation-card-title card-title-correct">
+                        <span>${isCorrect ? '🎉' : '💡'} Correct Choice: Option ${q.correct}</span>
+                    </div>
+                    <div class="explanation-card-text">
+                        ${q.explanations[q.correct]}
+                    </div>
+                </div>
+            `;
+
+            return `
+                <div class="feedback-active">
+                    <div class="feedback-header">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="feedback-badge ${isCorrect ? 'badge-correct' : 'badge-incorrect'}">
+                                ${isCorrect ? 'Correct' : 'Incorrect'}
+                            </span>
+                            <span class="feedback-heading-text">Question Explanation</span>
+                        </div>
+                        <button class="mobile-close-btn" onclick="closeFeedbackMobile()">✕</button>
+                    </div>
+
+                    <div class="dual-explanations">
+                        ${wrongCardHTML}
+                        ${correctCardHTML}
+                    </div>
+
+                    <button class="show-all-btn" id="show-all-exp-btn" onclick="toggleShowAllExplanations()">
+                        📖 Show All Explanations Comparison
+                    </button>
+
+                    <div class="all-explanations-grid" id="all-exp-block">
+                        ${Object.entries(q.options).map(([key, val]) => {
+                            const isCorrectOpt = key === q.correct;
+                            return `
+                                <div class="grid-exp-card ${isCorrectOpt ? 'is-correct' : 'is-wrong'}">
+                                    <div class="grid-exp-option">
+                                        <span>Option ${key}: <code>${escapeHtml(val)}</code></span>
+                                        <span class="feedback-badge ${isCorrectOpt ? 'badge-correct' : 'badge-incorrect'}" style="font-size:0.7rem; padding: 1px 4px;">
+                                            ${isCorrectOpt ? 'Correct' : 'Incorrect'}
+                                        </span>
+                                    </div>
+                                    <div class="explanation-card-text" style="font-size:0.85rem; margin-top:0.4rem;">
+                                        ${q.explanations[key]}
+                                    </div>
+                                </div>
+                            `;
+                        }).join("")}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Helper to safely render html within <code> blocks
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Reveal All Explanations comparison grids
+        function toggleShowAllExplanations() {
+            allExplanationsRevealed[currentQuestionIndex] = true;
+            revealAllExplanationsInline();
+        }
+
+        function revealAllExplanationsInline() {
+            const btn = document.getElementById("show-all-exp-btn");
+            const block = document.getElementById("all-exp-block");
+            const dualExp = document.querySelector(".dual-explanations");
+            if (btn && block) {
+                btn.style.display = "none";
+                block.style.display = "flex";
+                if (dualExp) {
+                    dualExp.style.display = "none";
+                }
+                // Scroll block into view within container
+                block.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Scorekeeping
+        function updateScores() {
+            let correctCount = 0;
+            let completedCount = 0;
+
+            userAnswers.forEach((ans, idx) => {
+                if (ans !== null) {
+                    completedCount++;
+                    if (ans === questions[idx].correct) {
+                        correctCount++;
+                    }
+                }
+            });
+
+            scoreElement.textContent = correctCount;
+            completedCountElement.textContent = completedCount;
+
+            // Update progress bar
+            const percent = (completedCount / questions.length) * 100;
+            progressBar.style.width = `${percent}%`;
+        }
+
+        // Navigation Controllers
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+                closeFeedbackMobile();
+            } else {
+                // Final score reveal
+                alertQuizEnd();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+                closeFeedbackMobile();
+            }
+        }
+
+        function jumpToQuestion(idx) {
+            currentQuestionIndex = idx;
+            renderQuestion();
+            closeFeedbackMobile();
+        }
+
+        function alertQuizEnd() {
+            const correctCount = userAnswers.filter((ans, idx) => ans === questions[idx].correct).length;
+            const percentage = Math.round((correctCount / questions.length) * 100);
+            
+            let message = "";
+            if (percentage >= 90) message = "🎉 Outstanding! You have an incredibly firm grasp of the Python basics!";
+            else if (percentage >= 70) message = "👍 Well done! A bit more practice and you will master everything!";
+            else message = "📚 Good effort! Review the core resources and try again to solidifying your foundation.";
+
+            alert(`Quiz Complete!\n\nYour final score is: ${correctCount} / ${questions.length} (${percentage}%)\n\n${message}`);
+        }
+
+        // Keyboard navigation listeners (left/right arrows)
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft") {
+                previousQuestion();
+            } else if (e.key === "ArrowRight") {
+                nextQuestion();
+            }
+        });
+
+        // Boot
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>

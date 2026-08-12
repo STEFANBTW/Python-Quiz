@@ -1,0 +1,2028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics - Hard Quiz</title>
+    <style>
+        /* Fonts & Global Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DengXian', '等线', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            color: #2d3748;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header / Tracker */
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #eef2f5;
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .quiz-title-area {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quiz-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0b7285;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quiz-subtitle {
+            font-size: 0.85rem;
+            color: #868e96;
+            margin-top: 2px;
+        }
+
+        .score-box {
+            background: #e3fafc;
+            border: 1px solid #c5f6fa;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            color: #0b7285;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background-color: #f1f3f5;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #15aabf;
+            transition: width 0.3s ease;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        #mobile-show-exp-btn {
+            display: none;
+            width: 100%;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+        @media (max-width: 800px) {
+            .question-card.is-answered #mobile-show-exp-btn {
+                display: flex;
+            }
+        }
+
+        /* Main Workspace */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        /* Left Column (Questions) */
+        .question-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .question-card {
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .question-number {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #15aabf;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1a202c;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option-button {
+            width: 100%;
+            background: #ffffff;
+            border: 1.5px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.1rem 1.3rem;
+            font-size: 1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            font-family: inherit;
+            color: #495057;
+            position: relative;
+        }
+
+        .option-button:hover:not(:disabled) {
+            background: #f8f9fa;
+            border-color: #ced4da;
+            transform: translateY(-1px);
+        }
+
+        .option-prefix {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: #f1f3f5;
+            font-weight: 700;
+            margin-right: 1rem;
+            font-size: 0.9rem;
+            color: #495057;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        /* Option States */
+        .option-button.correct {
+            background: #ebfbee;
+            border-color: #8ce99a;
+            color: #2b8a3e;
+            font-weight: 700;
+        }
+        .option-button.correct .option-prefix {
+            background: #a9e34b;
+            color: #ffffff;
+        }
+
+        .option-button.incorrect {
+            background: #fff5f5;
+            border-color: #ffc9c9;
+            color: #c92a2a;
+        }
+        .option-button.incorrect .option-prefix {
+            background: #ff8787;
+            color: #ffffff;
+        }
+
+        .option-button:disabled {
+            cursor: not-allowed;
+        }
+
+        /* Right Column (Dynamic Feedback & Explanations) */
+        .feedback-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feedback-pane {
+            background: #fdfdfd;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 2rem;
+            position: sticky;
+            top: 100px;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Welcome State (unanswered) */
+        .feedback-welcome {
+            text-align: center;
+            padding: 3rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #868e96;
+            gap: 1rem;
+        }
+
+        .feedback-welcome-icon {
+            font-size: 3rem;
+            color: #e3fafc;
+            background: #e3fafc;
+            width: 80px;
+            height: 80px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #15aabf;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Answered State Layout */
+        .feedback-active {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        .feedback-badge {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .badge-correct {
+            background: #d3f9d8;
+            color: #2b8a3e;
+        }
+
+        .badge-incorrect {
+            background: #ffe3e3;
+            color: #c92a2a;
+        }
+
+        .feedback-heading-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        /* Dynamic Dual-Cards */
+        .dual-explanations {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .explanation-card {
+            border-radius: 8px;
+            padding: 1.2rem;
+            border-left: 4px solid;
+            background: #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+        }
+
+        .explanation-card.user-selected-wrong {
+            border-left-color: #ff8787;
+            background: #fffafb;
+            border-top: 1px solid #ffe3e3;
+            border-right: 1px solid #ffe3e3;
+            border-bottom: 1px solid #ffe3e3;
+        }
+
+        .explanation-card.correct-answer {
+            border-left-color: #40c057;
+            background: #fbfdfb;
+            border-top: 1px solid #d3f9d8;
+            border-right: 1px solid #d3f9d8;
+            border-bottom: 1px solid #d3f9d8;
+        }
+
+        .explanation-card-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-title-wrong { color: #c92a2a; }
+        .card-title-correct { color: #2b8a3e; }
+
+        .explanation-card-text {
+            font-size: 0.92rem;
+            color: #495057;
+        }
+
+        /* Show All Explanations Button */
+        .show-all-btn {
+            background: #f1f3f5;
+            border: 1px solid #dee2e6;
+            color: #495057;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .show-all-btn:hover {
+            background: #e9ecef;
+            border-color: #ced4da;
+        }
+
+        /* Grid of All Explanations (Initially Hidden) */
+        .all-explanations-grid {
+            display: none;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #dee2e6;
+        }
+
+        .grid-exp-card {
+            padding: 1rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        .grid-exp-card.is-correct {
+            border-left: 3px solid #40c057;
+            background: #fbfdfb;
+        }
+
+        .grid-exp-card.is-wrong {
+            border-left: 3px solid #adb5bd;
+        }
+
+        .grid-exp-option {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Navigation Footer */
+        .nav-footer {
+            background: #ffffff;
+            border-top: 1px solid #eef2f5;
+            padding: 1.5rem 2rem;
+            margin-top: auto;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: #ffffff;
+            border: 1px solid #ced4da;
+            color: #495057;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: #f8f9fa;
+            border-color: #adb5bd;
+            color: #212529;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: #15aabf;
+            border-color: #15aabf;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #0b7285;
+            border-color: #0b7285;
+            color: #ffffff;
+        }
+
+        /* Dot Grid Navigator */
+        .dot-navigator {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+            max-width: 500px;
+        }
+
+        .nav-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            background: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #868e96;
+            transition: all 0.2s;
+        }
+
+        .nav-dot:hover {
+            border-color: #adb5bd;
+            background: #f8f9fa;
+            color: #495057;
+        }
+
+        .nav-dot.active {
+            border-color: #15aabf;
+            background: #e3fafc;
+            color: #0b7285;
+            box-shadow: 0 0 0 2px rgba(21, 170, 191, 0.2);
+        }
+
+        .nav-dot.answered-correct {
+            background: #d3f9d8;
+            border-color: #8ce99a;
+            color: #2b8a3e;
+        }
+
+        .nav-dot.answered-incorrect {
+            background: #ffe3e3;
+            border-color: #ffc9c9;
+            color: #c92a2a;
+        }
+
+        /* Mobile Map Toggle Button */
+        .map-toggle-btn {
+            display: none;
+            background: #e3fafc;
+            border: 1px solid #c5f6fa;
+            color: #0b7285;
+            border-radius: 8px;
+            padding: 0.45rem 0.8rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: inherit;
+        }
+
+        .map-toggle-btn:hover {
+            background: #c5f6fa;
+        }
+
+        /* Mobile Map Drawer */
+        .map-drawer {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border-radius: 16px 16px 0 0;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            padding: 1.5rem;
+            transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .map-drawer.show {
+            bottom: 0;
+        }
+
+        .map-drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        .map-drawer-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .map-dot-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+        }
+
+        /* Mobile Drawer / Bottom Sheet & Backdrop */
+        .backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .backdrop.show {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 800px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 1.2rem;
+            }
+
+            header {
+                padding: 1rem;
+            }
+
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .header-actions {
+                align-self: flex-end;
+            }
+
+            .dot-navigator {
+                display: none; /* Hide in mobile footer to save space */
+            }
+
+            .map-toggle-btn {
+                display: inline-flex;
+            }
+
+            /* Transform right column to slide-up bottom drawer */
+            .feedback-column {
+                position: fixed;
+                bottom: -100%;
+                left: 0;
+                right: 0;
+                width: 100%;
+                z-index: 1000;
+                transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .feedback-column.show {
+                bottom: 0;
+            }
+
+            .feedback-pane {
+                border-radius: 16px 16px 0 0;
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+                max-height: 80vh;
+                border: none;
+                top: auto;
+            }
+
+            /* Pull bar handle for mobile drawer */
+            .feedback-pane::before {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 4px;
+                background: #dee2e6;
+                border-radius: 2px;
+                margin: -0.8rem auto 1rem auto;
+                flex-shrink: 0;
+            }
+
+            /* Add close button to mobile feedback pane header */
+            .feedback-header {
+                justify-content: space-between;
+            }
+
+            .mobile-close-btn {
+                display: flex;
+                background: none;
+                border: none;
+                font-size: 1.2rem;
+                cursor: pointer;
+                color: #adb5bd;
+                padding: 4px;
+            }
+        }
+
+        @media (min-width: 801px) {
+            .mobile-close-btn {
+                display: none;
+            }
+        }
+
+        /* Code Block Styling */
+        pre {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin-bottom: 1.2rem;
+            color: #2b3a42;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="quiz-title-area">
+                <div class="quiz-title">
+                    <span>🐍</span> Python Basics: Hard Quiz (Version 2)
+                </div>
+                <div class="quiz-subtitle">
+                    50 Advanced level questions to challenge your Python expertise
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="score-box">
+                    Score: <span id="current-score">0</span> / <span id="completed-count">0</span>
+                </div>
+                <button class="map-toggle-btn" onclick="openQuestionMap()">
+                    㗊 Map
+                </button>
+            </div>
+        </div>
+        <div class="max-width-wrapper" style="max-width: 1200px; margin: 0 auto; width: 100%;">
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Left: Question Workspace -->
+        <div class="question-column">
+            <div class="question-card" id="question-card">
+                <div class="question-number" id="question-num-label">Question 1 of 50</div>
+                <div class="question-text" id="question-text-content">Loading question...</div>
+                
+                <div class="options-grid" id="options-container">
+                    <!-- Option buttons will be rendered dynamically here -->
+                </div>
+                <button id="mobile-show-exp-btn" class="btn btn-primary" onclick="openFeedbackMobile()">Show Explanation</button>
+            </div>
+        </div>
+
+        <!-- Right / Mobile Bottom Sheet: Feedback Panel -->
+        <div class="feedback-column" id="feedback-column-element">
+            <div class="feedback-pane" id="feedback-pane-content">
+                <!-- Dynamic feedback content rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="nav-footer">
+        <div class="nav-container">
+            <button class="btn" id="prev-btn" onclick="previousQuestion()" disabled>
+                ← Previous
+            </button>
+            
+            <div class="dot-navigator" id="dot-grid">
+                <!-- 50 Jump Dots will be rendered here -->
+            </div>
+
+            <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()">
+                Next Question →
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Question Map Drawer -->
+    <div class="map-drawer" id="question-map-drawer">
+        <div class="map-drawer-header">
+            <span class="map-drawer-title">Question Map</span>
+            <button class="btn" onclick="closeQuestionMap()" style="padding: 0.4rem 0.8rem;">✕</button>
+        </div>
+        <div class="map-dot-grid" id="map-dot-grid">
+            <!-- Map dots rendered here -->
+        </div>
+    </div>
+
+    <!-- Backdrop Overlay for Mobile Bottom Sheet -->
+    <div class="backdrop" id="drawer-backdrop" onclick="closeFeedbackMobile()"></div>
+
+    <script>
+        // Question list injected dynamically
+                const questions = ﻿[
+    {
+        "id": 1,
+        "question": "What is the evaluated result of the list comprehension: [x * 2 for x in [1, 2, 3]]?",
+        "options": {
+            "A": "[1, 2, 3, 1, 2, 3]",
+            "B": "[2, 4, 6]",
+            "C": "[1, 4, 9]",
+            "D": "[2, 2, 2]"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. This is list replication behavior ([1, 2, 3] * 2), but not list comprehension.",
+            "B": "Correct! The list comprehension maps each item x in the list, multiplying it by 2: [1*2, 2*2, 3*2] = [2, 4, 6].",
+            "C": "Incorrect. This would be exponentiation: x ** 2.",
+            "D": "Incorrect. Each element is scaled by its unique value."
+        }
+    },
+    {
+        "id": 2,
+        "question": "How do you write a list comprehension that filters even numbers from a list 'lst'?",
+        "options": {
+            "A": "[x if x % 2 == 0 for x in lst]",
+            "B": "[x for x in lst if x % 2 == 0]",
+            "C": "[x for x % 2 == 0 in lst]",
+            "D": "[if x % 2 == 0: x for x in lst]"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Placing the 'if' before 'for' is only valid if accompanied by an 'else' mapping clause.",
+            "B": "Correct! Suffixing 'if' at the end of a list comprehension serves as a conditional element filter.",
+            "C": "Incorrect. This is invalid syntax causing a SyntaxError.",
+            "D": "Incorrect. Python inline statement formatting is invalid here."
+        }
+    },
+    {
+        "id": 3,
+        "question": "What is the syntax for an inline if-else inside a list comprehension?",
+        "options": {
+            "A": "[x for x in lst if x > 0 else 0]",
+            "B": "[x if x > 0 else 0 for x in lst]",
+            "C": "[x for x in lst if x > 0 else for x in lst]",
+            "D": "[if x > 0: x else: 0 for x in lst]"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. An 'else' clause cannot be placed at the trailing end of a list comprehension.",
+            "B": "Correct! If you want to map elements to different values based on a condition (using if-else), the ternary expression must precede the 'for' statement.",
+            "C": "Incorrect. This is extremely redundant and causes a SyntaxError.",
+            "D": "Incorrect. It uses standard ternary expression syntax 'A if Condition else B', not colon statements."
+        }
+    },
+    {
+        "id": 4,
+        "question": "Which of the following expressions correctly flattens a 2D matrix matrix = [[1, 2], [3, 4]] into a 1D list?",
+        "options": {
+            "A": "[val for row in matrix for val in row]",
+            "B": "[val for val in row for row in matrix]",
+            "C": "[row[val] for val in matrix]",
+            "D": "[matrix[val] for val in row]"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! In nested list comprehensions, outer loops are defined first, followed by inner loops: first 'for row in matrix' then 'for val in row'.",
+            "B": "Incorrect. This raises a NameError because 'row' is referred to before it is bound.",
+            "C": "Incorrect. This index syntax is incorrect for flattening operations.",
+            "D": "Incorrect. The variables are misbound and out of scope."
+        }
+    },
+    {
+        "id": 5,
+        "question": "How do you define a dictionary comprehension that maps keys 1, 2 to their squares?",
+        "options": {
+            "A": "{x: x**2 for x in (1, 2)}",
+            "B": "{x, x**2 for x in (1, 2)}",
+            "C": "[x: x**2 for x in (1, 2)]",
+            "D": "{x mapped x**2 for x in (1, 2)}"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! Dictionary comprehensions use curly braces {} and a colon separator (key: value) to define mappings.",
+            "B": "Incorrect. Without a colon separator, this constructs a set, but since there are two expressions, it is a SyntaxError.",
+            "C": "Incorrect. Brackets [] define list comprehensions, which do not accept colon separators.",
+            "D": "Incorrect. 'mapped' is not a valid Python keyword."
+        }
+    },
+    {
+        "id": 6,
+        "question": "What is the difference in evaluation between a generator expression and a list comprehension?",
+        "options": {
+            "A": "Generator expressions are faster to compute fully.",
+            "B": "List comprehensions build the entire list in memory immediately; generator expressions evaluate elements lazily (one-by-one, on-demand).",
+            "C": "List comprehensions return a generator object.",
+            "D": "There is no difference; they are identical."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. List comprehensions can be faster for small datasets, but consume significantly more memory.",
+            "B": "Correct! Generator expressions are memory-efficient because they yield items lazy-loaded on-demand, whereas list comprehensions allocate memory for all items at once.",
+            "C": "Incorrect. List comprehensions return a fully initialized, mutable list object.",
+            "D": "Incorrect. Their evaluation mechanics, return types, and memory footprints are completely different."
+        }
+    },
+    {
+        "id": 7,
+        "question": "Which keyword transforms a standard function into a generator function?",
+        "options": {
+            "A": "return",
+            "B": "yield",
+            "C": "generator",
+            "D": "produce"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. 'return' halts function execution and returns a single final value.",
+            "B": "Correct! The 'yield' keyword pauses function execution, returning a value to the caller, and retains local state to resume there next time.",
+            "C": "Incorrect. 'generator' is not a keyword in Python.",
+            "D": "Incorrect. 'produce' is not a Python keyword."
+        }
+    },
+    {
+        "id": 8,
+        "question": "How do you retrieve the next item from an iterator or generator object 'g'?",
+        "options": {
+            "A": "g.next()",
+            "B": "next(g)",
+            "C": "g.get_next()",
+            "D": "g[0]"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. In Python 2, g.next() was valid, but in Python 3 it has been removed in favor of the next() global built-in.",
+            "B": "Correct! The built-in next(g) function queries the iterator to yield its next element, raising StopIteration when empty.",
+            "C": "Incorrect. Iterators do not have a .get_next() method.",
+            "D": "Incorrect. Iterators are stream-based and do not support index-based random access."
+        }
+    },
+    {
+        "id": 9,
+        "question": "What does the LEGB rule stand for regarding variable scope in Python?",
+        "options": {
+            "A": "Local, Enclosing, Global, Built-in",
+            "B": "List, Element, Group, Block",
+            "C": "Local, External, General, Binary",
+            "D": "Loop, Except, Global, Break"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! LEGB represents the search order Python uses to resolve names: Local scope first, then Enclosing functions, then module-level Global, and finally Built-in.",
+            "B": "Incorrect. These are generic programming terms, not Python scope structures.",
+            "C": "Incorrect. Scope levels do not include External or General namespaces.",
+            "D": "Incorrect. Loop blocks do not establish their own local variable scope."
+        }
+    },
+    {
+        "id": 10,
+        "question": "Which keyword is used inside nested functions to bind a variable to the enclosing (outer function) scope?",
+        "options": {
+            "A": "global",
+            "B": "nonlocal",
+            "C": "outer",
+            "D": "enclosed"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. 'global' binds to the module-level scope, skipping any enclosing outer functions.",
+            "B": "Correct! The 'nonlocal' statement causes the variable to refer to previously bound variables in the nearest enclosing outer scope (excluding globals).",
+            "C": "Incorrect. 'outer' is not a valid Python keyword.",
+            "D": "Incorrect. 'enclosed' is not a valid Python keyword."
+        }
+    },
+    {
+        "id": 11,
+        "question": "What happens if an exception is raised inside a 'try' block, but no matching 'except' handler is specified?",
+        "options": {
+            "A": "The exception is ignored and program proceeds.",
+            "B": "The program immediately crashes without executing any subsequent code.",
+            "C": "The exception propagates up the call stack to enclosing scopes, crashing the thread if unhandled.",
+            "D": "It is automatically converted to a ValueError."
+        },
+        "correct": "C",
+        "explanations": {
+            "A": "Incorrect. Uncaught exceptions interrupt execution and cannot be ignored silently.",
+            "B": "Incorrect. If there is a 'finally' block, it will execute first before propagating.",
+            "C": "Correct! Unhandled exceptions bubble up the call stack; if they remain uncaught, the interpreter terminates execution and prints a traceback.",
+            "D": "Incorrect. Exceptions retain their exact type."
+        }
+    },
+    {
+        "id": 12,
+        "question": "What is the role of the 'else' block in a try-except structure?",
+        "options": {
+            "A": "It executes if an exception was caught and handled.",
+            "B": "It executes if and only if the 'try' block completed successfully without raising any exceptions.",
+            "C": "It acts as a fallback catching any unspecified exceptions.",
+            "D": "It always executes, regardless of exception states."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. If an exception was raised, the 'else' block is bypassed.",
+            "B": "Correct! The 'else' block runs only if the code in the 'try' block executed without raising any errors, separating main code from handling.",
+            "C": "Incorrect. Catch-all handlers use raw 'except:' blocks.",
+            "D": "Incorrect. The block that always runs is 'finally', not 'else'."
+        }
+    },
+    {
+        "id": 13,
+        "question": "What is the role of the 'finally' block in exception handling?",
+        "options": {
+            "A": "It executes only if the try block fails.",
+            "B": "It executes always at the end of the block, regardless of whether an exception occurred, was caught, or was re-raised.",
+            "C": "It finalizes exception error messages.",
+            "D": "It forces program termination."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. It runs on success as well as failure.",
+            "B": "Correct! The 'finally' block is used for clean-up actions (e.g., closing file streams, database links) and is guaranteed to run in all execution paths.",
+            "C": "Incorrect. It does not manipulate exception messages.",
+            "D": "Incorrect. It cleans up resources, and execution proceeds normally afterward (unless an exception propagates)."
+        }
+    },
+    {
+        "id": 14,
+        "question": "How do you catch a ValueError and access its error message within an except block?",
+        "options": {
+            "A": "except ValueError(message):",
+            "B": "except ValueError as e:",
+            "C": "except ValueError:\n    print(ValueError.message)",
+            "D": "except ValueError:\n    print(e)"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. This is invalid exception handling syntax.",
+            "B": "Correct! The 'as' keyword binds the active exception object to the variable 'e', allowing you to print or log its details.",
+            "C": "Incorrect. The exception class itself does not hold the active exception instance data.",
+            "D": "Incorrect. Variable 'e' is not defined unless explicitly declared using 'as e'."
+        }
+    },
+    {
+        "id": 15,
+        "question": "How do you trigger a specific exception (e.g., TypeError) programmatically in your code?",
+        "options": {
+            "A": "throw TypeError(\"Invalid type\")",
+            "B": "raise TypeError(\"Invalid type\")",
+            "C": "trigger TypeError(\"Invalid type\")",
+            "D": "except TypeError(\"Invalid type\")"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. 'throw' is used in Java/C++/JavaScript, but is not a keyword in Python.",
+            "B": "Correct! The 'raise' keyword is Python's way to trigger an exception, forcing immediate error propagation.",
+            "C": "Incorrect. There is no 'trigger' keyword in Python.",
+            "D": "Incorrect. 'except' is used to catch errors, not raise them."
+        }
+    },
+    {
+        "id": 16,
+        "question": "In Object-Oriented Python, what does the 'self' parameter in class methods represent?",
+        "options": {
+            "A": "A special private keyword.",
+            "B": "The specific object instance that is currently calling the method.",
+            "C": "The parent class of the current object.",
+            "D": "The main class definition template."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. 'self' is not a reserved keyword, but a conventional variable parameter name.",
+            "B": "Correct! 'self' represents the instance of the class, allowing access to instance attributes and other methods.",
+            "C": "Incorrect. Parent classes are referenced using the 'super()' utility.",
+            "D": "Incorrect. Class templates are separate from instances."
+        }
+    },
+    {
+        "id": 17,
+        "question": "What is the purpose of the '__init__' method in a Python class?",
+        "options": {
+            "A": "To import and initialize modules inside the class scope.",
+            "B": "To act as a constructor method that initializes instance attributes when a new object is created.",
+            "C": "To terminate class instances and release memory.",
+            "D": "To list all public methods inside the class."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Module imports are done using 'import' statements.",
+            "B": "Correct! The '__init__' special double-underscore (dunder) method is called automatically when initializing a new class instance.",
+            "C": "Incorrect. Instance destruction is handled by '__del__' or the garbage collector.",
+            "D": "Incorrect. Object method discovery is done using dir()."
+        }
+    },
+    {
+        "id": 18,
+        "question": "What is the difference between an instance variable and a class variable?",
+        "options": {
+            "A": "Instance variables are defined outside classes.",
+            "B": "Instance variables are unique to each object instance, while class variables are shared across all instances of that class.",
+            "C": "Class variables can only be integers.",
+            "D": "There is no difference; they are synonymous."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Both are declared within the class structure.",
+            "B": "Correct! Instance variables are bound to 'self', unique per object. Class variables are declared directly inside the class scope, shared by all instances.",
+            "C": "Incorrect. Class variables can hold any valid data structures.",
+            "D": "Incorrect. Their memory allocation, scope, and update semantics are fundamentally distinct."
+        }
+    },
+    {
+        "id": 19,
+        "question": "How does a child class 'Dog' call the initializer (__init__) of its parent class 'Animal'?",
+        "options": {
+            "A": "parent.__init__()",
+            "B": "super().__init__()",
+            "C": "self.parent.__init__()",
+            "D": "Animal.init(self)"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. 'parent' is not a default built-in object in Python classes.",
+            "B": "Correct! The super() function returns a proxy object that delegates method calls to a parent class, letting you invoke its constructor safely.",
+            "C": "Incorrect. There is no automatic 'parent' attribute on instances.",
+            "D": "Incorrect. While calling the parent class directly works, it requires passing 'self' and is less flexible than using super()."
+        }
+    },
+    {
+        "id": 20,
+        "question": "What is Method Resolution Order (MRO) in Python?",
+        "options": {
+            "A": "The speed at which methods are executed.",
+            "B": "The order in which Python searches for inherited methods across multiple parent classes.",
+            "C": "The process of compiling source code into bytecode.",
+            "D": "A tool that tracks variable assignment order."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Method execution speed is a performance aspect, not an inheritance order.",
+            "B": "Correct! MRO defines the exact search path Python traverses to find a method on inherited classes, following the C3 Linearization algorithm.",
+            "C": "Incorrect. Compilation orders are handled by the parser.",
+            "D": "Incorrect. Variable scopes do not utilize the class MRO sequence."
+        }
+    },
+    {
+        "id": 21,
+        "question": "What is the difference between '__str__' and '__repr__' special methods?",
+        "options": {
+            "A": "__str__ is for machine debugging; __repr__ is for end-users.",
+            "B": "__str__ is intended to return a user-friendly string; __repr__ is intended to return an unambiguous representation of the object, often valid Python code to recreate it.",
+            "C": "They are exactly identical in all aspects.",
+            "D": "__str__ is called by print(); __repr__ cannot be called directly."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. It is the opposite.",
+            "B": "Correct! __str__ aims for readability (end-user display), while __repr__ aims for completeness and debugging clarity.",
+            "C": "Incorrect. They serve different roles, though if __str__ is missing, Python falls back to __repr__.",
+            "D": "Incorrect. You can call both directly (str(obj) vs repr(obj))."
+        }
+    },
+    {
+        "id": 22,
+        "question": "What is a lambda expression in Python?",
+        "options": {
+            "A": "A complex sorting function.",
+            "B": "A single-line, anonymous function defined without using 'def'.",
+            "C": "An error handling keyword.",
+            "D": "A system process scheduler."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. While often used as a key for sorting, it is a general function definition syntax.",
+            "B": "Correct! Lambda expressions allow defining inline, single-expression anonymous functions (e.g. lambda x: x * 2).",
+            "C": "Incorrect. It does not relate to exception handling.",
+            "D": "Incorrect. It is a language construct, not an OS utility."
+        }
+    },
+    {
+        "id": 23,
+        "question": "What does map(lambda x: x + 1, [1, 2, 3]) return in Python 3?",
+        "options": {
+            "A": "[2, 3, 4]",
+            "B": "An iterator (map object) that yields 2, 3, 4.",
+            "C": "(2, 3, 4)",
+            "D": "TypeError"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. In Python 2 it returned a list, but in Python 3 it returns a lazy map iterator object.",
+            "B": "Correct! In Python 3, map() returns a memory-efficient iterator map object, which must be cast using list() or cycled in a loop to fetch elements.",
+            "C": "Incorrect. It returns an iterator, not a tuple.",
+            "D": "Incorrect. This syntax is fully valid."
+        }
+    },
+    {
+        "id": 24,
+        "question": "What does filter(lambda x: x > 2, [1, 2, 3]) return in Python 3?",
+        "options": {
+            "A": "[3]",
+            "B": "An iterator (filter object) that yields 3.",
+            "C": "{3}",
+            "D": "None"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. It returns a filter iterator, not a concrete list.",
+            "B": "Correct! filter() evaluates each element against the condition, returning a lazy iterator filter object in Python 3.",
+            "C": "Incorrect. It returns an iterator, not a set.",
+            "D": "Incorrect. The matching element (3) is yielded by the returned filter iterator."
+        }
+    },
+    {
+        "id": 25,
+        "question": "Which module and function would you use to accumulate items in a list (e.g., multiplying all numbers together)?",
+        "options": {
+            "A": "math.accumulate()",
+            "B": "functools.reduce()",
+            "C": "sys.reduce()",
+            "D": "itertools.sum()"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. The math module does not have an accumulate function.",
+            "B": "Correct! reduce() is imported from the 'functools' module and applies a two-argument function cumulatively to sequence elements.",
+            "C": "Incorrect. sys does not contain accumulation functions.",
+            "D": "Incorrect. itertools has accumulate, but sum is a built-in function; reduce is specifically in functools."
+        }
+    },
+    {
+        "id": 26,
+        "question": "What does '*args' in a function definition represent?",
+        "options": {
+            "A": "A mandatory keyword argument.",
+            "B": "An arbitrary list of positional arguments packed into a tuple.",
+            "C": "A dictionary of keyword arguments.",
+            "D": "A pointer to variable memory locations."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Keyword arguments are handled by **kwargs.",
+            "B": "Correct! The single asterisk (*) allows the function to accept any number of positional arguments, which are packed into a tuple named 'args'.",
+            "C": "Incorrect. Dictionaries are constructed by double asterisks (**).",
+            "D": "Incorrect. Python does not support direct memory pointers."
+        }
+    },
+    {
+        "id": 27,
+        "question": "What does '**kwargs' in a function definition represent?",
+        "options": {
+            "A": "A list of double precision floating-points.",
+            "B": "An arbitrary dict of keyword arguments (passed as name=value pairs).",
+            "C": "Two positional arguments.",
+            "D": "A private local variable."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. It handles variable parameter packing, not mathematical precision.",
+            "B": "Correct! The double asterisk (**) collects all optional keyword arguments passed to the function into a dictionary named 'kwargs'.",
+            "C": "Incorrect. It represents any number of keyword-only arguments.",
+            "D": "Incorrect. It acts as a parameter receiver."
+        }
+    },
+    {
+        "id": 28,
+        "question": "Why is using a mutable object (like a list) as a default parameter argument dangerous (e.g., def f(item, lst=[]) )?",
+        "options": {
+            "A": "It triggers a SyntaxError.",
+            "B": "The default list is created once at definition, so modifications persist across subsequent calls to the function.",
+            "C": "It blocks function multi-threading.",
+            "D": "It consumes massive memory blocks."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. This is fully valid syntax, but introduces tricky logic bugs.",
+            "B": "Correct! Default arguments are evaluated only once when the function is defined. If you modify a default list, subsequent calls will share that mutated list.",
+            "C": "Incorrect. It causes reference tracking logic errors, not thread blocks.",
+            "D": "Incorrect. While it retains references, it doesn't leak massive memory volumes directly."
+        }
+    },
+    {
+        "id": 29,
+        "question": "How do you resolve the mutable default argument issue cleanly?",
+        "options": {
+            "A": "By setting the default to None and initializing a new list inside the function if None.",
+            "B": "By setting the default to list() instead of [].",
+            "C": "By using tuples instead of lists.",
+            "D": "By adding the pass keyword."
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! Setting 'lst=None' and executing 'if lst is None: lst = []' ensures a new empty list is instantiated dynamically on each call.",
+            "B": "Incorrect. 'list()' is still evaluated once at function definition time, leading to the same bug.",
+            "C": "Incorrect. While tuples are immutable, you cannot modify/append to them inside the function if you want list behavior.",
+            "D": "Incorrect. This does not change argument evaluation lifetimes."
+        }
+    },
+    {
+        "id": 30,
+        "question": "What is the difference between a shallow copy and a deep copy of a list?",
+        "options": {
+            "A": "A shallow copy is faster but copies nothing.",
+            "B": "A shallow copy copies the outer structure but shares references to nested objects; a deep copy duplicates everything recursively, including nested objects.",
+            "C": "A deep copy works only on integers.",
+            "D": "A shallow copy cannot be modified."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Shallow copying does duplicate the outer array elements.",
+            "B": "Correct! Shallow copies (using .copy() or slice [:]) only duplicate container elements. If container contains nested lists, they are not duplicated. copy.deepcopy() duplicates all subelements recursively.",
+            "C": "Incorrect. Deep copy can be executed on any nested collections.",
+            "D": "Incorrect. Both copies are standard mutable structures."
+        }
+    },
+    {
+        "id": 31,
+        "question": "Which module in Python is used for regular expression operations?",
+        "options": {
+            "A": "regex",
+            "B": "re",
+            "C": "match",
+            "D": "pattern"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. While 'regex' is a third-party package on PyPI, 're' is Python's built-in standard library module.",
+            "B": "Correct! The 're' module provides regular expression matching, compiling, and grouping functions.",
+            "C": "Incorrect. 'match' is a control keyword (since Python 3.10) but not a regular expression module.",
+            "D": "Incorrect. No 'pattern' built-in regex module exists."
+        }
+    },
+    {
+        "id": 32,
+        "question": "What is the primary difference between re.match() and re.search()?",
+        "options": {
+            "A": "re.match() checks only from the start of the string; re.search() searches the entire string for a match.",
+            "B": "re.search() is faster than re.match().",
+            "C": "re.match() returns a boolean; re.search() returns a string.",
+            "D": "There is no functional difference."
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! re.match() attempts to find a pattern match starting strictly at the first character, while re.search() scans the entire string for any occurrence.",
+            "B": "Incorrect. Their search algorithms are optimized, and match() can be faster since it exits early if the start doesn't match.",
+            "C": "Incorrect. Both return a Match object on success, or None on failure.",
+            "D": "Incorrect. Attempting to find matches at different positions yields different results."
+        }
+    },
+    {
+        "id": 33,
+        "question": "How do you extract the first matched capture group from a regex Match object 'm'?",
+        "options": {
+            "A": "m.group(1)",
+            "B": "m.group(0)",
+            "C": "m[1]",
+            "D": "m.capture(1)"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! In regular expression Match objects, group(0) returns the entire match, and group(1) returns the first matching parenthesis sub-group.",
+            "B": "Incorrect. group(0) returns the entire matched pattern string.",
+            "C": "Incorrect. Match objects are not directly index-sliceable like lists.",
+            "D": "Incorrect. The method name is '.group()', not '.capture()'."
+        }
+    },
+    {
+        "id": 34,
+        "question": "Which class in the datetime module represents a span or difference between two points in time?",
+        "options": {
+            "A": "datetime.timespan",
+            "B": "datetime.timedelta",
+            "C": "datetime.time_diff",
+            "D": "datetime.duration"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. No 'timespan' class exists in the datetime module.",
+            "B": "Correct! A 'timedelta' object represents a duration, expressing the difference between two date or time instances in days, seconds, and microseconds.",
+            "C": "Incorrect. There is no class with this name.",
+            "D": "Incorrect. No 'duration' class is built into datetime."
+        }
+    },
+    {
+        "id": 35,
+        "question": "What is the standard command-line command to create a virtual environment named 'env'?",
+        "options": {
+            "A": "python -m venv env",
+            "B": "python create venv env",
+            "C": "venv create env",
+            "D": "pip install env"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! The 'venv' built-in module is invoked using 'python -m venv [directory_name]' to spin up isolated Python environments.",
+            "B": "Incorrect. 'create' is not a valid python interpreter option.",
+            "C": "Incorrect. 'venv' is not a direct global command-line utility by default.",
+            "D": "Incorrect. 'pip' is for installing packages, not creating virtual environments."
+        }
+    },
+    {
+        "id": 36,
+        "question": "What is a function decorator in Python?",
+        "options": {
+            "A": "A visual styling package.",
+            "B": "A function that takes another function as an argument, extends its behavior without modifying it, and returns a new function wrapper.",
+            "C": "A class method access modifier.",
+            "D": "An in-editor syntax highlighter tool."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Decorators are code constructs, not UI packages.",
+            "B": "Correct! Decorators wrap a target function to alter or monitor its inputs, outputs, or behavior dynamically (e.g. logging, auth).",
+            "C": "Incorrect. It is a general meta-programming design pattern.",
+            "D": "Incorrect. It is an internal compiler/execution feature."
+        }
+    },
+    {
+        "id": 37,
+        "question": "Why can tuples be used as dictionary keys, but lists cannot?",
+        "options": {
+            "A": "Tuples are faster.",
+            "B": "Tuples are immutable and hashable, whereas lists are mutable and unhashable.",
+            "C": "Lists can only contain integers when used as keys.",
+            "D": "Dictionaries are structurally designed for parenthesis notation."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Speed is not a syntactic restriction for dictionary key indexing.",
+            "B": "Correct! Dictionary keys must be hashable so their hash value never changes. Lists are mutable (unhashable) because they can be altered in-place, which would break dictionary index tables.",
+            "C": "Incorrect. Lists cannot be used as dictionary keys under any condition.",
+            "D": "Incorrect. Key validation is strictly dependent on hashability, not syntax symbols."
+        }
+    },
+    {
+        "id": 38,
+        "question": "Which special methods must be implemented in a class to create a custom context manager for 'with' statements?",
+        "options": {
+            "A": "__open__ and __close__",
+            "B": "__enter__ and __exit__",
+            "C": "__start__ and __end__",
+            "D": "__init__ and __del__"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. While context managers open and close resources, they use standardized dunder methods.",
+            "B": "Correct! Any class implementing '__enter__' (ran at setup) and '__exit__' (ran at cleanup, receiving exception parameters) behaves as a context manager.",
+            "C": "Incorrect. These are not standard context manager methods.",
+            "D": "Incorrect. These are object lifecycle constructors/destructors."
+        }
+    },
+    {
+        "id": 39,
+        "question": "What does the global built-in dir() function return when called on an object?",
+        "options": {
+            "A": "A list of valid attributes and methods available for that object.",
+            "B": "The absolute file directory path of the module.",
+            "C": "A dictionary of global variables.",
+            "D": "None"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! The dir() function returns a sorted list of all attributes, fields, and method names defined on the passed object.",
+            "B": "Incorrect. Module paths are queried using module.__file__.",
+            "C": "Incorrect. Dictionary global listings are accessed using globals().",
+            "D": "Incorrect. It returns a fully populated string list."
+        }
+    },
+    {
+        "id": 40,
+        "question": "What is the purpose of globals() and locals() built-in functions?",
+        "options": {
+            "A": "To import modules from global directories.",
+            "B": "They return dictionaries representing the current global and local symbol tables/namespaces.",
+            "C": "To declare global and local parameters.",
+            "D": "To verify variable security."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. They query names, not import module packages.",
+            "B": "Correct! globals() returns a dictionary of all active module-level variables; locals() returns a dictionary of the active function frame's local variables.",
+            "C": "Incorrect. Scope binding declarations use the keywords 'global' and 'nonlocal'.",
+            "D": "Incorrect. Python does not restrict namespace reading based on security settings."
+        }
+    },
+    {
+        "id": 41,
+        "question": "Which json module function is used to convert a JSON-formatted string into a Python dictionary?",
+        "options": {
+            "A": "json.dump()",
+            "B": "json.loads()",
+            "C": "json.load()",
+            "D": "json.dumps()"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. json.dump() writes Python data structures directly to a file stream.",
+            "B": "Correct! json.loads() ('load string') parses a JSON formatted string and converts it into matching Python objects.",
+            "C": "Incorrect. json.load() is used to read and parse JSON data directly from an active file object.",
+            "D": "Incorrect. json.dumps() ('dump string') serializes a Python dictionary/list into a JSON string."
+        }
+    },
+    {
+        "id": 42,
+        "question": "Which decorator is used to define a method inside a class that can be called directly without instantiating an object?",
+        "options": {
+            "A": "@instancemethod",
+            "B": "@staticmethod",
+            "C": "@classmethod",
+            "D": "@property"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. This is not a standard Python decorator (normal methods are instance methods by default).",
+            "B": "Correct! The @staticmethod decorator defines a method that does not receive any automatic instance (self) or class (cls) parameter, allowing static calls.",
+            "C": "Incorrect. While @classmethod can also be called without instantiating, it receives the class (cls) as its first argument, which is useful for alternate constructors.",
+            "D": "Incorrect. @property converts methods into read-only instance attributes."
+        }
+    },
+    {
+        "id": 43,
+        "question": "How do you create a custom exception class 'MyException' that inherits from Python's standard exception hierarchy?",
+        "options": {
+            "A": "class MyException(Exception): pass",
+            "B": "class MyException: pass",
+            "C": "def MyException(): raise Exception",
+            "D": "MyException = Exception.create_custom()"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! In Python, custom exceptions are defined as classes inheriting from the built-in 'Exception' base class.",
+            "B": "Incorrect. Bare classes do not belong to the exception hierarchy and cannot be used with 'raise'.",
+            "C": "Incorrect. This is a function definition, not an Exception class.",
+            "D": "Incorrect. Python exceptions do not use factory creation patterns."
+        }
+    },
+    {
+        "id": 44,
+        "question": "Which pair of special methods must be implemented in a class to make its instances custom Iterators?",
+        "options": {
+            "A": "__next__ and __iter__",
+            "B": "__get_item__ and __len__",
+            "C": "__start__ and __loop__",
+            "D": "__enter__ and __exit__"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! To construct an iterator, the class must implement '__iter__' (returning self) and '__next__' (yielding items and raising StopIteration when complete).",
+            "B": "Incorrect. These implement sequence index accessing and length querying.",
+            "C": "Incorrect. These are not Python special methods.",
+            "D": "Incorrect. These are for custom context managers."
+        }
+    },
+    {
+        "id": 45,
+        "question": "What is Python's small integer caching range, where objects are cached and reused in memory?",
+        "options": {
+            "A": "0 to 100",
+            "B": "-5 to 256",
+            "C": "-128 to 127",
+            "D": "There is no caching; all integers are fresh objects."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. The caching range extends below zero and above 100.",
+            "B": "Correct! Python caches small integers in the range -5 to 256. Any integer references in this range point to the exact same memory objects, so 'x is y' evaluates to True.",
+            "C": "Incorrect. This is standard byte bounds in Java, but Python utilizes different bounds.",
+            "D": "Incorrect. Integer caching is a core efficiency feature of CPython."
+        }
+    },
+    {
+        "id": 46,
+        "question": "What does CPython's Global Interpreter Lock (GIL) do?",
+        "options": {
+            "A": "It locks the compiler so no code is overwritten.",
+            "B": "It prevents multiple native threads from executing Python bytecodes at once, ensuring thread safety for internal memory management.",
+            "C": "It acts as a secure local script encryption utility.",
+            "D": "It locks the operating system command prompt."
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Decorators and variables can still modify states.",
+            "B": "Correct! The GIL is a mutex that prevents multiple threads from running bytecode concurrently in CPython, making multi-threaded CPU-bound programs run on single cores.",
+            "C": "Incorrect. It has no encryption functionalities.",
+            "D": "Incorrect. It operates strictly inside the CPython runtime process."
+        }
+    },
+    {
+        "id": 47,
+        "question": "What is the output of the following dictionary evaluation?\nd = {[1, 2]: 'val'}",
+        "options": {
+            "A": "{[1, 2]: 'val'}",
+            "B": "TypeError: unhashable type: 'list'",
+            "C": "{'1, 2': 'val'}",
+            "D": "None"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Lists are not permitted as dictionary keys.",
+            "B": "Correct! Since lists are mutable, they do not possess a fixed hash value and cannot be hashed, raising a TypeError if declared as keys.",
+            "C": "Incorrect. It does not automatically cast lists to strings.",
+            "D": "Incorrect. It fails immediately during execution and raises an exception."
+        }
+    },
+    {
+        "id": 48,
+        "question": "Which of the following describes the output of: print(0.1 + 0.2 == 0.3)?",
+        "options": {
+            "A": "True",
+            "B": "False",
+            "C": "TypeError",
+            "D": "None"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. Due to binary floating-point representation, the sum is slightly greater than 0.3.",
+            "B": "Correct! Base-2 representation limitations cause floating-point arithmetic to yield tiny representation errors: 0.1 + 0.2 actually evaluates to 0.30000000000000004, making this comparison False.",
+            "C": "Incorrect. Arithmetic floats can be compared directly.",
+            "D": "Incorrect. It returns a standard boolean False."
+        }
+    },
+    {
+        "id": 49,
+        "question": "How do you check the exact size in bytes of a Python string object 's' in memory?",
+        "options": {
+            "A": "len(s)",
+            "B": "sys.getsizeof(s)",
+            "C": "s.size()",
+            "D": "os.path.getsize(s)"
+        },
+        "correct": "B",
+        "explanations": {
+            "A": "Incorrect. len() returns the number of characters in the string, not the memory allocation size in bytes.",
+            "B": "Correct! The sys.getsizeof(object) function returns the exact memory overhead in bytes for any Python object.",
+            "C": "Incorrect. String objects do not have a .size() method.",
+            "D": "Incorrect. os.path.getsize() retrieves the size of a physical file on disk, not objects in memory."
+        }
+    },
+    {
+        "id": 50,
+        "question": "What is the return value of evaluating: type(type)?",
+        "options": {
+            "A": "type",
+            "B": "class",
+            "C": "object",
+            "D": "None"
+        },
+        "correct": "A",
+        "explanations": {
+            "A": "Correct! In Python, 'type' is its own type. Since type() creates all class definitions, the type of the 'type' class is itself.",
+            "B": "Incorrect. 'class' is a syntax keyword, not a type object.",
+            "C": "Incorrect. While classes inherit from 'object', the type constructor itself is of type 'type'.",
+            "D": "Incorrect. It returns a valid class type reference."
+        }
+    }
+]
+;
+
+
+        // User State tracker
+        let currentQuestionIndex = 0;
+        const userAnswers = Array(questions.length).fill(null); // stores selected option (A, B, C, D)
+        const allExplanationsRevealed = Array(questions.length).fill(false);
+
+        // DOM elements
+        const scoreElement = document.getElementById("current-score");
+        const completedCountElement = document.getElementById("completed-count");
+        const progressBar = document.getElementById("progress-bar");
+        const questionNumLabel = document.getElementById("question-num-label");
+        const questionTextContent = document.getElementById("question-text-content");
+        const optionsContainer = document.getElementById("options-container");
+        const feedbackPaneContent = document.getElementById("feedback-pane-content");
+        const feedbackColumn = document.getElementById("feedback-column-element");
+        const backdrop = document.getElementById("drawer-backdrop");
+        const dotGrid = document.getElementById("dot-grid");
+        const mapDotGrid = document.getElementById("map-dot-grid");
+        const mapDrawer = document.getElementById("question-map-drawer");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+
+        // Initialise
+        function initQuiz() {
+            renderDotNavigator();
+            renderMapDots();
+            renderQuestion();
+            updateScores();
+        }
+
+        // Render Jump Circles
+        function renderDotNavigator() {
+            dotGrid.innerHTML = "";
+            questions.forEach((q, idx) => {
+                const dot = document.createElement("button");
+                dot.className = "nav-dot";
+                dot.textContent = idx + 1;
+                dot.onclick = () => jumpToQuestion(idx);
+                dotGrid.appendChild(dot);
+            });
+            updateDots();
+        }
+
+        function updateDots() {
+            const dots = dotGrid.getElementsByClassName("nav-dot");
+            Array.from(dots).forEach((dot, idx) => {
+                dot.classList.remove("active", "answered-correct", "answered-incorrect");
+                
+                if (idx === currentQuestionIndex) {
+                    dot.classList.add("active");
+                }
+                
+                const answer = userAnswers[idx];
+                if (answer !== null) {
+                    const isCorrect = answer === questions[idx].correct;
+                    dot.classList.add(isCorrect ? "answered-correct" : "answered-incorrect");
+                }
+            });
+            updateMapDots();
+        }
+
+        function renderMapDots() {
+            mapDotGrid.innerHTML = "";
+            questions.forEach((q, idx) => {
+                const dot = document.createElement("button");
+                dot.className = "nav-dot";
+                dot.textContent = idx + 1;
+                dot.onclick = () => {
+                    closeQuestionMap();
+                    jumpToQuestion(idx);
+                };
+                mapDotGrid.appendChild(dot);
+            });
+            updateMapDots();
+        }
+
+        function updateMapDots() {
+            const dots = mapDotGrid.getElementsByClassName("nav-dot");
+            Array.from(dots).forEach((dot, idx) => {
+                dot.classList.remove("active", "answered-correct", "answered-incorrect");
+                if (idx === currentQuestionIndex) {
+                    dot.classList.add("active");
+                }
+                const answer = userAnswers[idx];
+                if (answer !== null) {
+                    const isCorrect = answer === questions[idx].correct;
+                    dot.classList.add(isCorrect ? "answered-correct" : "answered-incorrect");
+                }
+            });
+        }
+
+        function openQuestionMap() {
+            mapDrawer.classList.add("show");
+            updateMapDots();
+        }
+
+        function closeQuestionMap() {
+            mapDrawer.classList.remove("show");
+        }
+
+        // Render the Active Question
+        function renderQuestion() {
+            const q = questions[currentQuestionIndex];
+            questionNumLabel.textContent = `Question ${q.id} of ${questions.length}`;
+            questionTextContent.textContent = q.question;
+
+            // Generate Options
+            optionsContainer.innerHTML = "";
+            const savedAnswer = userAnswers[currentQuestionIndex];
+
+            Object.entries(q.options).forEach(([key, val]) => {
+                const btn = document.createElement("button");
+                btn.className = "option-button";
+                btn.disabled = savedAnswer !== null; // disable once answered
+
+                // Handle conditional colors if answered
+                if (savedAnswer !== null) {
+                    if (key === q.correct) {
+                        btn.classList.add("correct");
+                    } else if (key === savedAnswer) {
+                        btn.classList.add("incorrect");
+                    }
+                }
+
+                btn.onclick = () => selectOption(key);
+
+                const prefix = document.createElement("span");
+                prefix.className = "option-prefix";
+                prefix.textContent = key;
+
+                const textSpan = document.createElement("span");
+                textSpan.textContent = val;
+
+                btn.appendChild(prefix);
+                btn.appendChild(textSpan);
+                optionsContainer.appendChild(btn);
+            });
+
+            // Set up Back navigation status
+            prevBtn.disabled = currentQuestionIndex === 0;
+            
+            // Adjust forward button text for final question
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.textContent = "Finish Quiz 🏁";
+            } else {
+                nextBtn.textContent = "Next Question →";
+            }
+
+            renderFeedbackPane();
+            updateDots();
+
+            if (savedAnswer !== null) {
+                document.getElementById("question-card").classList.add("is-answered");
+            } else {
+                document.getElementById("question-card").classList.remove("is-answered");
+            }
+        }
+
+        // Handle Option Click
+        function selectOption(key) {
+            if (userAnswers[currentQuestionIndex] !== null) return; // double safeguard
+
+            userAnswers[currentQuestionIndex] = key;
+            updateScores();
+            
+            // Re-render current question immediately to display option colours (green/red)
+            renderQuestion();
+        }
+
+        // Mobile Bottom Sheet control
+        function openFeedbackMobile() {
+            feedbackColumn.classList.add("show");
+            backdrop.classList.add("show");
+        }
+
+        function closeFeedbackMobile() {
+            feedbackColumn.classList.remove("show");
+            backdrop.classList.remove("show");
+        }
+
+        // Dynamic Right Pane Generation
+        function renderFeedbackPane() {
+            const q = questions[currentQuestionIndex];
+            const savedAnswer = userAnswers[currentQuestionIndex];
+
+            // If unanswered
+            if (savedAnswer === null) {
+                feedbackPaneContent.innerHTML = `
+                    <div class="feedback-welcome">
+                        <div class="feedback-welcome-icon">🔍</div>
+                        <h3>Interactive Help Panel</h3>
+                        <p>Select any option card on the left to receive dynamic feedback, detailed answer verification, and comparisons.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const isCorrect = savedAnswer === q.correct;
+            const explanationHTML = getExplanationContentHTML(q, savedAnswer, isCorrect);
+
+            feedbackPaneContent.innerHTML = explanationHTML;
+
+            // Retain "Show All Explanations" display if already toggled earlier for this specific index
+            if (allExplanationsRevealed[currentQuestionIndex]) {
+                revealAllExplanationsInline();
+            }
+        }
+
+        // Generate HTML fragment for Explanations
+        function getExplanationContentHTML(q, answer, isCorrect) {
+            const wrongCardHTML = !isCorrect ? `
+                <div class="explanation-card user-selected-wrong">
+                    <div class="explanation-card-title card-title-wrong">
+                        <span>❌</span> Your Choice: Option ${answer}
+                    </div>
+                    <div class="explanation-card-text">
+                        ${q.explanations[answer]}
+                    </div>
+                </div>
+            ` : "";
+
+            const correctCardHTML = `
+                <div class="explanation-card correct-answer">
+                    <div class="explanation-card-title card-title-correct">
+                        <span>${isCorrect ? '🎉' : '💡'} Correct Choice: Option ${q.correct}</span>
+                    </div>
+                    <div class="explanation-card-text">
+                        ${q.explanations[q.correct]}
+                    </div>
+                </div>
+            `;
+
+            return `
+                <div class="feedback-active">
+                    <div class="feedback-header">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="feedback-badge ${isCorrect ? 'badge-correct' : 'badge-incorrect'}">
+                                ${isCorrect ? 'Correct' : 'Incorrect'}
+                            </span>
+                            <span class="feedback-heading-text">Question Explanation</span>
+                        </div>
+                        <button class="mobile-close-btn" onclick="closeFeedbackMobile()">✕</button>
+                    </div>
+
+                    <div class="dual-explanations">
+                        ${wrongCardHTML}
+                        ${correctCardHTML}
+                    </div>
+
+                    <button class="show-all-btn" id="show-all-exp-btn" onclick="toggleShowAllExplanations()">
+                        📖 Show All Explanations Comparison
+                    </button>
+
+                    <div class="all-explanations-grid" id="all-exp-block">
+                        ${Object.entries(q.options).map(([key, val]) => {
+                            const isCorrectOpt = key === q.correct;
+                            return `
+                                <div class="grid-exp-card ${isCorrectOpt ? 'is-correct' : 'is-wrong'}">
+                                    <div class="grid-exp-option">
+                                        <span>Option ${key}: <code>${escapeHtml(val)}</code></span>
+                                        <span class="feedback-badge ${isCorrectOpt ? 'badge-correct' : 'badge-incorrect'}" style="font-size:0.7rem; padding: 1px 4px;">
+                                            ${isCorrectOpt ? 'Correct' : 'Incorrect'}
+                                        </span>
+                                    </div>
+                                    <div class="explanation-card-text" style="font-size:0.85rem; margin-top:0.4rem;">
+                                        ${q.explanations[key]}
+                                    </div>
+                                </div>
+                            `;
+                        }).join("")}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Helper to safely render html within <code> blocks
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Reveal All Explanations comparison grids
+        function toggleShowAllExplanations() {
+            allExplanationsRevealed[currentQuestionIndex] = true;
+            revealAllExplanationsInline();
+        }
+
+        function revealAllExplanationsInline() {
+            const btn = document.getElementById("show-all-exp-btn");
+            const block = document.getElementById("all-exp-block");
+            const dualExp = document.querySelector(".dual-explanations");
+            if (btn && block) {
+                btn.style.display = "none";
+                block.style.display = "flex";
+                if (dualExp) {
+                    dualExp.style.display = "none";
+                }
+                // Scroll block into view within container
+                block.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Scorekeeping
+        function updateScores() {
+            let correctCount = 0;
+            let completedCount = 0;
+
+            userAnswers.forEach((ans, idx) => {
+                if (ans !== null) {
+                    completedCount++;
+                    if (ans === questions[idx].correct) {
+                        correctCount++;
+                    }
+                }
+            });
+
+            scoreElement.textContent = correctCount;
+            completedCountElement.textContent = completedCount;
+
+            // Update progress bar
+            const percent = (completedCount / questions.length) * 100;
+            progressBar.style.width = `${percent}%`;
+        }
+
+        // Navigation Controllers
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+                closeFeedbackMobile();
+            } else {
+                // Final score reveal
+                alertQuizEnd();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+                closeFeedbackMobile();
+            }
+        }
+
+        function jumpToQuestion(idx) {
+            currentQuestionIndex = idx;
+            renderQuestion();
+            closeFeedbackMobile();
+        }
+
+        function alertQuizEnd() {
+            const correctCount = userAnswers.filter((ans, idx) => ans === questions[idx].correct).length;
+            const percentage = Math.round((correctCount / questions.length) * 100);
+            
+            let message = "";
+            if (percentage >= 90) message = "🎉 Outstanding! You have an incredibly firm grasp of the Python basics!";
+            else if (percentage >= 70) message = "👍 Well done! A bit more practice and you will master everything!";
+            else message = "📚 Good effort! Review the core resources and try again to solidifying your foundation.";
+
+            alert(`Quiz Complete!\n\nYour final score is: ${correctCount} / ${questions.length} (${percentage}%)\n\n${message}`);
+        }
+
+        // Keyboard navigation listeners (left/right arrows)
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft") {
+                previousQuestion();
+            } else if (e.key === "ArrowRight") {
+                nextQuestion();
+            }
+        });
+
+        // Boot
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
