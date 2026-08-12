@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics - Medium Quiz</title>
+    <style>
+        /* Fonts & Global Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DengXian', '等线', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            color: #2d3748;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header / Tracker */
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #eef2f5;
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .quiz-title-area {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quiz-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0b7285;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quiz-subtitle {
+            font-size: 0.85rem;
+            color: #868e96;
+            margin-top: 2px;
+        }
+
+        .score-box {
+            background: #e3fafc;
+            border: 1px solid #c5f6fa;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            color: #0b7285;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background-color: #f1f3f5;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #15aabf;
+            transition: width 0.3s ease;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        #mobile-show-exp-btn {
+            display: none;
+            width: 100%;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+        @media (max-width: 800px) {
+            .question-card.is-answered #mobile-show-exp-btn {
+                display: flex;
+            }
+        }
+
+        /* Main Workspace */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        /* Left Column (Questions) */
+        .question-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .question-card {
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .question-number {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #15aabf;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1a202c;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option-button {
+            width: 100%;
+            background: #ffffff;
+            border: 1.5px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.1rem 1.3rem;
+            font-size: 1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            font-family: inherit;
+            color: #495057;
+            position: relative;
+        }
+
+        .option-button:hover:not(:disabled) {
+            background: #f8f9fa;
+            border-color: #ced4da;
+            transform: translateY(-1px);
+        }
+
+        .option-prefix {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: #f1f3f5;
+            font-weight: 700;
+            margin-right: 1rem;
+            font-size: 0.9rem;
+            color: #495057;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        /* Option States */
+        .option-button.correct {
+            background: #ebfbee;
+            border-color: #8ce99a;
+            color: #2b8a3e;
+            font-weight: 700;
+        }
+        .option-button.correct .option-prefix {
+            background: #a9e34b;
+            color: #ffffff;
+        }
+
+        .option-button.incorrect {
+            background: #fff5f5;
+            border-color: #ffc9c9;
+            color: #c92a2a;
+        }
+        .option-button.incorrect .option-prefix {
+            background: #ff8787;
+            color: #ffffff;
+        }
+
+        .option-button:disabled {
+            cursor: not-allowed;
+        }
+
+        /* Right Column (Dynamic Feedback & Explanations) */
+        .feedback-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feedback-pane {
+            background: #fdfdfd;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 2rem;
+            position: sticky;
+            top: 100px;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Welcome State (unanswered) */
+        .feedback-welcome {
+            text-align: center;
+            padding: 3rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #868e96;
+            gap: 1rem;
+        }
+
+        .feedback-welcome-icon {
+            font-size: 3rem;
+            color: #e3fafc;
+            background: #e3fafc;
+            width: 80px;
+            height: 80px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #15aabf;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Answered State Layout */
+        .feedback-active {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        .feedback-badge {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .badge-correct {
+            background: #d3f9d8;
+            color: #2b8a3e;
+        }
+
+        .badge-incorrect {
+            background: #ffe3e3;
+            color: #c92a2a;
+        }
+
+        .feedback-heading-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        /* Dynamic Dual-Cards */
+        .dual-explanations {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .explanation-card {
+            border-radius: 8px;
+            padding: 1.2rem;
+            border-left: 4px solid;
+            background: #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+        }
+
+        .explanation-card.user-selected-wrong {
+            border-left-color: #ff8787;
+            background: #fffafb;
+            border-top: 1px solid #ffe3e3;
+            border-right: 1px solid #ffe3e3;
+            border-bottom: 1px solid #ffe3e3;
+        }
+
+        .explanation-card.correct-answer {
+            border-left-color: #40c057;
+            background: #fbfdfb;
+            border-top: 1px solid #d3f9d8;
+            border-right: 1px solid #d3f9d8;
+            border-bottom: 1px solid #d3f9d8;
+        }
+
+        .explanation-card-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-title-wrong { color: #c92a2a; }
+        .card-title-correct { color: #2b8a3e; }
+
+        .explanation-card-text {
+            font-size: 0.92rem;
+            color: #495057;
+        }
+
+        /* Show All Explanations Button */
+        .show-all-btn {
+            background: #f1f3f5;
+            border: 1px solid #dee2e6;
+            color: #495057;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .show-all-btn:hover {
+            background: #e9ecef;
+            border-color: #ced4da;
+        }
+
+        /* Grid of All Explanations (Initially Hidden) */
+        .all-explanations-grid {
+            display: none;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #dee2e6;
+        }
+
+        .grid-exp-card {
+            padding: 1rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        .grid-exp-card.is-correct {
+            border-left: 3px solid #40c057;
+            background: #fbfdfb;
+        }
+
+        .grid-exp-card.is-wrong {
+            border-left: 3px solid #adb5bd;
+        }
+
+        .grid-exp-option {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Navigation Footer */
+        .nav-footer {
+            background: #ffffff;
+            border-top: 1px solid #eef2f5;
+            padding: 1.5rem 2rem;
+            margin-top: auto;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: #ffffff;
+            border: 1px solid #ced4da;
+            color: #495057;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: #f8f9fa;
+            border-color: #adb5bd;
+            color: #212529;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: #15aabf;
+            border-color: #15aabf;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #0b7285;
+            border-color: #0b7285;
+            color: #ffffff;
+        }
+
+        /* Dot Grid Navigator */
+        .dot-navigator {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+            max-width: 500px;
+        }
+
+        .nav-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            background: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #868e96;
+            transition: all 0.2s;
+        }
+
+        .nav-dot:hover {
+            border-color: #adb5bd;
+            background: #f8f9fa;
+            color: #495057;
+        }
+
+        .nav-dot.active {
+            border-color: #15aabf;
+            background: #e3fafc;
+            color: #0b7285;
+            box-shadow: 0 0 0 2px rgba(21, 170, 191, 0.2);
+        }
+
+        .nav-dot.answered-correct {
+            background: #d3f9d8;
+            border-color: #8ce99a;
+            color: #2b8a3e;
+        }
+
+        .nav-dot.answered-incorrect {
+            background: #ffe3e3;
+            border-color: #ffc9c9;
+            color: #c92a2a;
+        }
+
+        /* Mobile Map Toggle Button */
+        .map-toggle-btn {
+            display: none;
+            background: #e3fafc;
+            border: 1px solid #c5f6fa;
+            color: #0b7285;
+            border-radius: 8px;
+            padding: 0.45rem 0.8rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: inherit;
+        }
+
+        .map-toggle-btn:hover {
+            background: #c5f6fa;
+        }
+
+        /* Mobile Map Drawer */
+        .map-drawer {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border-radius: 16px 16px 0 0;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            padding: 1.5rem;
+            transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .map-drawer.show {
+            bottom: 0;
+        }
+
+        .map-drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        .map-drawer-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .map-dot-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+        }
+
+        /* Mobile Drawer / Bottom Sheet & Backdrop */
+        .backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .backdrop.show {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 800px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 1.2rem;
+            }
+
+            header {
+                padding: 1rem;
+            }
+
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .header-actions {
+                align-self: flex-end;
+            }
+
+            .dot-navigator {
+                display: none; /* Hide in mobile footer to save space */
+            }
+
+            .map-toggle-btn {
+                display: inline-flex;
+            }
+
+            /* Transform right column to slide-up bottom drawer */
+            .feedback-column {
+                position: fixed;
+                bottom: -100%;
+                left: 0;
+                right: 0;
+                width: 100%;
+                z-index: 1000;
+                transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .feedback-column.show {
+                bottom: 0;
+            }
+
+            .feedback-pane {
+                border-radius: 16px 16px 0 0;
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+                max-height: 80vh;
+                border: none;
+                top: auto;
+            }
+
+            /* Pull bar handle for mobile drawer */
+            .feedback-pane::before {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 4px;
+                background: #dee2e6;
+                border-radius: 2px;
+                margin: -0.8rem auto 1rem auto;
+                flex-shrink: 0;
+            }
+
+            /* Add close button to mobile feedback pane header */
+            .feedback-header {
+                justify-content: space-between;
+            }
+
+            .mobile-close-btn {
+                display: flex;
+                background: none;
+                border: none;
+                font-size: 1.2rem;
+                cursor: pointer;
+                color: #adb5bd;
+                padding: 4px;
+            }
+        }
+
+        @media (min-width: 801px) {
+            .mobile-close-btn {
+                display: none;
+            }
+        }
+
+        /* Code Block Styling */
+        pre {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin-bottom: 1.2rem;
+            color: #2b3a42;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="quiz-title-area">
+                <div class="quiz-title">
+                    <span>🐍</span> Python Basics: Medium Quiz (Version 2)
+                </div>
+                <div class="quiz-subtitle">
+                    50 Intermediate level questions to strengthen your Python fundamentals
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="score-box">
+                    Score: <span id="current-score">0</span> / <span id="completed-count">0</span>
+                </div>
+                <button class="map-toggle-btn" onclick="openQuestionMap()">
+                    㗊 Map
+                </button>
+            </div>
+        </div>
+        <div class="max-width-wrapper" style="max-width: 1200px; margin: 0 auto; width: 100%;">
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Left: Question Workspace -->
+        <div class="question-column">
+            <div class="question-card" id="question-card">
+                <div class="question-number" id="question-num-label">Question 1 of 50</div>
+                <div class="question-text" id="question-text-content">Loading question...</div>
+                
+                <div class="options-grid" id="options-container">
+                    <!-- Option buttons will be rendered dynamically here -->
+                </div>
+                <button id="mobile-show-exp-btn" class="btn btn-primary" onclick="openFeedbackMobile()">Show Explanation</button>
+            </div>
+        </div>
+
+        <!-- Right / Mobile Bottom Sheet: Feedback Panel -->
+        <div class="feedback-column" id="feedback-column-element">
+            <div class="feedback-pane" id="feedback-pane-content">
+                <!-- Dynamic feedback content rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="nav-footer">
+        <div class="nav-container">
+            <button class="btn" id="prev-btn" onclick="previousQuestion()" disabled>
+                ← Previous
+            </button>
+            
+            <div class="dot-navigator" id="dot-grid">
+                <!-- 50 Jump Dots will be rendered here -->
+            </div>
+
+            <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()">
+                Next Question →
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Question Map Drawer -->
+    <div class="map-drawer" id="question-map-drawer">
+        <div class="map-drawer-header">
+            <span class="map-drawer-title">Question Map</span>
+            <button class="btn" onclick="closeQuestionMap()" style="padding: 0.4rem 0.8rem;">✕</button>
+        </div>
+        <div class="map-dot-grid" id="map-dot-grid">
+            <!-- Map dots rendered here -->
+        </div>
+    </div>
+
+    <!-- Backdrop Overlay for Mobile Bottom Sheet -->
+    <div class="backdrop" id="drawer-backdrop" onclick="closeFeedbackMobile()"></div>
+
+    <script>
+        // Question list injected dynamically
+                

@@ -1,0 +1,381 @@
+
+
+        // User State tracker
+        let currentQuestionIndex = 0;
+        const userAnswers = Array(questions.length).fill(null); // stores selected option (A, B, C, D)
+        const allExplanationsRevealed = Array(questions.length).fill(false);
+
+        // DOM elements
+        const scoreElement = document.getElementById("current-score");
+        const completedCountElement = document.getElementById("completed-count");
+        const progressBar = document.getElementById("progress-bar");
+        const questionNumLabel = document.getElementById("question-num-label");
+        const questionTextContent = document.getElementById("question-text-content");
+        const optionsContainer = document.getElementById("options-container");
+        const feedbackPaneContent = document.getElementById("feedback-pane-content");
+        const feedbackColumn = document.getElementById("feedback-column-element");
+        const backdrop = document.getElementById("drawer-backdrop");
+        const dotGrid = document.getElementById("dot-grid");
+        const mapDotGrid = document.getElementById("map-dot-grid");
+        const mapDrawer = document.getElementById("question-map-drawer");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+
+        // Initialise
+        function initQuiz() {
+            renderDotNavigator();
+            renderMapDots();
+            renderQuestion();
+            updateScores();
+        }
+
+        // Render Jump Circles
+        function renderDotNavigator() {
+            dotGrid.innerHTML = "";
+            questions.forEach((q, idx) => {
+                const dot = document.createElement("button");
+                dot.className = "nav-dot";
+                dot.textContent = idx + 1;
+                dot.onclick = () => jumpToQuestion(idx);
+                dotGrid.appendChild(dot);
+            });
+            updateDots();
+        }
+
+        function updateDots() {
+            const dots = dotGrid.getElementsByClassName("nav-dot");
+            Array.from(dots).forEach((dot, idx) => {
+                dot.classList.remove("active", "answered-correct", "answered-incorrect");
+                
+                if (idx === currentQuestionIndex) {
+                    dot.classList.add("active");
+                }
+                
+                const answer = userAnswers[idx];
+                if (answer !== null) {
+                    const isCorrect = answer === questions[idx].correct;
+                    dot.classList.add(isCorrect ? "answered-correct" : "answered-incorrect");
+                }
+            });
+            updateMapDots();
+        }
+
+        function renderMapDots() {
+            mapDotGrid.innerHTML = "";
+            questions.forEach((q, idx) => {
+                const dot = document.createElement("button");
+                dot.className = "nav-dot";
+                dot.textContent = idx + 1;
+                dot.onclick = () => {
+                    closeQuestionMap();
+                    jumpToQuestion(idx);
+                };
+                mapDotGrid.appendChild(dot);
+            });
+            updateMapDots();
+        }
+
+        function updateMapDots() {
+            const dots = mapDotGrid.getElementsByClassName("nav-dot");
+            Array.from(dots).forEach((dot, idx) => {
+                dot.classList.remove("active", "answered-correct", "answered-incorrect");
+                if (idx === currentQuestionIndex) {
+                    dot.classList.add("active");
+                }
+                const answer = userAnswers[idx];
+                if (answer !== null) {
+                    const isCorrect = answer === questions[idx].correct;
+                    dot.classList.add(isCorrect ? "answered-correct" : "answered-incorrect");
+                }
+            });
+        }
+
+        function openQuestionMap() {
+            mapDrawer.classList.add("show");
+            updateMapDots();
+        }
+
+        function closeQuestionMap() {
+            mapDrawer.classList.remove("show");
+        }
+
+        // Render the Active Question
+        function renderQuestion() {
+            const q = questions[currentQuestionIndex];
+            questionNumLabel.textContent = `Question ${q.id} of ${questions.length}`;
+            questionTextContent.textContent = q.question;
+
+            // Generate Options
+            optionsContainer.innerHTML = "";
+            const savedAnswer = userAnswers[currentQuestionIndex];
+
+            Object.entries(q.options).forEach(([key, val]) => {
+                const btn = document.createElement("button");
+                btn.className = "option-button";
+                btn.disabled = savedAnswer !== null; // disable once answered
+
+                // Handle conditional colors if answered
+                if (savedAnswer !== null) {
+                    if (key === q.correct) {
+                        btn.classList.add("correct");
+                    } else if (key === savedAnswer) {
+                        btn.classList.add("incorrect");
+                    }
+                }
+
+                btn.onclick = () => selectOption(key);
+
+                const prefix = document.createElement("span");
+                prefix.className = "option-prefix";
+                prefix.textContent = key;
+
+                const textSpan = document.createElement("span");
+                textSpan.textContent = val;
+
+                btn.appendChild(prefix);
+                btn.appendChild(textSpan);
+                optionsContainer.appendChild(btn);
+            });
+
+            // Set up Back navigation status
+            prevBtn.disabled = currentQuestionIndex === 0;
+            
+            // Adjust forward button text for final question
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.textContent = "Finish Quiz 🏁";
+            } else {
+                nextBtn.textContent = "Next Question →";
+            }
+
+            renderFeedbackPane();
+            updateDots();
+
+            if (savedAnswer !== null) {
+                document.getElementById("question-card").classList.add("is-answered");
+            } else {
+                document.getElementById("question-card").classList.remove("is-answered");
+            }
+        }
+
+        // Handle Option Click
+        function selectOption(key) {
+            if (userAnswers[currentQuestionIndex] !== null) return; // double safeguard
+
+            userAnswers[currentQuestionIndex] = key;
+            updateScores();
+            
+            // Re-render current question immediately to display option colours (green/red)
+            renderQuestion();
+        }
+
+        // Mobile Bottom Sheet control
+        function openFeedbackMobile() {
+            feedbackColumn.classList.add("show");
+            backdrop.classList.add("show");
+        }
+
+        function closeFeedbackMobile() {
+            feedbackColumn.classList.remove("show");
+            backdrop.classList.remove("show");
+        }
+
+        // Dynamic Right Pane Generation
+        function renderFeedbackPane() {
+            const q = questions[currentQuestionIndex];
+            const savedAnswer = userAnswers[currentQuestionIndex];
+
+            // If unanswered
+            if (savedAnswer === null) {
+                feedbackPaneContent.innerHTML = `
+                    <div class="feedback-welcome">
+                        <div class="feedback-welcome-icon">🔍</div>
+                        <h3>Interactive Help Panel</h3>
+                        <p>Select any option card on the left to receive dynamic feedback, detailed answer verification, and comparisons.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const isCorrect = savedAnswer === q.correct;
+            const explanationHTML = getExplanationContentHTML(q, savedAnswer, isCorrect);
+
+            feedbackPaneContent.innerHTML = explanationHTML;
+
+            // Retain "Show All Explanations" display if already toggled earlier for this specific index
+            if (allExplanationsRevealed[currentQuestionIndex]) {
+                revealAllExplanationsInline();
+            }
+        }
+
+        // Generate HTML fragment for Explanations
+        function getExplanationContentHTML(q, answer, isCorrect) {
+            const wrongCardHTML = !isCorrect ? `
+                <div class="explanation-card user-selected-wrong">
+                    <div class="explanation-card-title card-title-wrong">
+                        <span>❌</span> Your Choice: Option ${answer}
+                    </div>
+                    <div class="explanation-card-text">
+                        ${q.explanations[answer]}
+                    </div>
+                </div>
+            ` : "";
+
+            const correctCardHTML = `
+                <div class="explanation-card correct-answer">
+                    <div class="explanation-card-title card-title-correct">
+                        <span>${isCorrect ? '🎉' : '💡'} Correct Choice: Option ${q.correct}</span>
+                    </div>
+                    <div class="explanation-card-text">
+                        ${q.explanations[q.correct]}
+                    </div>
+                </div>
+            `;
+
+            return `
+                <div class="feedback-active">
+                    <div class="feedback-header">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="feedback-badge ${isCorrect ? 'badge-correct' : 'badge-incorrect'}">
+                                ${isCorrect ? 'Correct' : 'Incorrect'}
+                            </span>
+                            <span class="feedback-heading-text">Question Explanation</span>
+                        </div>
+                        <button class="mobile-close-btn" onclick="closeFeedbackMobile()">✕</button>
+                    </div>
+
+                    <div class="dual-explanations">
+                        ${wrongCardHTML}
+                        ${correctCardHTML}
+                    </div>
+
+                    <button class="show-all-btn" id="show-all-exp-btn" onclick="toggleShowAllExplanations()">
+                        📖 Show All Explanations Comparison
+                    </button>
+
+                    <div class="all-explanations-grid" id="all-exp-block">
+                        ${Object.entries(q.options).map(([key, val]) => {
+                            const isCorrectOpt = key === q.correct;
+                            return `
+                                <div class="grid-exp-card ${isCorrectOpt ? 'is-correct' : 'is-wrong'}">
+                                    <div class="grid-exp-option">
+                                        <span>Option ${key}: <code>${escapeHtml(val)}</code></span>
+                                        <span class="feedback-badge ${isCorrectOpt ? 'badge-correct' : 'badge-incorrect'}" style="font-size:0.7rem; padding: 1px 4px;">
+                                            ${isCorrectOpt ? 'Correct' : 'Incorrect'}
+                                        </span>
+                                    </div>
+                                    <div class="explanation-card-text" style="font-size:0.85rem; margin-top:0.4rem;">
+                                        ${q.explanations[key]}
+                                    </div>
+                                </div>
+                            `;
+                        }).join("")}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Helper to safely render html within <code> blocks
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Reveal All Explanations comparison grids
+        function toggleShowAllExplanations() {
+            allExplanationsRevealed[currentQuestionIndex] = true;
+            revealAllExplanationsInline();
+        }
+
+        function revealAllExplanationsInline() {
+            const btn = document.getElementById("show-all-exp-btn");
+            const block = document.getElementById("all-exp-block");
+            const dualExp = document.querySelector(".dual-explanations");
+            if (btn && block) {
+                btn.style.display = "none";
+                block.style.display = "flex";
+                if (dualExp) {
+                    dualExp.style.display = "none";
+                }
+                // Scroll block into view within container
+                block.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Scorekeeping
+        function updateScores() {
+            let correctCount = 0;
+            let completedCount = 0;
+
+            userAnswers.forEach((ans, idx) => {
+                if (ans !== null) {
+                    completedCount++;
+                    if (ans === questions[idx].correct) {
+                        correctCount++;
+                    }
+                }
+            });
+
+            scoreElement.textContent = correctCount;
+            completedCountElement.textContent = completedCount;
+
+            // Update progress bar
+            const percent = (completedCount / questions.length) * 100;
+            progressBar.style.width = `${percent}%`;
+        }
+
+        // Navigation Controllers
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+                closeFeedbackMobile();
+            } else {
+                // Final score reveal
+                alertQuizEnd();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+                closeFeedbackMobile();
+            }
+        }
+
+        function jumpToQuestion(idx) {
+            currentQuestionIndex = idx;
+            renderQuestion();
+            closeFeedbackMobile();
+        }
+
+        function alertQuizEnd() {
+            const correctCount = userAnswers.filter((ans, idx) => ans === questions[idx].correct).length;
+            const percentage = Math.round((correctCount / questions.length) * 100);
+            
+            let message = "";
+            if (percentage >= 90) message = "🎉 Outstanding! You have an incredibly firm grasp of the Python basics!";
+            else if (percentage >= 70) message = "👍 Well done! A bit more practice and you will master everything!";
+            else message = "📚 Good effort! Review the core resources and try again to solidifying your foundation.";
+
+            alert(`Quiz Complete!\n\nYour final score is: ${correctCount} / ${questions.length} (${percentage}%)\n\n${message}`);
+        }
+
+        // Keyboard navigation listeners (left/right arrows)
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft") {
+                previousQuestion();
+            } else if (e.key === "ArrowRight") {
+                nextQuestion();
+            }
+        });
+
+        // Boot
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
