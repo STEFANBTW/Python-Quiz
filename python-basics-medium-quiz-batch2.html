@@ -795,852 +795,512 @@
                 const questions = [
     {
         "id": 1,
-        "question": "Which of the following best describes the use of List comprehensions in Python?",
+        "question": "What does the list comprehension [x * 2 for x in range(4)] evaluate to?",
         "options": {
-            "A": "It is used to define a class related to List comprehensions.",
-            "B": "It is an invalid syntax in modern Python for List comprehensions.",
-            "C": "It allows for concise implementation or handling of List comprehensions concepts.",
-            "D": "It is used exclusively in multithreading for List comprehensions."
+            "A": "[0, 2, 4, 6]",
+            "B": "[0, 1, 4, 9]",
+            "C": "[2, 4, 6, 8]",
+            "D": "[0, 2, 4]"
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. List comprehensions is not generally used to define classes.",
-            "B": "Incorrect. List comprehensions is a valid and commonly used feature in Python.",
-            "C": "Correct! List comprehensions (e.g. [x**2 for x in range(5)]) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. List comprehensions has no exclusive relation to multithreading."
+            "A": "Correct! range(4) yields 0, 1, 2, 3; doubling each gives 0, 2, 4, 6.",
+            "B": "Incorrect. Squaring (x**2) would produce these values, but the expression multiplies by 2.",
+            "C": "Incorrect. This is the result of doubling 1, 2, 3, 4 \u2014 but range(4) starts at 0, not 1.",
+            "D": "Incorrect. range(4) produces four values, so the comprehension has four elements."
         }
     },
     {
         "id": 2,
-        "question": "What does the code snippet `{x: x**2 for x in range(3)}` represent in the context of Dictionary comprehensions?",
+        "question": "What does the dictionary comprehension {x: x**2 for x in range(3)} produce?",
         "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use Dictionary comprehensions.",
-            "D": "An infinite loop."
+            "A": "{0: 0, 1: 1, 2: 4}",
+            "B": "{1: 1, 2: 4, 3: 9}",
+            "C": "[0, 1, 4]",
+            "D": "{0, 1, 4}"
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. Dictionary comprehensions is not generally used to define classes.",
-            "B": "Incorrect. Dictionary comprehensions is a valid and commonly used feature in Python.",
-            "C": "Correct! `{x: x**2 for x in range(3)}` is a typical example of Dictionary comprehensions.",
-            "D": "Incorrect. Dictionary comprehensions has no exclusive relation to multithreading."
+            "A": "Correct! Each key x maps to x squared, so keys 0, 1, 2 map to 0, 1, 4.",
+            "B": "Incorrect. range(3) starts at 0, so the first key is 0, not 1.",
+            "C": "Incorrect. Square brackets produce a list, not a dictionary.",
+            "D": "Incorrect. This is a set (no key:value pairs), which is not what the comprehension builds."
         }
     },
     {
         "id": 3,
-        "question": "In Python, Sets operations is most closely associated with which functionality?",
+        "question": "Given s1 = {1, 2, 3} and s2 = {3, 4}, what does s1 | s2 evaluate to?",
         "options": {
-            "A": "It is used to define a class related to Sets operations.",
-            "B": "It is an invalid syntax in modern Python for Sets operations.",
-            "C": "Working with Sets operations and related concepts.",
-            "D": "It is used exclusively in multithreading for Sets operations."
+            "A": "{3}",
+            "B": "{1, 2, 3, 4}",
+            "C": "{1, 2}",
+            "D": "{1, 2, 4}"
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. Sets operations is not generally used to define classes.",
-            "B": "Incorrect. Sets operations is a valid and commonly used feature in Python.",
-            "C": "Correct! That is the main purpose of Sets operations.",
-            "D": "Incorrect. Sets operations has no exclusive relation to multithreading."
+            "A": "Incorrect. {3} is the intersection (s1 & s2), not the union.",
+            "B": "Correct! The | operator computes the set union: every element in either set, with duplicates removed.",
+            "C": "Incorrect. This is the set difference (s1 - s2).",
+            "D": "Incorrect. This drops the shared element 3, but union keeps all unique members."
         }
     },
     {
         "id": 4,
-        "question": "When you see `a, b = (1, 2)`, you are looking at an example of what Python feature?",
+        "question": "What does `a, b = (1, 2)` accomplish in Python?",
         "options": {
-            "A": "A standard while loop.",
-            "B": "A try-except block.",
-            "C": "Tuple unpacking.",
-            "D": "A metaclass."
+            "A": "Creates a tuple of two tuples.",
+            "B": "Raises a TypeError.",
+            "C": "Assigns 1 to a and 2 to b via tuple unpacking.",
+            "D": "Assigns the whole tuple to both a and b."
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. Tuple unpacking is not generally used to define classes.",
-            "B": "Incorrect. Tuple unpacking is a valid and commonly used feature in Python.",
-            "C": "Correct! The snippet `a, b = (1, 2)` demonstrates Tuple unpacking.",
-            "D": "Incorrect. Tuple unpacking has no exclusive relation to multithreading."
+            "A": "Incorrect. The single tuple (1, 2) is unpacked, not nested.",
+            "B": "Incorrect. The right-hand side has exactly two elements matching the two targets.",
+            "C": "Correct! Tuple unpacking binds each element on the right to the corresponding variable on the left.",
+            "D": "Incorrect. a receives 1 and b receives 2 individually, not the entire tuple."
         }
     },
     {
         "id": 5,
-        "question": "Which of the following best describes the use of *args in Python?",
+        "question": "What does `*args` collect in a function definition?",
         "options": {
-            "A": "It is used to define a class related to *args.",
-            "B": "It is an invalid syntax in modern Python for *args.",
-            "C": "It allows for concise implementation or handling of *args concepts.",
-            "D": "It is used exclusively in multithreading for *args."
+            "A": "All keyword arguments into a dictionary.",
+            "B": "Extra positional arguments into a tuple.",
+            "C": "All arguments into a list.",
+            "D": "Only the first positional argument."
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. *args is not generally used to define classes.",
-            "B": "Incorrect. *args is a valid and commonly used feature in Python.",
-            "C": "Correct! *args (e.g. def func(*args):) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. *args has no exclusive relation to multithreading."
+            "A": "Incorrect. Keyword arguments are collected by **kwargs, not *args.",
+            "B": "Correct! A single asterisk packs any number of extra positional arguments into a tuple named args.",
+            "C": "Incorrect. It specifically collects positional arguments, and packs them into a tuple (not a list).",
+            "D": "Incorrect. It collects all extra positional arguments, not just one."
         }
     },
     {
         "id": 6,
-        "question": "What does the code snippet `def func(**kwargs):` represent in the context of **kwargs?",
+        "question": "What does `**kwargs` collect in a function definition?",
         "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use **kwargs.",
-            "D": "An infinite loop."
+            "A": "Extra positional arguments into a tuple.",
+            "B": "Extra keyword arguments into a dictionary.",
+            "C": "All arguments into a set.",
+            "D": "A single default value."
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. **kwargs is not generally used to define classes.",
-            "B": "Incorrect. **kwargs is a valid and commonly used feature in Python.",
-            "C": "Correct! `def func(**kwargs):` is a typical example of **kwargs.",
-            "D": "Incorrect. **kwargs has no exclusive relation to multithreading."
+            "A": "Incorrect. Positional arguments are collected by *args.",
+            "B": "Correct! A double asterisk packs extra name=value keyword arguments into a dictionary.",
+            "C": "Incorrect. It produces a dictionary mapping names to values, not a set.",
+            "D": "Incorrect. It can collect any number of keyword arguments, not just one."
         }
     },
     {
         "id": 7,
-        "question": "In Python, Lambda functions is most closely associated with which functionality?",
+        "question": "What does the lambda expression `lambda x: x + 1` do when applied to 5?",
         "options": {
-            "A": "It is used to define a class related to Lambda functions.",
-            "B": "It is an invalid syntax in modern Python for Lambda functions.",
-            "C": "Working with Lambda functions and related concepts.",
-            "D": "It is used exclusively in multithreading for Lambda functions."
+            "A": "Returns 5",
+            "B": "Returns 6",
+            "C": "Returns 1",
+            "D": "Raises a SyntaxError"
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. Lambda functions is not generally used to define classes.",
-            "B": "Incorrect. Lambda functions is a valid and commonly used feature in Python.",
-            "C": "Correct! That is the main purpose of Lambda functions.",
-            "D": "Incorrect. Lambda functions has no exclusive relation to multithreading."
+            "A": "Incorrect. The function adds 1 to its argument, so it returns 5 + 1.",
+            "B": "Correct! The lambda takes x and returns x + 1, so (lambda x: x + 1)(5) evaluates to 6.",
+            "C": "Incorrect. 1 is the amount added, not the result.",
+            "D": "Incorrect. This is perfectly valid lambda syntax."
         }
     },
     {
         "id": 8,
-        "question": "When you see `map(str, [1, 2, 3])`, you are looking at an example of what Python feature?",
+        "question": "What does map(str, [1, 2, 3]) return in Python 3?",
         "options": {
-            "A": "A standard while loop.",
-            "B": "A try-except block.",
-            "C": "map().",
-            "D": "A metaclass."
+            "A": "['1', '2', '3']",
+            "B": "A map object that yields '1', '2', '3'.",
+            "C": "(1, 2, 3)",
+            "D": "TypeError"
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. map() is not generally used to define classes.",
-            "B": "Incorrect. map() is a valid and commonly used feature in Python.",
-            "C": "Correct! The snippet `map(str, [1, 2, 3])` demonstrates map().",
-            "D": "Incorrect. map() has no exclusive relation to multithreading."
+            "A": "Incorrect. map() returns a lazy iterator, not a concrete list (wrap in list() to get this).",
+            "B": "Correct! map() returns a map object that applies str to each element lazily.",
+            "C": "Incorrect. It does not return a tuple.",
+            "D": "Incorrect. Calling str on each integer is valid."
         }
     },
     {
         "id": 9,
-        "question": "Which of the following best describes the use of filter() in Python?",
+        "question": "What does filter(None, [0, 1, 2]) return in Python 3?",
         "options": {
-            "A": "It is used to define a class related to filter().",
-            "B": "It is an invalid syntax in modern Python for filter().",
-            "C": "It allows for concise implementation or handling of filter() concepts.",
-            "D": "It is used exclusively in multithreading for filter()."
+            "A": "[1, 2]",
+            "B": "A filter object that yields 1 and 2.",
+            "C": "[0, 1, 2]",
+            "D": "None"
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. filter() is not generally used to define classes.",
-            "B": "Incorrect. filter() is a valid and commonly used feature in Python.",
-            "C": "Correct! filter() (e.g. filter(None, [0, 1, 2])) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. filter() has no exclusive relation to multithreading."
+            "A": "Incorrect. filter() returns a lazy iterator, not a list.",
+            "B": "Correct! Passing None filters out falsy values (0), yielding only truthy 1 and 2.",
+            "C": "Incorrect. The falsy element 0 is removed.",
+            "D": "Incorrect. It returns a filter object, not None."
         }
     },
     {
         "id": 10,
-        "question": "What does the code snippet `functools.reduce(...)` represent in the context of reduce()?",
+        "question": "Which function from functools applies a function cumulatively to a sequence?",
         "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use reduce().",
-            "D": "An infinite loop."
+            "A": "functools.accumulate",
+            "B": "functools.reduce",
+            "C": "functools.apply",
+            "D": "functools.fold"
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. reduce() is not generally used to define classes.",
-            "B": "Incorrect. reduce() is a valid and commonly used feature in Python.",
-            "C": "Correct! `functools.reduce(...)` is a typical example of reduce().",
-            "D": "Incorrect. reduce() has no exclusive relation to multithreading."
+            "A": "Incorrect. accumulate is in itertools and yields intermediate sums, not a single reduction.",
+            "B": "Correct! functools.reduce applies a two-argument function cumulatively, reducing the sequence to one value.",
+            "C": "Incorrect. There is no functools.apply function.",
+            "D": "Incorrect. 'fold' is not a Python standard-library function name."
         }
     },
     {
         "id": 11,
-        "question": "In Python, Generators is most closely associated with which functionality?",
+        "question": "What makes a function a generator in Python?",
         "options": {
-            "A": "It is used to define a class related to Generators.",
-            "B": "It is an invalid syntax in modern Python for Generators.",
-            "C": "Working with Generators and related concepts.",
-            "D": "It is used exclusively in multithreading for Generators."
+            "A": "It contains a yield statement.",
+            "B": "It contains a return statement.",
+            "C": "It is decorated with @generator.",
+            "D": "It uses the pass statement."
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. Generators is not generally used to define classes.",
-            "B": "Incorrect. Generators is a valid and commonly used feature in Python.",
-            "C": "Correct! That is the main purpose of Generators.",
-            "D": "Incorrect. Generators has no exclusive relation to multithreading."
+            "A": "Correct! The presence of yield makes a function return a generator object that yields values lazily.",
+            "B": "Incorrect. A plain return produces a normal function returning one value.",
+            "C": "Incorrect. There is no @generator decorator; yield is what matters.",
+            "D": "Incorrect. pass is a null operation and does not create a generator."
         }
     },
     {
         "id": 12,
-        "question": "When you see `@decorator`, you are looking at an example of what Python feature?",
+        "question": "What is a decorator in Python?",
         "options": {
-            "A": "A standard while loop.",
-            "B": "A try-except block.",
-            "C": "Decorators.",
-            "D": "A metaclass."
+            "A": "A function that wraps another to extend its behavior.",
+            "B": "A type of loop.",
+            "C": "A class attribute.",
+            "D": "A module import statement."
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. Decorators is not generally used to define classes.",
-            "B": "Incorrect. Decorators is a valid and commonly used feature in Python.",
-            "C": "Correct! The snippet `@decorator` demonstrates Decorators.",
-            "D": "Incorrect. Decorators has no exclusive relation to multithreading."
+            "A": "Correct! A decorator takes a function and returns a wrapped version, adding behavior without changing the original.",
+            "B": "Incorrect. Decorators are functions/classes, not loops.",
+            "C": "Incorrect. Decorators are applied with @ syntax above a function or class.",
+            "D": "Incorrect. Imports use the import keyword, unrelated to decorators."
         }
     },
     {
         "id": 13,
-        "question": "Which of the following best describes the use of Context managers in Python?",
+        "question": "What does `with open('f.txt') as f:` guarantee?",
         "options": {
-            "A": "It is used to define a class related to Context managers.",
-            "B": "It is an invalid syntax in modern Python for Context managers.",
-            "C": "It allows for concise implementation or handling of Context managers concepts.",
-            "D": "It is used exclusively in multithreading for Context managers."
+            "A": "The file is automatically closed when the block exits.",
+            "B": "The file is opened in binary mode.",
+            "C": "The file cannot be modified.",
+            "D": "The file is deleted after use."
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. Context managers is not generally used to define classes.",
-            "B": "Incorrect. Context managers is a valid and commonly used feature in Python.",
-            "C": "Correct! Context managers (e.g. with open(...) as f:) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. Context managers has no exclusive relation to multithreading."
+            "A": "Correct! The context manager ensures the file is closed even if an exception occurs inside the block.",
+            "B": "Incorrect. Binary mode requires 'rb'; with alone defaults to text read mode.",
+            "C": "Incorrect. The file can still be read (and written if opened with a write mode).",
+            "D": "Incorrect. Files are not deleted by context managers."
         }
     },
     {
         "id": 14,
-        "question": "What does the code snippet `except ValueError:` represent in the context of try/except?",
+        "question": "In a try/except/finally block, when is the finally clause executed?",
         "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use try/except.",
-            "D": "An infinite loop."
+            "A": "Only when an exception occurs.",
+            "B": "Only when no exception occurs.",
+            "C": "Always, whether an exception occurs or not.",
+            "D": "Only if the except clause is present."
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. try/except is not generally used to define classes.",
-            "B": "Incorrect. try/except is a valid and commonly used feature in Python.",
-            "C": "Correct! `except ValueError:` is a typical example of try/except.",
-            "D": "Incorrect. try/except has no exclusive relation to multithreading."
+            "A": "Incorrect. finally runs regardless of whether an exception was raised.",
+            "B": "Incorrect. finally also runs when an exception does occur.",
+            "C": "Correct! finally always executes after try/except, making it ideal for cleanup like closing files.",
+            "D": "Incorrect. finally can be used with try alone; except is optional when finally is present."
         }
     },
     {
         "id": 15,
-        "question": "In Python, finally block is most closely associated with which functionality?",
+        "question": "How do you define a custom exception class?",
         "options": {
-            "A": "It is used to define a class related to finally block.",
-            "B": "It is an invalid syntax in modern Python for finally block.",
-            "C": "Working with finally block and related concepts.",
-            "D": "It is used exclusively in multithreading for finally block."
+            "A": "class MyError(Exception): pass",
+            "B": "def MyError(): pass",
+            "C": "raise MyError",
+            "D": "MyError = Exception"
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. finally block is not generally used to define classes.",
-            "B": "Incorrect. finally block is a valid and commonly used feature in Python.",
-            "C": "Correct! That is the main purpose of finally block.",
-            "D": "Incorrect. finally block has no exclusive relation to multithreading."
+            "A": "Correct! A custom exception is a class that inherits from the built-in Exception class.",
+            "B": "Incorrect. A function is not an exception class.",
+            "C": "Incorrect. raise needs a class/instance that is defined first.",
+            "D": "Incorrect. This aliases the name rather than creating a subclass."
         }
     },
     {
         "id": 16,
-        "question": "When you see `class MyError(Exception):`, you are looking at an example of what Python feature?",
+        "question": "What is the purpose of __init__ in a class?",
         "options": {
-            "A": "A standard while loop.",
-            "B": "A try-except block.",
-            "C": "Custom exceptions.",
-            "D": "A metaclass."
+            "A": "To initialize instance attributes when an object is created.",
+            "B": "To delete the object.",
+            "C": "To import modules.",
+            "D": "To define a static method."
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. Custom exceptions is not generally used to define classes.",
-            "B": "Incorrect. Custom exceptions is a valid and commonly used feature in Python.",
-            "C": "Correct! The snippet `class MyError(Exception):` demonstrates Custom exceptions.",
-            "D": "Incorrect. Custom exceptions has no exclusive relation to multithreading."
+            "A": "Correct! __init__ runs automatically on instantiation and sets up the instance's initial state.",
+            "B": "Incorrect. __del__ (or the garbage collector) handles destruction.",
+            "C": "Incorrect. Imports use the import statement.",
+            "D": "Incorrect. Static methods use @staticmethod."
         }
     },
     {
         "id": 17,
-        "question": "Which of the following best describes the use of __init__ in Python?",
+        "question": "What does @classmethod pass as the first argument to the method?",
         "options": {
-            "A": "It is used to define a class related to __init__.",
-            "B": "It is an invalid syntax in modern Python for __init__.",
-            "C": "It allows for concise implementation or handling of __init__ concepts.",
-            "D": "It is used exclusively in multithreading for __init__."
+            "A": "The instance (self).",
+            "B": "The class itself (cls).",
+            "C": "Nothing.",
+            "D": "The parent class only."
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. __init__ is not generally used to define classes.",
-            "B": "Incorrect. __init__ is a valid and commonly used feature in Python.",
-            "C": "Correct! __init__ (e.g. def __init__(self):) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. __init__ has no exclusive relation to multithreading."
+            "A": "Incorrect. The instance is passed to normal methods as self.",
+            "B": "Correct! A classmethod receives the class as its first parameter, conventionally named cls.",
+            "C": "Incorrect. A classmethod always receives cls.",
+            "D": "Incorrect. It receives the class on which it is called, not necessarily a parent."
         }
     },
     {
         "id": 18,
-        "question": "What does the code snippet `@classmethod` represent in the context of Class methods?",
+        "question": "What does @staticmethod do to a method?",
         "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use Class methods.",
-            "D": "An infinite loop."
+            "A": "Passes cls automatically.",
+            "B": "Passes self automatically.",
+            "C": "Makes the method independent of instance/class state.",
+            "D": "Makes the method private."
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. Class methods is not generally used to define classes.",
-            "B": "Incorrect. Class methods is a valid and commonly used feature in Python.",
-            "C": "Correct! `@classmethod` is a typical example of Class methods.",
-            "D": "Incorrect. Class methods has no exclusive relation to multithreading."
+            "A": "Incorrect. That is @classmethod behavior.",
+            "B": "Incorrect. That is the default for instance methods.",
+            "C": "Correct! A staticmethod receives neither self nor cls automatically; it behaves like a plain function inside the class.",
+            "D": "Incorrect. Static methods are not private."
         }
     },
     {
         "id": 19,
-        "question": "In Python, Static methods is most closely associated with which functionality?",
+        "question": "Given class Dog(Animal), what does Dog inherit from Animal?",
         "options": {
-            "A": "It is used to define a class related to Static methods.",
-            "B": "It is an invalid syntax in modern Python for Static methods.",
-            "C": "Working with Static methods and related concepts.",
-            "D": "It is used exclusively in multithreading for Static methods."
+            "A": "Only its __init__ method.",
+            "B": "Its attributes and methods.",
+            "C": "Nothing automatically.",
+            "D": "Only its class variables."
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. Static methods is not generally used to define classes.",
-            "B": "Incorrect. Static methods is a valid and commonly used feature in Python.",
-            "C": "Correct! That is the main purpose of Static methods.",
-            "D": "Incorrect. Static methods has no exclusive relation to multithreading."
+            "A": "Incorrect. Inheritance includes more than just __init__.",
+            "B": "Correct! A subclass inherits all attributes and methods of the parent, and can override them.",
+            "C": "Incorrect. Python automatically inherits parent members.",
+            "D": "Incorrect. It inherits methods and instance-level behavior too."
         }
     },
     {
         "id": 20,
-        "question": "When you see `class Child(Parent):`, you are looking at an example of what Python feature?",
+        "question": "How do you call a parent class's __init__ from a child class?",
         "options": {
-            "A": "A standard while loop.",
-            "B": "A try-except block.",
-            "C": "Inheritance.",
-            "D": "A metaclass."
+            "A": "super().__init__()",
+            "B": "parent.__init__()",
+            "C": "self.__init__()",
+            "D": "init(parent)"
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. Inheritance is not generally used to define classes.",
-            "B": "Incorrect. Inheritance is a valid and commonly used feature in Python.",
-            "C": "Correct! The snippet `class Child(Parent):` demonstrates Inheritance.",
-            "D": "Incorrect. Inheritance has no exclusive relation to multithreading."
+            "A": "Correct! super() returns a proxy that delegates the call to the parent class's initializer.",
+            "B": "Incorrect. 'parent' is not an automatic reference.",
+            "C": "Incorrect. self.__init__() would call the child's own initializer, causing recursion.",
+            "D": "Incorrect. This is not valid Python syntax."
         }
     },
     {
         "id": 21,
-        "question": "Which of the following best describes the use of super() in Python?",
+        "question": "What is the difference between __str__ and __repr__?",
         "options": {
-            "A": "It is used to define a class related to super().",
-            "B": "It is an invalid syntax in modern Python for super().",
-            "C": "It allows for concise implementation or handling of super() concepts.",
-            "D": "It is used exclusively in multithreading for super()."
+            "A": "__str__ is for debugging; __repr__ is for users.",
+            "B": "__str__ aims for readability; __repr__ aims for an unambiguous representation.",
+            "C": "They are identical.",
+            "D": "__repr__ cannot be called directly."
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. super() is not generally used to define classes.",
-            "B": "Incorrect. super() is a valid and commonly used feature in Python.",
-            "C": "Correct! super() (e.g. super().__init__()) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. super() has no exclusive relation to multithreading."
+            "A": "Incorrect. The roles are reversed.",
+            "B": "Correct! __str__ gives a friendly string (used by print/str), while __repr__ gives a precise, often evaluable representation.",
+            "C": "Incorrect. They serve different purposes, though str falls back to repr.",
+            "D": "Incorrect. You can call repr(obj) directly."
         }
     },
     {
         "id": 22,
-        "question": "What does the code snippet `def __str__(self):` represent in the context of __str__ method?",
+        "question": "Which special method lets len() report the size of your custom object?",
         "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use __str__ method.",
-            "D": "An infinite loop."
+            "A": "__size__",
+            "B": "__len__",
+            "C": "__length__",
+            "D": "__count__"
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. __str__ method is not generally used to define classes.",
-            "B": "Incorrect. __str__ method is a valid and commonly used feature in Python.",
-            "C": "Correct! `def __str__(self):` is a typical example of __str__ method.",
-            "D": "Incorrect. __str__ method has no exclusive relation to multithreading."
+            "A": "Incorrect. The correct dunder method is __len__.",
+            "B": "Correct! Implementing __len__ makes the built-in len() work on your object.",
+            "C": "Incorrect. There is no __length__ special method.",
+            "D": "Incorrect. __count__ is not a standard protocol method."
         }
     },
     {
         "id": 23,
-        "question": "In Python, __len__ method is most closely associated with which functionality?",
+        "question": "What does the @property decorator do?",
         "options": {
-            "A": "It is used to define a class related to __len__ method.",
-            "B": "It is an invalid syntax in modern Python for __len__ method.",
-            "C": "Working with __len__ method and related concepts.",
-            "D": "It is used exclusively in multithreading for __len__ method."
+            "A": "Makes a method private.",
+            "B": "Lets a method be accessed like an attribute.",
+            "C": "Marks a method as static.",
+            "D": "Makes a method return a class."
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. __len__ method is not generally used to define classes.",
-            "B": "Incorrect. __len__ method is a valid and commonly used feature in Python.",
-            "C": "Correct! That is the main purpose of __len__ method.",
-            "D": "Incorrect. __len__ method has no exclusive relation to multithreading."
+            "A": "Incorrect. Privacy in Python is by convention, not enforced by @property.",
+            "B": "Correct! @property turns a method into a computed attribute, accessed without parentheses.",
+            "C": "Incorrect. That is @staticmethod.",
+            "D": "Incorrect. It returns the computed value of the getter."
         }
     },
     {
         "id": 24,
-        "question": "When you see `@property`, you are looking at an example of what Python feature?",
+        "question": "What two methods make an object a valid iterator?",
         "options": {
-            "A": "A standard while loop.",
-            "B": "A try-except block.",
-            "C": "@property.",
-            "D": "A metaclass."
+            "A": "__iter__ and __next__",
+            "B": "__init__ and __next__",
+            "C": "__iter__ and __len__",
+            "D": "__get__ and __set__"
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. @property is not generally used to define classes.",
-            "B": "Incorrect. @property is a valid and commonly used feature in Python.",
-            "C": "Correct! The snippet `@property` demonstrates @property.",
-            "D": "Incorrect. @property has no exclusive relation to multithreading."
+            "A": "Correct! __iter__ returns the iterator (usually self) and __next__ returns the next item or raises StopIteration.",
+            "B": "Incorrect. __init__ is for initialization, not iteration.",
+            "C": "Incorrect. __len__ is for size, not iteration.",
+            "D": "Incorrect. __get__/__set__ define descriptors, not iterators."
         }
     },
     {
         "id": 25,
-        "question": "Which of the following best describes the use of Iterators in Python?",
+        "question": "What does the 'LEGB' rule describe?",
         "options": {
-            "A": "It is used to define a class related to Iterators.",
-            "B": "It is an invalid syntax in modern Python for Iterators.",
-            "C": "It allows for concise implementation or handling of Iterators concepts.",
-            "D": "It is used exclusively in multithreading for Iterators."
+            "A": "Python's variable name resolution order.",
+            "B": "The order of arithmetic operations.",
+            "C": "The class inheritance order.",
+            "D": "The module import order."
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. Iterators is not generally used to define classes.",
-            "B": "Incorrect. Iterators is a valid and commonly used feature in Python.",
-            "C": "Correct! Iterators (e.g. __iter__ and __next__) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. Iterators has no exclusive relation to multithreading."
+            "A": "Correct! LEGB stands for Local, Enclosing, Global, Built-in \u2014 the order Python searches for a name.",
+            "B": "Incorrect. That is operator precedence.",
+            "C": "Incorrect. That is the MRO.",
+            "D": "Incorrect. That is import resolution."
         }
     },
     {
         "id": 26,
-        "question": "What does the code snippet `LEGB rule` represent in the context of Variable scope?",
+        "question": "What does the global keyword do inside a function?",
         "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use Variable scope.",
-            "D": "An infinite loop."
+            "A": "Declares that the function will read/modify a module-level variable.",
+            "B": "Creates a new local variable.",
+            "C": "Imports a global module.",
+            "D": "Makes a variable constant."
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. Variable scope is not generally used to define classes.",
-            "B": "Incorrect. Variable scope is a valid and commonly used feature in Python.",
-            "C": "Correct! `LEGB rule` is a typical example of Variable scope.",
-            "D": "Incorrect. Variable scope has no exclusive relation to multithreading."
+            "A": "Correct! global lets a function access and reassign a variable defined at module scope.",
+            "B": "Incorrect. Without global, assignment creates a local variable.",
+            "C": "Incorrect. Modules are imported with import.",
+            "D": "Incorrect. It does not make variables read-only."
         }
     },
     {
         "id": 27,
-        "question": "In Python, global keyword is most closely associated with which functionality?",
+        "question": "What does the nonlocal keyword do in a nested function?",
         "options": {
-            "A": "It is used to define a class related to global keyword.",
-            "B": "It is an invalid syntax in modern Python for global keyword.",
-            "C": "Working with global keyword and related concepts.",
-            "D": "It is used exclusively in multithreading for global keyword."
+            "A": "Accesses a variable in the enclosing (but not global) scope.",
+            "B": "Accesses a global variable.",
+            "C": "Creates a variable in the global scope.",
+            "D": "Makes a variable immutable."
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. global keyword is not generally used to define classes.",
-            "B": "Incorrect. global keyword is a valid and commonly used feature in Python.",
-            "C": "Correct! That is the main purpose of global keyword.",
-            "D": "Incorrect. global keyword has no exclusive relation to multithreading."
+            "A": "Correct! nonlocal lets an inner function modify a variable defined in its enclosing function.",
+            "B": "Incorrect. Global variables are handled by the global keyword.",
+            "C": "Incorrect. nonlocal does not create globals.",
+            "D": "Incorrect. It does not affect mutability."
         }
     },
     {
         "id": 28,
-        "question": "When you see `nonlocal x`, you are looking at an example of what Python feature?",
+        "question": "What is the correct way to import only the sqrt function from math?",
         "options": {
-            "A": "A standard while loop.",
-            "B": "A try-except block.",
-            "C": "nonlocal keyword.",
-            "D": "A metaclass."
+            "A": "from math import sqrt",
+            "B": "import math.sqrt",
+            "C": "import sqrt from math",
+            "D": "from import math sqrt"
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. nonlocal keyword is not generally used to define classes.",
-            "B": "Incorrect. nonlocal keyword is a valid and commonly used feature in Python.",
-            "C": "Correct! The snippet `nonlocal x` demonstrates nonlocal keyword.",
-            "D": "Incorrect. nonlocal keyword has no exclusive relation to multithreading."
+            "A": "Correct! 'from math import sqrt' imports just sqrt so you can call sqrt() directly.",
+            "B": "Incorrect. import requires a module, not a dotted attribute.",
+            "C": "Incorrect. The order is reversed; the correct form is 'from ... import ...'.",
+            "D": "Incorrect. This is not valid import syntax."
         }
     },
     {
         "id": 29,
-        "question": "Which of the following best describes the use of Modules in Python?",
+        "question": "What is the purpose of `if __name__ == '__main__':`?",
         "options": {
-            "A": "It is used to define a class related to Modules.",
-            "B": "It is an invalid syntax in modern Python for Modules.",
-            "C": "It allows for concise implementation or handling of Modules concepts.",
-            "D": "It is used exclusively in multithreading for Modules."
+            "A": "To run code only when the file is executed directly, not imported.",
+            "B": "To check the file's name.",
+            "C": "To import the main module.",
+            "D": "To define the main function."
         },
-        "correct": "C",
+        "correct": "A",
         "explanations": {
-            "A": "Incorrect. Modules is not generally used to define classes.",
-            "B": "Incorrect. Modules is a valid and commonly used feature in Python.",
-            "C": "Correct! Modules (e.g. import math) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. Modules has no exclusive relation to multithreading."
+            "A": "Correct! When run directly, __name__ is '__main__'; when imported, it is the module's name, so the guarded code does not run.",
+            "B": "Incorrect. It compares the module's runtime name against '__main__'.",
+            "C": "Incorrect. It does not perform an import.",
+            "D": "Incorrect. It is a conditional guard, not a function definition."
         }
     },
     {
         "id": 30,
-        "question": "What does the code snippet `if __name__ == \"__main__\":` represent in the context of if __name__ == __main__?",
+        "question": "What is the key difference between a shallow copy and a deep copy?",
         "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use if __name__ == __main__.",
-            "D": "An infinite loop."
+            "A": "A shallow copy duplicates nested objects; a deep copy shares them.",
+            "B": "A shallow copy shares nested objects; a deep copy duplicates everything recursively.",
+            "C": "They are the same thing.",
+            "D": "A deep copy is always slower but shares references."
         },
-        "correct": "C",
+        "correct": "B",
         "explanations": {
-            "A": "Incorrect. if __name__ == __main__ is not generally used to define classes.",
-            "B": "Incorrect. if __name__ == __main__ is a valid and commonly used feature in Python.",
-            "C": "Correct! `if __name__ == \"__main__\":` is a typical example of if __name__ == __main__.",
-            "D": "Incorrect. if __name__ == __main__ has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 31,
-        "question": "In Python, Deep copy is most closely associated with which functionality?",
-        "options": {
-            "A": "It is used to define a class related to Deep copy.",
-            "B": "It is an invalid syntax in modern Python for Deep copy.",
-            "C": "Working with Deep copy and related concepts.",
-            "D": "It is used exclusively in multithreading for Deep copy."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. Deep copy is not generally used to define classes.",
-            "B": "Incorrect. Deep copy is a valid and commonly used feature in Python.",
-            "C": "Correct! That is the main purpose of Deep copy.",
-            "D": "Incorrect. Deep copy has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 32,
-        "question": "When you see `copy.copy()`, you are looking at an example of what Python feature?",
-        "options": {
-            "A": "A standard while loop.",
-            "B": "A try-except block.",
-            "C": "Shallow copy.",
-            "D": "A metaclass."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. Shallow copy is not generally used to define classes.",
-            "B": "Incorrect. Shallow copy is a valid and commonly used feature in Python.",
-            "C": "Correct! The snippet `copy.copy()` demonstrates Shallow copy.",
-            "D": "Incorrect. Shallow copy has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 33,
-        "question": "Which of the following best describes the use of Mutable types in Python?",
-        "options": {
-            "A": "It is used to define a class related to Mutable types.",
-            "B": "It is an invalid syntax in modern Python for Mutable types.",
-            "C": "It allows for concise implementation or handling of Mutable types concepts.",
-            "D": "It is used exclusively in multithreading for Mutable types."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. Mutable types is not generally used to define classes.",
-            "B": "Incorrect. Mutable types is a valid and commonly used feature in Python.",
-            "C": "Correct! Mutable types (e.g. list, dict, set) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. Mutable types has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 34,
-        "question": "What does the code snippet `tuple, str, int` represent in the context of Immutable types?",
-        "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use Immutable types.",
-            "D": "An infinite loop."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. Immutable types is not generally used to define classes.",
-            "B": "Incorrect. Immutable types is a valid and commonly used feature in Python.",
-            "C": "Correct! `tuple, str, int` is a typical example of Immutable types.",
-            "D": "Incorrect. Immutable types has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 35,
-        "question": "In Python, f-strings is most closely associated with which functionality?",
-        "options": {
-            "A": "It is used to define a class related to f-strings.",
-            "B": "It is an invalid syntax in modern Python for f-strings.",
-            "C": "Working with f-strings and related concepts.",
-            "D": "It is used exclusively in multithreading for f-strings."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. f-strings is not generally used to define classes.",
-            "B": "Incorrect. f-strings is a valid and commonly used feature in Python.",
-            "C": "Correct! That is the main purpose of f-strings.",
-            "D": "Incorrect. f-strings has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 36,
-        "question": "When you see `f.read()`, you are looking at an example of what Python feature?",
-        "options": {
-            "A": "A standard while loop.",
-            "B": "A try-except block.",
-            "C": "File I/O.",
-            "D": "A metaclass."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. File I/O is not generally used to define classes.",
-            "B": "Incorrect. File I/O is a valid and commonly used feature in Python.",
-            "C": "Correct! The snippet `f.read()` demonstrates File I/O.",
-            "D": "Incorrect. File I/O has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 37,
-        "question": "Which of the following best describes the use of enumerate() in Python?",
-        "options": {
-            "A": "It is used to define a class related to enumerate().",
-            "B": "It is an invalid syntax in modern Python for enumerate().",
-            "C": "It allows for concise implementation or handling of enumerate() concepts.",
-            "D": "It is used exclusively in multithreading for enumerate()."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. enumerate() is not generally used to define classes.",
-            "B": "Incorrect. enumerate() is a valid and commonly used feature in Python.",
-            "C": "Correct! enumerate() (e.g. for i, v in enumerate(lst):) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. enumerate() has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 38,
-        "question": "What does the code snippet `zip(list1, list2)` represent in the context of zip()?",
-        "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use zip().",
-            "D": "An infinite loop."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. zip() is not generally used to define classes.",
-            "B": "Incorrect. zip() is a valid and commonly used feature in Python.",
-            "C": "Correct! `zip(list1, list2)` is a typical example of zip().",
-            "D": "Incorrect. zip() has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 39,
-        "question": "In Python, any() is most closely associated with which functionality?",
-        "options": {
-            "A": "It is used to define a class related to any().",
-            "B": "It is an invalid syntax in modern Python for any().",
-            "C": "Working with any() and related concepts.",
-            "D": "It is used exclusively in multithreading for any()."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. any() is not generally used to define classes.",
-            "B": "Incorrect. any() is a valid and commonly used feature in Python.",
-            "C": "Correct! That is the main purpose of any().",
-            "D": "Incorrect. any() has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 40,
-        "question": "When you see `all([True, True])`, you are looking at an example of what Python feature?",
-        "options": {
-            "A": "A standard while loop.",
-            "B": "A try-except block.",
-            "C": "all().",
-            "D": "A metaclass."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. all() is not generally used to define classes.",
-            "B": "Incorrect. all() is a valid and commonly used feature in Python.",
-            "C": "Correct! The snippet `all([True, True])` demonstrates all().",
-            "D": "Incorrect. all() has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 41,
-        "question": "Which of the following best describes the use of Sorting keys in Python?",
-        "options": {
-            "A": "It is used to define a class related to Sorting keys.",
-            "B": "It is an invalid syntax in modern Python for Sorting keys.",
-            "C": "It allows for concise implementation or handling of Sorting keys concepts.",
-            "D": "It is used exclusively in multithreading for Sorting keys."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. Sorting keys is not generally used to define classes.",
-            "B": "Incorrect. Sorting keys is a valid and commonly used feature in Python.",
-            "C": "Correct! Sorting keys (e.g. sorted(lst, key=...)) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. Sorting keys has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 42,
-        "question": "What does the code snippet `collections.Counter()` represent in the context of Counter?",
-        "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use Counter.",
-            "D": "An infinite loop."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. Counter is not generally used to define classes.",
-            "B": "Incorrect. Counter is a valid and commonly used feature in Python.",
-            "C": "Correct! `collections.Counter()` is a typical example of Counter.",
-            "D": "Incorrect. Counter has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 43,
-        "question": "In Python, defaultdict is most closely associated with which functionality?",
-        "options": {
-            "A": "It is used to define a class related to defaultdict.",
-            "B": "It is an invalid syntax in modern Python for defaultdict.",
-            "C": "Working with defaultdict and related concepts.",
-            "D": "It is used exclusively in multithreading for defaultdict."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. defaultdict is not generally used to define classes.",
-            "B": "Incorrect. defaultdict is a valid and commonly used feature in Python.",
-            "C": "Correct! That is the main purpose of defaultdict.",
-            "D": "Incorrect. defaultdict has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 44,
-        "question": "When you see `collections.namedtuple()`, you are looking at an example of what Python feature?",
-        "options": {
-            "A": "A standard while loop.",
-            "B": "A try-except block.",
-            "C": "namedtuple.",
-            "D": "A metaclass."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. namedtuple is not generally used to define classes.",
-            "B": "Incorrect. namedtuple is a valid and commonly used feature in Python.",
-            "C": "Correct! The snippet `collections.namedtuple()` demonstrates namedtuple.",
-            "D": "Incorrect. namedtuple has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 45,
-        "question": "Which of the following best describes the use of combinations in Python?",
-        "options": {
-            "A": "It is used to define a class related to combinations.",
-            "B": "It is an invalid syntax in modern Python for combinations.",
-            "C": "It allows for concise implementation or handling of combinations concepts.",
-            "D": "It is used exclusively in multithreading for combinations."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. combinations is not generally used to define classes.",
-            "B": "Incorrect. combinations is a valid and commonly used feature in Python.",
-            "C": "Correct! combinations (e.g. itertools.combinations()) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. combinations has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 46,
-        "question": "What does the code snippet `datetime.now()` represent in the context of datetime module?",
-        "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use datetime module.",
-            "D": "An infinite loop."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. datetime module is not generally used to define classes.",
-            "B": "Incorrect. datetime module is a valid and commonly used feature in Python.",
-            "C": "Correct! `datetime.now()` is a typical example of datetime module.",
-            "D": "Incorrect. datetime module has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 47,
-        "question": "In Python, Type hinting is most closely associated with which functionality?",
-        "options": {
-            "A": "It is used to define a class related to Type hinting.",
-            "B": "It is an invalid syntax in modern Python for Type hinting.",
-            "C": "Working with Type hinting and related concepts.",
-            "D": "It is used exclusively in multithreading for Type hinting."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. Type hinting is not generally used to define classes.",
-            "B": "Incorrect. Type hinting is a valid and commonly used feature in Python.",
-            "C": "Correct! That is the main purpose of Type hinting.",
-            "D": "Incorrect. Type hinting has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 48,
-        "question": "When you see `assert x > 0`, you are looking at an example of what Python feature?",
-        "options": {
-            "A": "A standard while loop.",
-            "B": "A try-except block.",
-            "C": "Assertions.",
-            "D": "A metaclass."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. Assertions is not generally used to define classes.",
-            "B": "Incorrect. Assertions is a valid and commonly used feature in Python.",
-            "C": "Correct! The snippet `assert x > 0` demonstrates Assertions.",
-            "D": "Incorrect. Assertions has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 49,
-        "question": "Which of the following best describes the use of Walrus operator in Python?",
-        "options": {
-            "A": "It is used to define a class related to Walrus operator.",
-            "B": "It is an invalid syntax in modern Python for Walrus operator.",
-            "C": "It allows for concise implementation or handling of Walrus operator concepts.",
-            "D": "It is used exclusively in multithreading for Walrus operator."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. Walrus operator is not generally used to define classes.",
-            "B": "Incorrect. Walrus operator is a valid and commonly used feature in Python.",
-            "C": "Correct! Walrus operator (e.g. if (n := len(a)) > 10:) provides a clean and concise way to handle this concept in Python.",
-            "D": "Incorrect. Walrus operator has no exclusive relation to multithreading."
-        }
-    },
-    {
-        "id": 50,
-        "question": "What does the code snippet `is compares identity, == compares value` represent in the context of is vs ==?",
-        "options": {
-            "A": "A syntax error.",
-            "B": "A deprecated feature.",
-            "C": "A standard way to use is vs ==.",
-            "D": "An infinite loop."
-        },
-        "correct": "C",
-        "explanations": {
-            "A": "Incorrect. is vs == is not generally used to define classes.",
-            "B": "Incorrect. is vs == is a valid and commonly used feature in Python.",
-            "C": "Correct! `is compares identity, == compares value` is a typical example of is vs ==.",
-            "D": "Incorrect. is vs == has no exclusive relation to multithreading."
+            "A": "Incorrect. The roles are reversed.",
+            "B": "Correct! A shallow copy (list[:] or .copy()) copies the top level but nested objects are shared, while copy.deepcopy() clones every nested level.\n\n<pre>\n# Shallow vs Deep\norig = [[1, 2], [3, 4]]\nshallow = orig[:]      # new outer list, same inner lists\ndeep = copy.deepcopy(orig)  # fully independent\nshallow[0].append(9)   # changes orig too\ndeep[0].append(9)      # does NOT change orig\n</pre>",
+            "C": "Incorrect. They differ in how nested objects are handled.",
+            "D": "Incorrect. Deep copy creates independent copies, not shared references."
         }
     },
     {

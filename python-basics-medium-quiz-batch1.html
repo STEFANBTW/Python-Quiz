@@ -965,682 +965,682 @@
     },
     {
         "id": 11,
-        "question": "Which of the following best describes a key feature of Polymorphism in Python?",
+        "question": "What is the output of `type(5/2)` in Python 3?",
         "options": {
-            "A": "It provides a powerful way to work with Polymorphism.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "<class 'int'>",
+            "B": "<class 'float'>",
+            "C": "<class 'Fraction'>",
+            "D": "<class 'str'>"
         },
-        "correct": "A",
+        "correct": "B",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Incorrect. True division (/) always returns a float, even when the result is a whole number.",
+            "B": "Correct! In Python 3, the / operator performs true division and returns a float (2.5).",
+            "C": "Incorrect. Fraction is from the fractions module, not the default return type.",
+            "D": "Incorrect. Numeric division never returns a string."
         }
     },
     {
         "id": 12,
-        "question": "Which of the following best describes a key feature of OOP in Python?",
+        "question": "What does `'a' + 'b' + 'c'` evaluate to?",
         "options": {
-            "A": "It provides a powerful way to work with OOP.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "'abc'",
+            "B": "'a b c'",
+            "C": "['a','b','c']",
+            "D": "'cba'"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! The + operator concatenates strings in order with no separator.",
+            "B": "Incorrect. No spaces are inserted automatically.",
+            "C": "Incorrect. This produces a list, not a string.",
+            "D": "Incorrect. Concatenation preserves left-to-right order."
         }
     },
     {
         "id": 13,
-        "question": "Which of the following best describes a key feature of Encapsulation in Python?",
+        "question": "What does `sorted(['apple', 'Banana', 'cherry'])` return by default?",
         "options": {
-            "A": "It provides a powerful way to work with Encapsulation.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "['Banana', 'apple', 'cherry']",
+            "B": "['apple', 'Banana', 'cherry']",
+            "C": "['apple', 'cherry', 'Banana']",
+            "D": "['cherry', 'Banana', 'apple']"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! Default sorting is case-sensitive by Unicode code point: uppercase letters sort before lowercase.",
+            "B": "Incorrect. 'Banana' (uppercase B) sorts before lowercase letters.",
+            "C": "Incorrect. 'cherry' vs 'Banana' \u2014 uppercase B comes first.",
+            "D": "Incorrect. This is not the default ASCII/Unicode order."
         }
     },
     {
         "id": 14,
-        "question": "Which of the following best describes a key feature of Generators in Python?",
+        "question": "What does `[x for x in range(10) if x % 2 == 0]` produce?",
         "options": {
-            "A": "It provides a powerful way to work with Generators.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "[0, 2, 4, 6, 8]",
+            "B": "[1, 3, 5, 7, 9]",
+            "C": "[2, 4, 6, 8, 10]",
+            "D": "[0, 2, 4, 6, 8, 10]"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! It filters even numbers from range(10), which yields 0 through 9.",
+            "B": "Incorrect. This would be the odd numbers.",
+            "C": "Incorrect. range(10) does not include 10.",
+            "D": "Incorrect. 10 is not in range(10)."
         }
     },
     {
         "id": 15,
-        "question": "Which of the following best describes a key feature of Sets in Python?",
+        "question": "What is the result of `[1, 2] + [3, 4]`?",
         "options": {
-            "A": "It provides a powerful way to work with Sets.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "[1, 2, 3, 4]",
+            "B": "[4, 6]",
+            "C": "[[1, 2], [3, 4]]",
+            "D": "TypeError"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! The + operator concatenates two lists into one.",
+            "B": "Incorrect. List addition does not add elements numerically.",
+            "C": "Incorrect. It flattens, not nests.",
+            "D": "Incorrect. List concatenation is valid."
         }
     },
     {
         "id": 16,
-        "question": "Which of the following best describes a key feature of String methods in Python?",
+        "question": "How do you check whether an object is an instance of a given class?",
         "options": {
-            "A": "It provides a powerful way to work with String methods.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "type(obj) == class",
+            "B": "isinstance(obj, class)",
+            "C": "obj.is(class)",
+            "D": "class.isinstance(obj)"
         },
-        "correct": "A",
+        "correct": "B",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Incorrect. This fails for subclasses; isinstance() is more robust.",
+            "B": "Correct! isinstance(obj, cls) checks type or subclass membership.",
+            "C": "Incorrect. Objects have no is() method.",
+            "D": "Incorrect. The call order is wrong."
         }
     },
     {
         "id": 17,
-        "question": "Which of the following best describes a key feature of List comprehensions in Python?",
+        "question": "What does `d = {'a': 1}; d.get('b', 0)` return?",
         "options": {
-            "A": "It provides a powerful way to work with List comprehensions.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "KeyError",
+            "B": "0",
+            "C": "None",
+            "D": "False"
         },
-        "correct": "A",
+        "correct": "B",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Incorrect. get() with a default avoids KeyError.",
+            "B": "Correct! Since 'b' is absent, get returns the default 0.",
+            "C": "Incorrect. None is returned only when no default is given.",
+            "D": "Incorrect. It returns the supplied default, not False."
         }
     },
     {
         "id": 18,
-        "question": "Which of the following best describes a key feature of List comprehensions in Python?",
+        "question": "What is the difference between `list.sort()` and `sorted(list)`?",
         "options": {
-            "A": "It provides a powerful way to work with List comprehensions.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "sort() returns a new list; sorted() modifies in place.",
+            "B": "sort() modifies in place and returns None; sorted() returns a new list.",
+            "C": "They are identical.",
+            "D": "sorted() only works on numbers."
         },
-        "correct": "A",
+        "correct": "B",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Incorrect. The roles are reversed.",
+            "B": "Correct! sort() mutates the list in place (returns None), while sorted() returns a new sorted list.",
+            "C": "Incorrect. They differ in mutation and return value.",
+            "D": "Incorrect. sorted() works on any iterable of comparable items."
         }
     },
     {
         "id": 19,
-        "question": "Which of the following best describes a key feature of Sets in Python?",
+        "question": "What does `'hello'.index('l')` return?",
         "options": {
-            "A": "It provides a powerful way to work with Sets.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "2",
+            "B": "3",
+            "C": "0",
+            "D": "1"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! The first 'l' is at index 2 (0-based).",
+            "B": "Incorrect. That is the second 'l'.",
+            "C": "Incorrect. 'h' is at index 0.",
+            "D": "Incorrect. 'e' is at index 1."
         }
     },
     {
         "id": 20,
-        "question": "Which of the following best describes a key feature of String methods in Python?",
+        "question": "What is the purpose of the `__str__` method?",
         "options": {
-            "A": "It provides a powerful way to work with String methods.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "To define a readable string representation for str()/print().",
+            "B": "To define how the object is hashed.",
+            "C": "To define the object's memory address.",
+            "D": "To make the object iterable."
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! __str__ returns the human-readable string shown by print()/str().",
+            "B": "Incorrect. That is __hash__.",
+            "C": "Incorrect. That is id().",
+            "D": "Incorrect. That is __iter__."
         }
     },
     {
         "id": 21,
-        "question": "Which of the following best describes a key feature of Sets in Python?",
+        "question": "What is the result of `3 * 'ab'`?",
         "options": {
-            "A": "It provides a powerful way to work with Sets.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "'ababab'",
+            "B": "'abababab'",
+            "C": "TypeError",
+            "D": "'ab3'"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! Multiplying a string by an integer repeats it 3 times.",
+            "B": "Incorrect. That would be 4 repetitions.",
+            "C": "Incorrect. String repetition is valid.",
+            "D": "Incorrect. It does not append the integer."
         }
     },
     {
         "id": 22,
-        "question": "Which of the following best describes a key feature of Inheritance in Python?",
+        "question": "Which statement correctly handles a KeyError and prints the missing key?",
         "options": {
-            "A": "It provides a powerful way to work with Inheritance.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "except KeyError as e: print(e)",
+            "B": "catch KeyError as e: print(e)",
+            "C": "except KeyError: print(key)",
+            "D": "except KeyError e: print(e)"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! 'except KeyError as e' binds the exception (which contains the missing key) to e.",
+            "B": "Incorrect. Python uses except, not catch.",
+            "C": "Incorrect. 'key' may not be in scope; the exception holds it.",
+            "D": "Incorrect. The 'as' keyword is required to bind."
         }
     },
     {
         "id": 23,
-        "question": "Which of the following best describes a key feature of Polymorphism in Python?",
+        "question": "What does `(lambda x: x ** 2)(5)` evaluate to?",
         "options": {
-            "A": "It provides a powerful way to work with Polymorphism.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "10",
+            "B": "25",
+            "C": "5",
+            "D": "TypeError"
         },
-        "correct": "A",
+        "correct": "B",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Incorrect. That is 5 * 2.",
+            "B": "Correct! The lambda squares its argument: 5**2 = 25.",
+            "C": "Incorrect. The lambda transforms the value.",
+            "D": "Incorrect. This is valid syntax."
         }
     },
     {
         "id": 24,
-        "question": "Which of the following best describes a key feature of String methods in Python?",
+        "question": "What is a shallow copy of a list `a` that does NOT alias it?",
         "options": {
-            "A": "It provides a powerful way to work with String methods.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "b = a",
+            "B": "b = a[:]",
+            "C": "b = a.copy() and b = a[:]",
+            "D": "b = list(a)"
         },
-        "correct": "A",
+        "correct": "C",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Incorrect. This aliases, not copies.",
+            "B": "Incorrect. This is one valid way, but not the only one.",
+            "C": "Correct! Both a[:] and a.copy() produce a shallow copy. (list(a) also works, but C captures the two idiomatic forms.)",
+            "D": "Incorrect. While list(a) also copies, the intended pair is a[:] and a.copy()."
         }
     },
     {
         "id": 25,
-        "question": "Which of the following best describes a key feature of Polymorphism in Python?",
+        "question": "What does `1 in [1, 2, 3]` evaluate to?",
         "options": {
-            "A": "It provides a powerful way to work with Polymorphism.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "True",
+            "B": "False",
+            "C": "1",
+            "D": "None"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! The `in` operator returns True because 1 is present.",
+            "B": "Incorrect. 1 is in the list.",
+            "C": "Incorrect. `in` returns a boolean, not the element.",
+            "D": "Incorrect. It returns a boolean."
         }
     },
     {
         "id": 26,
-        "question": "Which of the following best describes a key feature of OOP in Python?",
+        "question": "How do you remove and return the last item of a list `lst`?",
         "options": {
-            "A": "It provides a powerful way to work with OOP.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "lst.remove()",
+            "B": "lst.pop()",
+            "C": "lst.delete()",
+            "D": "lst.drop()"
         },
-        "correct": "A",
+        "correct": "B",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Incorrect. remove() needs a value argument.",
+            "B": "Correct! pop() removes and returns the last item by default.",
+            "C": "Incorrect. Lists have no delete() method.",
+            "D": "Incorrect. Lists have no drop() method."
         }
     },
     {
         "id": 27,
-        "question": "Which of the following best describes a key feature of Dictionaries in Python?",
+        "question": "What does `dict(a=1, b=2)` create?",
         "options": {
-            "A": "It provides a powerful way to work with Dictionaries.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "{'a': 1, 'b': 2}",
+            "B": "['a', 'b']",
+            "C": "TypeError",
+            "D": "{a, b}"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! The dict() constructor accepts keyword arguments as key-value pairs.",
+            "B": "Incorrect. It creates a dict, not a list.",
+            "C": "Incorrect. This is valid.",
+            "D": "Incorrect. This is a set, not a dict."
         }
     },
     {
         "id": 28,
-        "question": "Which of the following best describes a key feature of Polymorphism in Python?",
+        "question": "What is the output of `'hello world'.split()`?",
         "options": {
-            "A": "It provides a powerful way to work with Polymorphism.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "['hello', 'world']",
+            "B": "['hello world']",
+            "C": "'hello world'",
+            "D": "['hello ', 'world']"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! split() with no argument splits on whitespace into a list of words.",
+            "B": "Incorrect. It splits, not wraps.",
+            "C": "Incorrect. It returns a list, not a string.",
+            "D": "Incorrect. Leading/trailing whitespace is stripped in the split."
         }
     },
     {
         "id": 29,
-        "question": "Which of the following best describes a key feature of Inheritance in Python?",
+        "question": "Which operator returns the integer quotient (floor division)?",
         "options": {
-            "A": "It provides a powerful way to work with Inheritance.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "/",
+            "B": "//",
+            "C": "%",
+            "D": "**"
         },
-        "correct": "A",
+        "correct": "B",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Incorrect. / is true division (returns float).",
+            "B": "Correct! // performs floor division.",
+            "C": "Incorrect. % is modulo.",
+            "D": "Incorrect. ** is exponentiation."
         }
     },
     {
         "id": 30,
-        "question": "Which of the following best describes a key feature of Sets in Python?",
+        "question": "What does `print('a', 'b', sep='-')` output?",
         "options": {
-            "A": "It provides a powerful way to work with Sets.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "a-b",
+            "B": "a b",
+            "C": "'a'-'b'",
+            "D": "ab"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! The sep argument sets the separator between printed items to '-'.",
+            "B": "Incorrect. The default sep is a space, but it was overridden.",
+            "C": "Incorrect. Quotes are not printed.",
+            "D": "Incorrect. sep is '-', not empty."
         }
     },
     {
         "id": 31,
-        "question": "Which of the following best describes a key feature of List comprehensions in Python?",
+        "question": "What is the purpose of a `finally` block?",
         "options": {
-            "A": "It provides a powerful way to work with List comprehensions.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "To always run cleanup code regardless of exceptions.",
+            "B": "To run only when an exception occurs.",
+            "C": "To run only when no exception occurs.",
+            "D": "To define a new exception."
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! finally always executes, making it ideal for closing resources.",
+            "B": "Incorrect. It runs even without an exception.",
+            "C": "Incorrect. It also runs when an exception occurs.",
+            "D": "Incorrect. That is a custom exception class."
         }
     },
     {
         "id": 32,
-        "question": "Which of the following best describes a key feature of Dictionaries in Python?",
+        "question": "What does `enumerate(['a', 'b'])` yield first?",
         "options": {
-            "A": "It provides a powerful way to work with Dictionaries.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "(0, 'a')",
+            "B": "(1, 'a')",
+            "C": "('a', 0)",
+            "D": "0"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! enumerate yields (index, value) pairs starting at index 0.",
+            "B": "Incorrect. The default start is 0, not 1.",
+            "C": "Incorrect. The order is (index, value).",
+            "D": "Incorrect. It yields a tuple, not a bare index."
         }
     },
     {
         "id": 33,
-        "question": "Which of the following best describes a key feature of Dictionaries in Python?",
+        "question": "What does `any([0, '', 3])` return?",
         "options": {
-            "A": "It provides a powerful way to work with Dictionaries.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "True",
+            "B": "False",
+            "C": "3",
+            "D": "None"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! any() returns True because at least one element (3) is truthy.",
+            "B": "Incorrect. There is a truthy element.",
+            "C": "Incorrect. It returns a boolean.",
+            "D": "Incorrect. It returns a boolean."
         }
     },
     {
         "id": 34,
-        "question": "Which of the following best describes a key feature of OOP in Python?",
+        "question": "What does `all([1, 2, 0])` return?",
         "options": {
-            "A": "It provides a powerful way to work with OOP.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "True",
+            "B": "False",
+            "C": "0",
+            "D": "None"
         },
-        "correct": "A",
+        "correct": "B",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Incorrect. Not all elements are truthy (0 is falsy).",
+            "B": "Correct! all() returns False because 0 is falsy.",
+            "C": "Incorrect. It returns a boolean.",
+            "D": "Incorrect. It returns a boolean."
         }
     },
     {
         "id": 35,
-        "question": "Which of the following best describes a key feature of Inheritance in Python?",
+        "question": "How do you define a class `Dog` that inherits from `Animal`?",
         "options": {
-            "A": "It provides a powerful way to work with Inheritance.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "class Dog(Animal):",
+            "B": "class Dog extends Animal:",
+            "C": "class Dog: Animal",
+            "D": "Dog = Animal()"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! Inheritance uses parentheses after the class name.",
+            "B": "Incorrect. 'extends' is Java syntax.",
+            "C": "Incorrect. This is not valid inheritance syntax.",
+            "D": "Incorrect. This creates an instance, not a subclass."
         }
     },
     {
         "id": 36,
-        "question": "Which of the following best describes a key feature of Polymorphism in Python?",
+        "question": "What does `super()` do inside a child class method?",
         "options": {
-            "A": "It provides a powerful way to work with Polymorphism.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "Returns a proxy to the parent class.",
+            "B": "Deletes the parent class.",
+            "C": "Creates a new parent class.",
+            "D": "Raises an error."
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! super() lets you call methods (like __init__) on the parent class.",
+            "B": "Incorrect. It does not delete anything.",
+            "C": "Incorrect. It does not create classes.",
+            "D": "Incorrect. It is valid in child methods."
         }
     },
     {
         "id": 37,
-        "question": "Which of the following best describes a key feature of Sets in Python?",
+        "question": "Which of these is a correct lambda with two arguments?",
         "options": {
-            "A": "It provides a powerful way to work with Sets.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "lambda x, y: x + y",
+            "B": "lambda x y: x + y",
+            "C": "lambda(x, y): x + y",
+            "D": "lambda x + y"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! lambda x, y: x + y defines a two-argument anonymous function.",
+            "B": "Incorrect. Arguments must be comma-separated.",
+            "C": "Incorrect. Lambdas don't use parentheses around args.",
+            "D": "Incorrect. This is not a valid lambda."
         }
     },
     {
         "id": 38,
-        "question": "Which of the following best describes a key feature of Inheritance in Python?",
+        "question": "What does `list(range(2, 10, 3))` produce?",
         "options": {
-            "A": "It provides a powerful way to work with Inheritance.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "[2, 5, 8]",
+            "B": "[2, 5]",
+            "C": "[2, 3, 4]",
+            "D": "[2, 6, 9]"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! range(2,10,3) yields 2, 5, 8 (step of 3, exclusive of 10).",
+            "B": "Incorrect. 8 is also included.",
+            "C": "Incorrect. Step is 3, not 1.",
+            "D": "Incorrect. The sequence starts at 2 with step 3."
         }
     },
     {
         "id": 39,
-        "question": "Which of the following best describes a key feature of Sets in Python?",
+        "question": "What does `'hello'.replace('l', 'L')` return?",
         "options": {
-            "A": "It provides a powerful way to work with Sets.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "'heLLo'",
+            "B": "'hello'",
+            "C": "'heLlo'",
+            "D": "TypeError"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! replace() swaps all occurrences of 'l' with 'L'.",
+            "B": "Incorrect. It does not leave the string unchanged.",
+            "C": "Incorrect. This would only replace one occurrence.",
+            "D": "Incorrect. This is valid."
         }
     },
     {
         "id": 40,
-        "question": "Which of the following best describes a key feature of List comprehensions in Python?",
+        "question": "Which statement correctly imports `sqrt` and `floor` from math?",
         "options": {
-            "A": "It provides a powerful way to work with List comprehensions.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "from math import sqrt, floor",
+            "B": "import sqrt, floor from math",
+            "C": "from math import *",
+            "D": "import math.sqrt, math.floor"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! 'from math import sqrt, floor' imports both names.",
+            "B": "Incorrect. The order is reversed.",
+            "C": "Incorrect. This imports everything, but A is the precise form requested.",
+            "D": "Incorrect. import requires module names, not dotted attributes."
         }
     },
     {
         "id": 41,
-        "question": "Which of the following best describes a key feature of Sets in Python?",
+        "question": "What is the result of `bool('')`?",
         "options": {
-            "A": "It provides a powerful way to work with Sets.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "True",
+            "B": "False",
+            "C": "None",
+            "D": "Error"
         },
-        "correct": "A",
+        "correct": "B",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Incorrect. An empty string is falsy.",
+            "B": "Correct! Empty strings evaluate to False.",
+            "C": "Incorrect. bool() returns a boolean.",
+            "D": "Incorrect. This is valid."
         }
     },
     {
         "id": 42,
-        "question": "Which of the following best describes a key feature of Inheritance in Python?",
+        "question": "What does `'hello'.capitalize()` return?",
         "options": {
-            "A": "It provides a powerful way to work with Inheritance.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "'Hello'",
+            "B": "'HELLO'",
+            "C": "'hELLO'",
+            "D": "'hello'"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! capitalize() uppercases the first letter and lowercases the rest.",
+            "B": "Incorrect. That is upper().",
+            "C": "Incorrect. That is swapcase()-like.",
+            "D": "Incorrect. It capitalizes the first letter."
         }
     },
     {
         "id": 43,
-        "question": "Which of the following best describes a key feature of Encapsulation in Python?",
+        "question": "What does `id(obj)` return?",
         "options": {
-            "A": "It provides a powerful way to work with Encapsulation.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "The object's unique memory address (integer).",
+            "B": "The object's type.",
+            "C": "The object's length.",
+            "D": "The object's string representation."
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! id() returns an integer identifying the object's memory location.",
+            "B": "Incorrect. That is type().",
+            "C": "Incorrect. That is len().",
+            "D": "Incorrect. That is str()."
         }
     },
     {
         "id": 44,
-        "question": "Which of the following best describes a key feature of Encapsulation in Python?",
+        "question": "Which method returns a list of all key-value pairs in a dict `d`?",
         "options": {
-            "A": "It provides a powerful way to work with Encapsulation.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "d.items()",
+            "B": "d.keys()",
+            "C": "d.values()",
+            "D": "d.pairs()"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! items() returns a view of (key, value) tuples.",
+            "B": "Incorrect. keys() returns only keys.",
+            "C": "Incorrect. values() returns only values.",
+            "D": "Incorrect. There is no pairs() method."
         }
     },
     {
         "id": 45,
-        "question": "Which of the following best describes a key feature of Dictionaries in Python?",
+        "question": "What does `min('hello')` return?",
         "options": {
-            "A": "It provides a powerful way to work with Dictionaries.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "'e'",
+            "B": "'h'",
+            "C": "'l'",
+            "D": "'o'"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! min() compares by Unicode code point; 'e' is the smallest letter in 'hello'.",
+            "B": "Incorrect. 'h' > 'e'.",
+            "C": "Incorrect. 'l' > 'e'.",
+            "D": "Incorrect. 'o' is larger."
         }
     },
     {
         "id": 46,
-        "question": "Which of the following best describes a key feature of List comprehensions in Python?",
+        "question": "What is the result of `5 / 2` in Python 3?",
         "options": {
-            "A": "It provides a powerful way to work with List comprehensions.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "2",
+            "B": "2.5",
+            "C": "2.0",
+            "D": "3"
         },
-        "correct": "A",
+        "correct": "B",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Incorrect. That is floor division (5 // 2).",
+            "B": "Correct! True division returns 2.5 as a float.",
+            "C": "Incorrect. This would be 4 / 2.",
+            "D": "Incorrect. True division does not round up."
         }
     },
     {
         "id": 47,
-        "question": "Which of the following best describes a key feature of String methods in Python?",
+        "question": "How do you create a set from a list with duplicates removed?",
         "options": {
-            "A": "It provides a powerful way to work with String methods.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "set(list)",
+            "B": "list.set()",
+            "C": "unique(list)",
+            "D": "list.to_set()"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! set(list) builds a set, automatically removing duplicates.",
+            "B": "Incorrect. Lists have no set() method.",
+            "C": "Incorrect. There is no unique() built-in.",
+            "D": "Incorrect. There is no to_set() method."
         }
     },
     {
         "id": 48,
-        "question": "Which of the following best describes a key feature of List comprehensions in Python?",
+        "question": "What does `'a' in 'apple'` evaluate to?",
         "options": {
-            "A": "It provides a powerful way to work with List comprehensions.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "True",
+            "B": "False",
+            "C": "'a'",
+            "D": "None"
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! 'a' is a substring of 'apple'.",
+            "B": "Incorrect. 'a' is present.",
+            "C": "Incorrect. It returns a boolean.",
+            "D": "Incorrect. It returns a boolean."
         }
     },
     {
         "id": 49,
-        "question": "Which of the following best describes a key feature of File handling in Python?",
+        "question": "What does a function's default parameter value evaluate at?",
         "options": {
-            "A": "It provides a powerful way to work with File handling.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "At function definition time (once).",
+            "B": "At every call.",
+            "C": "At import time only if decorated.",
+            "D": "Never."
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Correct! Defaults are evaluated once when the function is defined, which is why mutable defaults are dangerous.",
+            "B": "Incorrect. They are not re-evaluated per call.",
+            "C": "Incorrect. It is always at definition, not conditional.",
+            "D": "Incorrect. They are evaluated at definition."
         }
     },
     {
         "id": 50,
-        "question": "Which of the following best describes a key feature of List comprehensions in Python?",
+        "question": "What does `round(3.5)` return in Python 3?",
         "options": {
-            "A": "It provides a powerful way to work with List comprehensions.",
-            "B": "It is used exclusively in Python 2.",
-            "C": "It requires importing a third-party library.",
-            "D": "It is deprecated in Python 3.10."
+            "A": "3",
+            "B": "4",
+            "C": "3.5",
+            "D": "TypeError"
         },
-        "correct": "A",
+        "correct": "B",
         "explanations": {
-            "A": "Correct! This is a core feature.",
-            "B": "Incorrect. It is fully supported in Python 3.",
-            "C": "Incorrect. It is built-in.",
-            "D": "Incorrect. It is highly active."
+            "A": "Incorrect. This would be the result for round(2.5) (banker's rounding to even).",
+            "B": "Correct! 3.5 rounds to 4 (the nearest even integer).",
+            "C": "Incorrect. It returns an int.",
+            "D": "Incorrect. This is valid."
         }
     }
 ];

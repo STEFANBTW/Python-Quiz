@@ -889,10 +889,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! lower() is the method.",
-            "B": "Incorrect. That's JavaScript.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Correct! lower() returns a new lowercase string.",
+            "B": "Incorrect. toLowerCase() is JavaScript syntax, not Python.",
+            "C": "Incorrect. There is no case_lower() string method.",
+            "D": "Incorrect. The method is lower(), not tolower()."
         }
     },
     {
@@ -906,10 +906,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! Converts all to uppercase.",
-            "B": "Incorrect.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Correct! upper() converts all letters to uppercase.",
+            "B": "Incorrect. capitalize() would only uppercase the first letter.",
+            "C": "Incorrect. upper() changes the case.",
+            "D": "Incorrect. This is a valid string method."
         }
     },
     {
@@ -923,10 +923,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Incorrect. & is bitwise AND.",
-            "C": "Correct! + operator concatenates strings.",
-            "D": "Incorrect. concat is not built-in."
+            "A": "Incorrect. There is no space-joined concatenation operator.",
+            "B": "Incorrect. & is bitwise AND, not string concatenation.",
+            "C": "Correct! + concatenates (joins) two strings.",
+            "D": "Incorrect. There is no concat() built-in for strings."
         }
     },
     {
@@ -940,10 +940,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Correct! String multiplication repeats the string.",
-            "C": "Incorrect. Valid syntax.",
-            "D": "Incorrect. No spaces added."
+            "A": "Incorrect. Multiplication does not append the number.",
+            "B": "Correct! Multiplying a string by an integer repeats it: 'a' * 3 = 'aaa'.",
+            "C": "Incorrect. String repetition is valid.",
+            "D": "Incorrect. No spaces are added between repeats."
         }
     },
     {
@@ -957,10 +957,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Correct! Backslash escapes characters.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Incorrect. / is the division operator, not the escape character.",
+            "B": "Correct! The backslash \\ escapes special characters, e.g. \\n is a newline.",
+            "C": "Incorrect. & is bitwise AND.",
+            "D": "Incorrect. % is modulo/formatting."
         }
     },
     {
@@ -974,10 +974,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. [] is list.",
-            "B": "Correct! {} creates a dictionary.",
-            "C": "Incorrect. () is tuple.",
-            "D": "Incorrect."
+            "A": "Incorrect. [] creates a list.",
+            "B": "Correct! {} creates an empty dictionary.",
+            "C": "Incorrect. () creates a tuple.",
+            "D": "Incorrect. dict[] is invalid syntax."
         }
     },
     {
@@ -991,10 +991,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! Bracket notation is used.",
-            "B": "Incorrect. Python doesn't use dot notation for dict keys.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Correct! d['k'] retrieves the value for key 'k'.",
+            "B": "Incorrect. Dot notation is for attributes, not dict keys.",
+            "C": "Incorrect. d{'k'} is invalid syntax.",
+            "D": "Incorrect. d('k') tries to call the dict as a function."
         }
     },
     {
@@ -1008,10 +1008,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! keys() returns a view of keys.",
-            "B": "Incorrect.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Correct! keys() returns a view of all keys.",
+            "B": "Incorrect. There is no get_keys() method.",
+            "C": "Incorrect. keys() is a method, not a standalone function.",
+            "D": "Incorrect. There is no all_keys() method."
         }
     },
     {
@@ -1025,10 +1025,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Correct! Direct assignment creates or updates a key.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Incorrect. Dictionaries have no add() method.",
+            "B": "Correct! Assigning to a new key d['k'] = 'v' adds or updates it.",
+            "C": "Incorrect. append() is for lists.",
+            "D": "Incorrect. insert() is for lists at a specific index."
         }
     },
     {
@@ -1042,10 +1042,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. get() avoids errors.",
-            "B": "Incorrect.",
-            "C": "Correct! get() returns None by default.",
-            "D": "Incorrect."
+            "A": "Incorrect. get() returns None by default rather than raising KeyError.",
+            "B": "Incorrect. get() returns None, not False.",
+            "C": "Correct! get() returns None (or a provided default) if the key is missing.",
+            "D": "Incorrect. It does not return -1."
         }
     },
     {
@@ -1059,10 +1059,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. Cannot start with number.",
-            "B": "Correct! Underscore is allowed.",
-            "C": "Incorrect. Hyphens not allowed.",
-            "D": "Incorrect. Spaces not allowed."
+            "A": "Incorrect. Identifiers cannot start with a digit.",
+            "B": "Correct! _var is valid; underscores may start a name.",
+            "C": "Incorrect. Hyphens are not allowed.",
+            "D": "Incorrect. Spaces are not allowed."
         }
     },
     {
@@ -1076,10 +1076,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. Python is dynamically typed.",
-            "B": "Incorrect. This is Go or walrus operator.",
-            "C": "Correct! Single equals for assignment.",
-            "D": "Incorrect."
+            "A": "Incorrect. Python is dynamically typed; no type declaration needed.",
+            "B": "Incorrect. := is the walrus operator (expression assignment).",
+            "C": "Correct! x = 5 assigns 5 to x.",
+            "D": "Incorrect. 'assign' is not a Python keyword."
         }
     },
     {
@@ -1093,10 +1093,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Incorrect.",
-            "C": "Incorrect.",
-            "D": "Correct! Python uses uppercase convention, no enforced constant keyword."
+            "A": "Incorrect. 'const' is not a Python keyword.",
+            "B": "Incorrect. 'final' is not a Python keyword.",
+            "C": "Incorrect. 'static' is not used for constants.",
+            "D": "Correct! Python has no constant keyword; the convention is UPPERCASE names."
         }
     },
     {
@@ -1110,10 +1110,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Incorrect.",
-            "C": "Correct! Dynamic typing allows type changes.",
-            "D": "Incorrect."
+            "A": "Incorrect. Reassignment is valid in Python.",
+            "B": "Incorrect. Python does not cast types implicitly like this.",
+            "C": "Correct! The variable simply now references the new string value.",
+            "D": "Incorrect. No warning is raised."
         }
     },
     {
@@ -1127,10 +1127,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! class is reserved.",
-            "B": "Incorrect.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Correct! class is a reserved keyword.",
+            "B": "Incorrect. 'function' is not a Python keyword.",
+            "C": "Incorrect. 'variable' is not a keyword.",
+            "D": "Incorrect. 'define' is not a keyword."
         }
     },
     {
@@ -1144,10 +1144,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Correct! It divides and truncates to integer.",
-            "C": "Incorrect. Modulo is %.",
-            "D": "Incorrect. Comments are #."
+            "A": "Incorrect. ** is exponentiation.",
+            "B": "Correct! // performs floor division, rounding down.",
+            "C": "Incorrect. % is modulo.",
+            "D": "Incorrect. # starts a comment."
         }
     },
     {
@@ -1161,10 +1161,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! Modulo returns remainder.",
-            "B": "Incorrect.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Correct! 10 % 3 = 1 (the remainder).",
+            "B": "Incorrect. 3 is the divisor.",
+            "C": "Incorrect. 3.33 is the division result, not remainder.",
+            "D": "Incorrect. The remainder is non-zero."
         }
     },
     {
@@ -1179,9 +1179,9 @@
         "correct": "D",
         "explanations": {
             "A": "Incorrect. ^ is bitwise XOR.",
-            "B": "Incorrect. It is correct, but not the only one.",
-            "C": "Incorrect. It is correct, but not the only one.",
-            "D": "Correct! Both ** and pow() work."
+            "B": "Incorrect. 2 ** 3 is valid but not the only method.",
+            "C": "Incorrect. pow(2, 3) is valid but not the only method.",
+            "D": "Correct! Both 2 ** 3 and pow(2, 3) compute 8."
         }
     },
     {
@@ -1195,10 +1195,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. Multiplication has higher precedence.",
-            "B": "Correct! 2*3=6, 5+6=11.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Incorrect. This assumes left-to-right evaluation.",
+            "B": "Correct! Multiplication first: 2*3=6, then 5+6=11.",
+            "C": "Incorrect. This ignores operator precedence.",
+            "D": "Incorrect. This is valid arithmetic."
         }
     },
     {
@@ -1212,10 +1212,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Incorrect.",
-            "C": "Correct! x += 2 is x = x + 2.",
-            "D": "Incorrect."
+            "A": "Incorrect. += does not return a value (assignment is not an expression).",
+            "B": "Incorrect. +=1 increments by the value added, but += can add any amount.",
+            "C": "Correct! x += 2 is shorthand for x = x + 2.",
+            "D": "Incorrect. == compares equality."
         }
     },
     {
@@ -1229,10 +1229,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. Must be capitalized.",
-            "B": "Correct! True and False are booleans.",
-            "C": "Incorrect.",
-            "D": "Incorrect. 1 is int."
+            "A": "Incorrect. Python booleans are capitalized.",
+            "B": "Correct! True (capital T) is a boolean.",
+            "C": "Incorrect. TRUE is not a boolean.",
+            "D": "Incorrect. 1 is an int, though it is truthy."
         }
     },
     {
@@ -1246,10 +1246,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! not negates boolean.",
-            "B": "Incorrect.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Correct! not True evaluates to False.",
+            "B": "Incorrect. This is valid syntax.",
+            "C": "Incorrect. It returns a boolean.",
+            "D": "Incorrect. It returns False, not 0."
         }
     },
     {
@@ -1263,10 +1263,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Correct! Both must be True for AND.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Incorrect. AND requires both to be True.",
+            "B": "Correct! True and False is False.",
+            "C": "Incorrect. This is valid.",
+            "D": "Incorrect. It returns a boolean."
         }
     },
     {
@@ -1280,10 +1280,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! Only one needs to be True for OR.",
-            "B": "Incorrect.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Correct! OR needs only one True: True or False is True.",
+            "B": "Incorrect. OR returns True when either side is True.",
+            "C": "Incorrect. This is valid.",
+            "D": "Incorrect. It returns a boolean."
         }
     },
     {
@@ -1297,10 +1297,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. Assignment.",
-            "B": "Correct! Double equals checks value equality.",
-            "C": "Incorrect. JS strict equality.",
-            "D": "Incorrect. 'is' checks object identity."
+            "A": "Incorrect. = is assignment.",
+            "B": "Correct! == checks value equality.",
+            "C": "Incorrect. === is JavaScript strict equality.",
+            "D": "Incorrect. 'is' checks identity, not value equality."
         }
     },
     {
@@ -1314,10 +1314,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Correct! def keyword starts a function.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Incorrect. 'function' is not Python syntax.",
+            "B": "Correct! def defines a function.",
+            "C": "Incorrect. 'func' is not a keyword.",
+            "D": "Incorrect. 'create' is not a keyword."
         }
     },
     {
@@ -1331,9 +1331,9 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Correct! return exits and passes value.",
-            "C": "Incorrect.",
+            "A": "Incorrect. There is no output keyword.",
+            "B": "Correct! return exits the function and passes back a value.",
+            "C": "Incorrect. 'give' is not a keyword.",
             "D": "Incorrect. yield makes a generator."
         }
     },
@@ -1348,10 +1348,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Incorrect.",
-            "C": "Correct! Default return is None.",
-            "D": "Incorrect."
+            "A": "Incorrect. The default is None, not False.",
+            "B": "Incorrect. The default is None, not 0.",
+            "C": "Correct! A function without return implicitly returns None.",
+            "D": "Incorrect. No error is raised."
         }
     },
     {
@@ -1365,10 +1365,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. This is a reference.",
-            "B": "Incorrect.",
-            "C": "Correct! Parentheses execute the function.",
-            "D": "Incorrect."
+            "A": "Incorrect. This references the function without calling it.",
+            "B": "Incorrect. This is not Python syntax.",
+            "C": "Correct! hello() calls the function.",
+            "D": "Incorrect. 'run' is not a keyword."
         }
     },
     {
@@ -1382,10 +1382,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! Parameters are defined, arguments are passed.",
+            "A": "Correct! Parameters are declared in the signature; arguments are the values passed in.",
             "B": "Incorrect. Those are arguments.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "C": "Incorrect. Return values come after execution.",
+            "D": "Incorrect. Comments are not parameters."
         }
     },
     {
@@ -1399,10 +1399,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. While loops run until a condition is false.",
-            "B": "Correct! For loops iterate over sequences.",
-            "C": "Incorrect. Not in Python.",
-            "D": "Incorrect."
+            "A": "Incorrect. While loops run while a condition holds.",
+            "B": "Correct! for loops iterate over sequences.",
+            "C": "Incorrect. Python has no do-while.",
+            "D": "Incorrect. 'loop loop' is not a construct."
         }
     },
     {
@@ -1416,10 +1416,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! range(5) yields 0 to 4.",
-            "B": "Incorrect.",
-            "C": "Incorrect.",
-            "D": "Incorrect. int is not iterable."
+            "A": "Correct! range(5) yields 0,1,2,3,4 (five iterations).",
+            "B": "Incorrect. This is not Python syntax.",
+            "C": "Incorrect. 'loop' is not a Python keyword.",
+            "D": "Incorrect. An int is not iterable."
         }
     },
     {
@@ -1433,10 +1433,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Incorrect.",
-            "C": "Correct! break exits the loop.",
-            "D": "Incorrect. continue skips to next iteration."
+            "A": "Incorrect. 'stop' is not a keyword.",
+            "B": "Incorrect. 'exit' is not a loop keyword.",
+            "C": "Correct! break exits the loop entirely.",
+            "D": "Incorrect. continue skips to the next iteration."
         }
     },
     {
@@ -1450,10 +1450,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect.",
+            "A": "Incorrect. 'skip' is not a keyword.",
             "B": "Incorrect. pass does nothing.",
-            "C": "Correct! continue moves to next iteration.",
-            "D": "Incorrect."
+            "C": "Correct! continue skips to the next iteration.",
+            "D": "Incorrect. 'next' is not a loop keyword."
         }
     },
     {
@@ -1467,10 +1467,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Incorrect.",
-            "C": "Correct! It's a null operation placeholder.",
-            "D": "Incorrect."
+            "A": "Incorrect. That is continue.",
+            "B": "Incorrect. That is break.",
+            "C": "Correct! pass is a no-op placeholder.",
+            "D": "Incorrect. pass does not raise an error."
         }
     },
     {
@@ -1484,10 +1484,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct! if starts conditions.",
-            "B": "Incorrect.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Correct! if begins a conditional.",
+            "B": "Incorrect. 'when' is not Python syntax.",
+            "C": "Incorrect. 'case' is for match statements (3.10+), not if.",
+            "D": "Incorrect. 'check' is not a keyword."
         }
     },
     {
@@ -1501,10 +1501,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Incorrect.",
-            "C": "Correct! elif is used.",
-            "D": "Incorrect."
+            "A": "Incorrect. 'else if' is not Python syntax.",
+            "B": "Incorrect. 'elseif' is not Python syntax.",
+            "C": "Correct! elif chains conditions.",
+            "D": "Incorrect. 'else_if' is not Python syntax."
         }
     },
     {
@@ -1519,9 +1519,9 @@
         "correct": "A",
         "explanations": {
             "A": "Correct! Python uses colons and indentation.",
-            "B": "Incorrect. Braces not used.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "B": "Incorrect. Braces are not used for blocks.",
+            "C": "Incorrect. 'then' is not Python syntax.",
+            "D": "Incorrect. This omits the required colons."
         }
     },
     {
@@ -1535,10 +1535,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Correct! Python uses indentation.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Incorrect. Python does not use braces.",
+            "B": "Correct! Python uses indentation for blocks.",
+            "C": "Incorrect. Indentation is used everywhere.",
+            "D": "Incorrect. Indentation is used everywhere."
         }
     },
     {
@@ -1552,10 +1552,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Correct! A colon ':' is required.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Incorrect. A semicolon is not required.",
+            "B": "Correct! A colon follows the condition.",
+            "C": "Incorrect. A comma is not required.",
+            "D": "Incorrect. A period is not required."
         }
     },
     {
@@ -1569,10 +1569,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Correct! type() returns the object type.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Incorrect. typeof is JavaScript.",
+            "B": "Correct! type() returns the object's type.",
+            "C": "Incorrect. There is no get_type().",
+            "D": "Incorrect. class is a keyword, not a function."
         }
     },
     {
@@ -1586,10 +1586,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Correct! Decimals are floats.",
-            "C": "Incorrect. Would need quotes.",
-            "D": "Incorrect. Python doesn't have a double type."
+            "A": "Incorrect. 3.14 has a decimal point.",
+            "B": "Correct! A number with a decimal is a float.",
+            "C": "Incorrect. It would need quotes to be a string.",
+            "D": "Incorrect. Python has no double type."
         }
     },
     {
@@ -1606,7 +1606,7 @@
             "A": "Incorrect. Tuples use ().",
             "B": "Incorrect. Sets use {}.",
             "C": "Incorrect. Dicts use {key:val}.",
-            "D": "Correct! Square brackets are lists."
+            "D": "Correct! Square brackets create a list."
         }
     },
     {
@@ -1620,10 +1620,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect.",
-            "B": "Correct! Tuples are immutable.",
-            "C": "Incorrect.",
-            "D": "Incorrect."
+            "A": "Incorrect. Tuples are immutable.",
+            "B": "Correct! Tuples cannot be modified after creation.",
+            "C": "Incorrect. Mutability of contained lists is a subtlety, but the tuple itself is immutable.",
+            "D": "Incorrect. Tuples are always immutable."
         }
     },
     {
@@ -1637,10 +1637,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. Mutable types cannot be keys.",
-            "B": "Correct! Keys must be immutable.",
-            "C": "Incorrect. Sets are mutable.",
-            "D": "Incorrect."
+            "A": "Incorrect. Lists are mutable and unhashable, so they cannot be keys.",
+            "B": "Correct! Keys must be immutable (hashable), like strings and numbers.",
+            "C": "Incorrect. Sets are mutable and cannot be keys.",
+            "D": "Incorrect. Dictionaries are mutable and cannot be keys."
         }
     }
 ];

@@ -838,10 +838,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. 'Prints the object' is not right.",
-            "B": "Incorrect. 'Converts a type' is not right.",
-            "C": "Incorrect. 'Deletes the object' is not right.",
-            "D": "Correct. 'Returns the type of an object' is the right answer."
+            "A": "Incorrect. print() prints an object; type() inspects it.",
+            "B": "Incorrect. type() does not convert types; that is done by int(), str(), etc.",
+            "C": "Incorrect. del removes an object, it does not inspect it.",
+            "D": "Correct! type(obj) returns the class/type of the object, e.g. type(5) returns <class 'int'>."
         }
     },
     {
@@ -855,10 +855,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. 'define' is not right.",
-            "B": "Incorrect. 'fun' is not right.",
-            "C": "Correct. 'def' is the right answer.",
-            "D": "Incorrect. 'function' is not right."
+            "A": "Incorrect. 'define' is not a Python keyword.",
+            "B": "Incorrect. 'fun' is not a Python keyword.",
+            "C": "Correct! Functions are defined with the 'def' keyword, e.g. def my_func():.",
+            "D": "Incorrect. 'function' is used in JavaScript, not Python."
         }
     },
     {
@@ -872,10 +872,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. '6' is not right.",
-            "B": "Incorrect. '5' is not right.",
-            "C": "Incorrect. '9' is not right.",
-            "D": "Correct. '8' is the right answer."
+            "A": "Incorrect. 6 is the result of 2 * 3, not 2 ** 3.",
+            "B": "Incorrect. 5 is not related to this operation.",
+            "C": "Incorrect. 9 is 3 ** 2, not 2 ** 3.",
+            "D": "Correct! The ** operator raises 2 to the power of 3: 2 * 2 * 2 = 8."
         }
     },
     {
@@ -889,10 +889,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. 'while (x > 0)' is not right.",
-            "B": "Incorrect. 'while x > 0 {' is not right.",
-            "C": "Correct. 'while x > 0:' is the right answer.",
-            "D": "Incorrect. 'loop while x > 0:' is not right."
+            "A": "Incorrect. Parentheses are optional and not the distinguishing syntax.",
+            "B": "Incorrect. Python does not use braces for loops.",
+            "C": "Correct! A while loop uses 'while condition:' with a colon and indented body.",
+            "D": "Incorrect. 'loop while' is not Python syntax."
         }
     },
     {
@@ -906,10 +906,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. '2myvar' is not right.",
-            "B": "Incorrect. 'my-var' is not right.",
-            "C": "Incorrect. 'my var' is not right.",
-            "D": "Correct. 'my_var' is the right answer."
+            "A": "Incorrect. Variable names cannot start with a digit.",
+            "B": "Incorrect. Hyphens are not allowed in identifiers.",
+            "C": "Incorrect. Spaces are not allowed in identifiers.",
+            "D": "Correct! my_var uses an underscore, which is a valid identifier character."
         }
     },
     {
@@ -923,10 +923,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. '1.5' is not right.",
-            "B": "Incorrect. '1.0' is not right.",
-            "C": "Incorrect. '2' is not right.",
-            "D": "Correct. '1' is the right answer."
+            "A": "Incorrect. 1.5 is the result of 3 / 2 (true division).",
+            "B": "Incorrect. 1.0 is the float form of floor division, but // returns an int here.",
+            "C": "Incorrect. Floor division rounds down, not up.",
+            "D": "Correct! // performs floor division: 3 // 2 = 1 (rounded down to the nearest integer)."
         }
     },
     {
@@ -940,10 +940,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. '===' is not right.",
-            "B": "Incorrect. '=' is not right.",
-            "C": "Correct. '==' is the right answer.",
-            "D": "Incorrect. '=>' is not right."
+            "A": "Incorrect. === is JavaScript's strict equality; Python has no such operator.",
+            "B": "Incorrect. A single = is the assignment operator.",
+            "C": "Correct! == compares two values for equality and returns a boolean.",
+            "D": "Incorrect. => is not a Python operator."
         }
     },
     {
@@ -957,10 +957,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. 'my_list.length()' is not right.",
-            "B": "Incorrect. 'length(my_list)' is not right.",
-            "C": "Correct. 'len(my_list)' is the right answer.",
-            "D": "Incorrect. 'size(my_list)' is not right."
+            "A": "Incorrect. Python lists do not have a .length() method.",
+            "B": "Incorrect. There is no built-in length() function.",
+            "C": "Correct! len() is the built-in function that returns the number of items in a sequence.",
+            "D": "Incorrect. There is no built-in size() function."
         }
     },
     {
@@ -974,10 +974,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct. 'A sequence of numbers' is the right answer.",
-            "B": "Incorrect. 'A single number' is not right.",
-            "C": "Incorrect. 'A list of strings' is not right.",
-            "D": "Incorrect. 'A boolean' is not right."
+            "A": "Correct! range() returns a range object that produces a sequence of numbers, typically used in loops.",
+            "B": "Incorrect. range() can generate many numbers, not just one.",
+            "C": "Incorrect. range() produces numbers, not strings.",
+            "D": "Incorrect. range() does not return a boolean."
         }
     },
     {
@@ -991,10 +991,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. 'Tuple' is not right.",
-            "B": "Incorrect. 'Set' is not right.",
-            "C": "Correct. 'Dictionary' is the right answer.",
-            "D": "Incorrect. 'List' is not right."
+            "A": "Incorrect. A tuple is an ordered immutable sequence, not key-value pairs.",
+            "B": "Incorrect. A set stores unique unordered elements, not key-value pairs.",
+            "C": "Correct! A dictionary stores key-value pairs, e.g. {'name': 'Alice'}.",
+            "D": "Incorrect. A list is an ordered sequence of elements."
         }
     },
     {
@@ -1008,10 +1008,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. 'require math' is not right.",
-            "B": "Incorrect. 'include math' is not right.",
-            "C": "Incorrect. 'using math' is not right.",
-            "D": "Correct. 'import math' is the right answer."
+            "A": "Incorrect. 'require' is JavaScript/Node.js syntax.",
+            "B": "Incorrect. 'include' is C/C++ syntax.",
+            "C": "Incorrect. 'using' is C# syntax.",
+            "D": "Correct! 'import math' brings the math module into your namespace."
         }
     },
     {
@@ -1025,10 +1025,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. 'Error' is not right.",
-            "B": "Incorrect. 'None' is not right.",
-            "C": "Incorrect. 'True' is not right.",
-            "D": "Correct. 'False' is the right answer."
+            "A": "Incorrect. An empty string does not raise an error when converted to bool.",
+            "B": "Incorrect. bool() returns True or False, never None.",
+            "C": "Incorrect. Only non-empty strings evaluate to True.",
+            "D": "Correct! Empty sequences/strings are falsy, so bool('') is False."
         }
     },
     {
@@ -1042,10 +1042,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. '.push()' is not right.",
-            "B": "Incorrect. '.insert()' is not right.",
-            "C": "Correct. '.append()' is the right answer.",
-            "D": "Incorrect. '.add()' is not right."
+            "A": "Incorrect. Lists have no .push() method.",
+            "B": "Incorrect. .insert() adds at a specific index, not the end.",
+            "C": "Correct! .append() adds a single item to the end of the list.",
+            "D": "Incorrect. .add() is for sets, not lists."
         }
     },
     {
@@ -1059,10 +1059,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. 'Pauses the loop' is not right.",
-            "B": "Incorrect. 'Restarts the loop' is not right.",
-            "C": "Incorrect. 'Skips to the next iteration' is not right.",
-            "D": "Correct. 'Exits the loop completely' is the right answer."
+            "A": "Incorrect. break does not pause; it fully exits.",
+            "B": "Incorrect. break does not restart the loop.",
+            "C": "Incorrect. That is continue, not break.",
+            "D": "Correct! break terminates the loop immediately and resumes after it."
         }
     },
     {
@@ -1076,10 +1076,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct. ''ab'' is the right answer.",
-            "B": "Incorrect. ''a b'' is not right.",
-            "C": "Incorrect. ''a+b'' is not right.",
-            "D": "Incorrect. 'Error' is not right."
+            "A": "Correct! The + operator concatenates strings: 'a' + 'b' gives 'ab'.",
+            "B": "Incorrect. No space is inserted automatically.",
+            "C": "Incorrect. The + operator does not insert the + character.",
+            "D": "Incorrect. String concatenation with + is valid."
         }
     },
     {
@@ -1093,10 +1093,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. 'error' is not right.",
-            "B": "Correct. 'except' is the right answer.",
-            "C": "Incorrect. 'handle' is not right.",
-            "D": "Incorrect. 'catch' is not right."
+            "A": "Incorrect. 'error' is not the keyword.",
+            "B": "Correct! Exceptions are caught with 'except' in a try/except block.",
+            "C": "Incorrect. 'handle' is not a Python keyword.",
+            "D": "Incorrect. 'catch' is used in Java/JavaScript, not Python."
         }
     },
     {
@@ -1110,27 +1110,27 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. 'Zero' is not right.",
-            "B": "Incorrect. 'False' is not right.",
-            "C": "Incorrect. 'An empty string' is not right.",
-            "D": "Correct. 'A special constant representing the absence of a value' is the right answer."
+            "A": "Incorrect. 0 is a number; None is a distinct type.",
+            "B": "Incorrect. False is a boolean; None is separate.",
+            "C": "Incorrect. An empty string is a string, not None.",
+            "D": "Correct! None is a singleton representing no value / absence of a value."
         }
     },
     {
         "id": 20,
-        "question": "How do you open a file for reading?",
+        "question": "How do you open a file for reading in Python?",
         "options": {
             "A": "open('file.txt')",
-            "B": "Both A and B",
-            "C": "open('file.txt', 'r')",
-            "D": "read('file.txt')"
+            "B": "open('file.txt', 'r')",
+            "C": "read('file.txt')",
+            "D": "Both A and B"
         },
-        "correct": "B",
+        "correct": "D",
         "explanations": {
-            "A": "Incorrect. 'open('file.txt')' is not right.",
-            "B": "Correct. 'Both A and B' is the right answer.",
-            "C": "Incorrect. 'open('file.txt', 'r')' is not right.",
-            "D": "Incorrect. 'read('file.txt')' is not right."
+            "A": "Incorrect. This works because 'r' is the default mode, but it is not the only correct answer.",
+            "B": "Incorrect. This explicitly opens in read mode, but it is not the only correct answer.",
+            "C": "Incorrect. There is no read() built-in that opens a file; you open first, then read.",
+            "D": "Correct! Both open('file.txt') and open('file.txt', 'r') open a file for reading."
         }
     },
     {
@@ -1144,10 +1144,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. '&&' is not right.",
-            "B": "Incorrect. 'not' is not right.",
-            "C": "Incorrect. 'or' is not right.",
-            "D": "Correct. 'and' is the right answer."
+            "A": "Incorrect. && is used in C/Java/JS; Python uses 'and'.",
+            "B": "Incorrect. 'not' negates a condition.",
+            "C": "Incorrect. 'or' returns True if at least one condition is True.",
+            "D": "Correct! 'and' returns True only when both operands are True."
         }
     },
     {
@@ -1161,10 +1161,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct. 'Checks if a value exists in a sequence' is the right answer.",
-            "B": "Incorrect. 'Converts a string to integer' is not right.",
-            "C": "Incorrect. 'Loops through a list' is not right.",
-            "D": "Incorrect. 'None of the above' is not right."
+            "A": "Correct! 'in' checks membership, e.g. 'a' in 'apple' is True.",
+            "B": "Incorrect. Type conversion uses int(), not 'in'.",
+            "C": "Incorrect. 'in' does not loop; for loops iterate.",
+            "D": "Incorrect. The first option is correct."
         }
     },
     {
@@ -1178,10 +1178,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct. 'int('5')' is the right answer.",
-            "B": "Incorrect. 'num('5')' is not right.",
-            "C": "Incorrect. 'convert('5')' is not right.",
-            "D": "Incorrect. 'integer('5')' is not right."
+            "A": "Correct! int('5') converts the string '5' to the integer 5.",
+            "B": "Incorrect. There is no num() built-in.",
+            "C": "Incorrect. There is no convert() built-in.",
+            "D": "Incorrect. There is no integer() built-in."
         }
     },
     {
@@ -1195,10 +1195,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct. 'f' is the right answer.",
-            "B": "Incorrect. '$' is not right.",
-            "C": "Incorrect. 'str' is not right.",
-            "D": "Incorrect. 'format' is not right."
+            "A": "Correct! f-strings are prefixed with f, e.g. f'Hello {name}'.",
+            "B": "Incorrect. $ is used in shell/PHP, not Python f-strings.",
+            "C": "Incorrect. str is a type/function, not the f-string prefix.",
+            "D": "Incorrect. .format() is a different formatting method."
         }
     },
     {
@@ -1212,10 +1212,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. 'True' is not right.",
-            "B": "Incorrect. 'Error' is not right.",
-            "C": "Incorrect. 'None' is not right.",
-            "D": "Correct. 'False' is the right answer."
+            "A": "Incorrect. Only non-zero numbers are truthy.",
+            "B": "Incorrect. bool(0) is valid and does not error.",
+            "C": "Incorrect. bool() returns True or False, never None.",
+            "D": "Correct! 0 is falsy in Python, so bool(0) is False."
         }
     },
     {
@@ -1229,27 +1229,27 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. 'get()' is not right.",
-            "B": "Incorrect. 'scan()' is not right.",
-            "C": "Correct. 'input()' is the right answer.",
-            "D": "Incorrect. 'read()' is not right."
+            "A": "Incorrect. There is no built-in get() for user input.",
+            "B": "Incorrect. scan() is not a Python built-in.",
+            "C": "Correct! input() reads a line of text from the user.",
+            "D": "Incorrect. read() is for files, not interactive input."
         }
     },
     {
         "id": 27,
-        "question": "What is a correct way to create an empty list?",
+        "question": "Which of the following correctly creates an empty list?",
         "options": {
-            "A": "Both A and B",
-            "B": "[]",
-            "C": "list()",
-            "D": "None"
+            "A": "[]",
+            "B": "list()",
+            "C": "{}",
+            "D": "Both A and B"
         },
-        "correct": "A",
+        "correct": "D",
         "explanations": {
-            "A": "Correct. 'Both A and B' is the right answer.",
-            "B": "Incorrect. '[]' is not right.",
-            "C": "Incorrect. 'list()' is not right.",
-            "D": "Incorrect. 'None' is not right."
+            "A": "Incorrect. This is one valid way, but not the only one.",
+            "B": "Incorrect. This is one valid way, but not the only one.",
+            "C": "Incorrect. {} creates an empty dictionary, not a list.",
+            "D": "Correct! Both [] and list() create an empty list."
         }
     },
     {
@@ -1263,10 +1263,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. 'absolute()' is not right.",
-            "B": "Incorrect. 'val()' is not right.",
-            "C": "Correct. 'abs()' is the right answer.",
-            "D": "Incorrect. 'math.abs()' is not right."
+            "A": "Incorrect. There is no absolute() built-in.",
+            "B": "Incorrect. There is no val() built-in.",
+            "C": "Correct! abs() returns the absolute (non-negative) value of a number.",
+            "D": "Incorrect. It is the built-in abs(), not math.abs()."
         }
     },
     {
@@ -1280,10 +1280,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. 'Returns a value' is not right.",
-            "B": "Incorrect. 'Pauses the program' is not right.",
-            "C": "Incorrect. 'Exits the loop' is not right.",
-            "D": "Correct. 'Skips the rest of the current iteration and goes to the next' is the right answer."
+            "A": "Incorrect. continue does not return a value.",
+            "B": "Incorrect. continue does not pause the whole program.",
+            "C": "Incorrect. That is break, not continue.",
+            "D": "Correct! continue skips the rest of the current iteration and proceeds to the next."
         }
     },
     {
@@ -1297,10 +1297,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. 's.capitalize()' is not right.",
-            "B": "Incorrect. 'upper(s)' is not right.",
-            "C": "Correct. 's.upper()' is the right answer.",
-            "D": "Incorrect. 's.uppercase()' is not right."
+            "A": "Incorrect. capitalize() only uppercases the first letter.",
+            "B": "Incorrect. The method is called on the string: s.upper().",
+            "C": "Correct! s.upper() returns a copy of the string fully uppercased.",
+            "D": "Incorrect. There is no .uppercase() method."
         }
     },
     {
@@ -1314,10 +1314,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. '0' is not right.",
-            "B": "Incorrect. '3' is not right.",
-            "C": "Correct. '1' is the right answer.",
-            "D": "Incorrect. '3.33' is not right."
+            "A": "Incorrect. 10 % 3 has a non-zero remainder.",
+            "B": "Incorrect. 3 is the divisor, not the remainder.",
+            "C": "Correct! 10 % 3 returns the remainder of 10 / 3, which is 1.",
+            "D": "Incorrect. 3.33 is the division result, not the remainder."
         }
     },
     {
@@ -1331,10 +1331,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct. '0' is the right answer.",
-            "B": "Incorrect. '1' is not right.",
-            "C": "Incorrect. '-1' is not right.",
-            "D": "Incorrect. 'First' is not right."
+            "A": "Correct! Python uses zero-based indexing, so the first element is at index 0.",
+            "B": "Incorrect. Index 1 is the second element.",
+            "C": "Incorrect. -1 is the last element.",
+            "D": "Incorrect. 'First' is not an index."
         }
     },
     {
@@ -1348,10 +1348,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. 'x.type()' is not right.",
-            "B": "Correct. 'type(x)' is the right answer.",
-            "C": "Incorrect. 'class(x)' is not right.",
-            "D": "Incorrect. 'typeof(x)' is not right."
+            "A": "Incorrect. It is type(x), not x.type().",
+            "B": "Correct! type(x) returns the type/class of x.",
+            "C": "Incorrect. class is a keyword, not a function.",
+            "D": "Incorrect. typeof is JavaScript syntax."
         }
     },
     {
@@ -1365,10 +1365,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct. 'A blueprint for creating objects' is the right answer.",
-            "B": "Incorrect. 'A module' is not right.",
-            "C": "Incorrect. 'A function' is not right.",
-            "D": "Incorrect. 'A built-in data type' is not right."
+            "A": "Correct! A class is a blueprint from which objects (instances) are created.",
+            "B": "Incorrect. A module is a file of code, not a class.",
+            "C": "Incorrect. A function is a callable block, not a class.",
+            "D": "Incorrect. Classes define types but are not a single built-in data type."
         }
     },
     {
@@ -1382,10 +1382,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct. 'Car()' is the right answer.",
-            "B": "Incorrect. 'new Car()' is not right.",
-            "C": "Incorrect. 'create Car' is not right.",
-            "D": "Incorrect. 'Car.new()' is not right."
+            "A": "Correct! Calling the class like a function, Car(), creates an instance.",
+            "B": "Incorrect. Python does not use 'new'.",
+            "C": "Incorrect. This is not valid Python syntax.",
+            "D": "Incorrect. There is no Car.new() method."
         }
     },
     {
@@ -1399,10 +1399,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. 'It creates the class' is not right.",
-            "B": "Incorrect. 'It prints the object' is not right.",
-            "C": "Correct. 'It initializes a newly created object' is the right answer.",
-            "D": "Incorrect. 'It deletes the object' is not right."
+            "A": "Incorrect. __init__ does not create the class itself.",
+            "B": "Incorrect. __init__ does not print the object.",
+            "C": "Correct! __init__ runs when an object is instantiated and sets initial attributes.",
+            "D": "Incorrect. __del__ handles deletion, not __init__."
         }
     },
     {
@@ -1416,27 +1416,27 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. 'this' is not right.",
-            "B": "Incorrect. 'me' is not right.",
-            "C": "Correct. 'self' is the right answer.",
-            "D": "Incorrect. 'current' is not right."
+            "A": "Incorrect. 'this' is used in Java/JS; Python uses 'self'.",
+            "B": "Incorrect. 'me' is not a Python convention.",
+            "C": "Correct! 'self' refers to the current instance inside a method.",
+            "D": "Incorrect. 'current' is not used."
         }
     },
     {
         "id": 38,
-        "question": "How do you access the value associated with key 'k' in dict 'd'?",
+        "question": "How do you access the value associated with key 'k' in a dictionary 'd'?",
         "options": {
-            "A": "d.get('k')",
-            "B": "Both A and B",
-            "C": "None",
-            "D": "d['k']"
+            "A": "d['k']",
+            "B": "d.get('k')",
+            "C": "d.k",
+            "D": "Both A and B"
         },
-        "correct": "B",
+        "correct": "D",
         "explanations": {
-            "A": "Incorrect. 'd.get('k')' is not right.",
-            "B": "Correct. 'Both A and B' is the right answer.",
-            "C": "Incorrect. 'None' is not right.",
-            "D": "Incorrect. 'd['k']' is not right."
+            "A": "Incorrect. This works but raises KeyError if the key is missing; it is not the only way.",
+            "B": "Incorrect. This works and returns None if missing; it is not the only way.",
+            "C": "Incorrect. Python dictionaries do not use dot notation for keys.",
+            "D": "Correct! Both d['k'] and d.get('k') retrieve the value for key 'k'."
         }
     },
     {
@@ -1450,10 +1450,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. 'Removes all spaces' is not right.",
-            "B": "Correct. 'Removes leading and trailing whitespace' is the right answer.",
-            "C": "Incorrect. 'Splits the string' is not right.",
-            "D": "Incorrect. 'Joins strings' is not right."
+            "A": "Incorrect. strip() only removes leading/trailing whitespace, not internal spaces.",
+            "B": "Correct! strip() removes whitespace from both ends of a string.",
+            "C": "Incorrect. split() splits a string, not strip().",
+            "D": "Incorrect. join() joins strings, not strip()."
         }
     },
     {
@@ -1467,10 +1467,10 @@
         },
         "correct": "A",
         "explanations": {
-            "A": "Correct. 'Django' is the right answer.",
-            "B": "Incorrect. 'Spring' is not right.",
-            "C": "Incorrect. 'React' is not right.",
-            "D": "Incorrect. 'Laravel' is not right."
+            "A": "Correct! Django is a high-level Python web framework.",
+            "B": "Incorrect. Spring is a Java framework.",
+            "C": "Incorrect. React is a JavaScript library.",
+            "D": "Incorrect. Laravel is a PHP framework."
         }
     },
     {
@@ -1484,10 +1484,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. 'A complex class method' is not right.",
-            "B": "Correct. 'An anonymous inline function' is the right answer.",
-            "C": "Incorrect. 'A type of loop' is not right.",
-            "D": "Incorrect. 'A built-in mathematical function' is not right."
+            "A": "Incorrect. A lambda is not a class method.",
+            "B": "Correct! A lambda is an anonymous, single-expression function.",
+            "C": "Incorrect. A lambda is not a loop.",
+            "D": "Incorrect. A lambda is not a built-in math function."
         }
     },
     {
@@ -1501,10 +1501,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. '!==' is not right.",
-            "B": "Incorrect. '<>' is not right.",
-            "C": "Incorrect. 'not=' is not right.",
-            "D": "Correct. '!=' is the right answer."
+            "A": "Incorrect. !== is JavaScript strict inequality.",
+            "B": "Incorrect. <> was Python 2 syntax.",
+            "C": "Incorrect. 'not=' is not a Python operator.",
+            "D": "Correct! != tests whether two values are not equal."
         }
     },
     {
@@ -1518,10 +1518,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. 'order(list)' is not right.",
-            "B": "Incorrect. 'sorted(list)' is not right.",
-            "C": "Correct. 'list.sort()' is the right answer.",
-            "D": "Incorrect. 'sort(list)' is not right."
+            "A": "Incorrect. There is no order() built-in.",
+            "B": "Incorrect. sorted() returns a new list; it does not sort in place.",
+            "C": "Correct! list.sort() sorts the list in place (modifies it directly).",
+            "D": "Incorrect. There is no sort() built-in that takes a list."
         }
     },
     {
@@ -1535,10 +1535,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. 'Exits the function' is not right.",
-            "B": "Incorrect. 'Skips to the next iteration' is not right.",
-            "C": "Correct. 'Does nothing, acts as a placeholder' is the right answer.",
-            "D": "Incorrect. 'Returns None' is not right."
+            "A": "Incorrect. return exits a function; pass does not.",
+            "B": "Incorrect. continue skips iterations; pass does not.",
+            "C": "Correct! pass is a no-op used as a placeholder where a statement is required.",
+            "D": "Incorrect. pass does not return anything; it simply does nothing."
         }
     },
     {
@@ -1552,10 +1552,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. 'A dictionary' is not right.",
-            "B": "Incorrect. 'An unordered collection' is not right.",
-            "C": "Incorrect. 'A mutable list' is not right.",
-            "D": "Correct. 'An ordered, immutable collection of elements' is the right answer."
+            "A": "Incorrect. A dictionary uses key-value pairs.",
+            "B": "Incorrect. A tuple is ordered, not unordered.",
+            "C": "Incorrect. A tuple is immutable, not mutable.",
+            "D": "Correct! A tuple is an ordered, immutable sequence."
         }
     },
     {
@@ -1569,10 +1569,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. 'window.var_name' is not right.",
-            "B": "Correct. 'global var_name' is the right answer.",
-            "C": "Incorrect. 'global(var_name)' is not right.",
-            "D": "Incorrect. 'var_name = global' is not right."
+            "A": "Incorrect. This is JavaScript syntax.",
+            "B": "Correct! 'global var_name' declares that var_name refers to a module-level variable.",
+            "C": "Incorrect. global is a keyword, not a function.",
+            "D": "Incorrect. The syntax is 'global var_name'."
         }
     },
     {
@@ -1586,10 +1586,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. 'MathError' is not right.",
-            "B": "Correct. 'ZeroDivisionError' is the right answer.",
-            "C": "Incorrect. 'TypeError' is not right.",
-            "D": "Incorrect. 'ValueError' is not right."
+            "A": "Incorrect. There is no MathError in standard Python.",
+            "B": "Correct! Dividing by zero raises ZeroDivisionError.",
+            "C": "Incorrect. TypeError is for type mismatches.",
+            "D": "Incorrect. ValueError is for invalid values, not division by zero."
         }
     },
     {
@@ -1603,10 +1603,10 @@
         },
         "correct": "B",
         "explanations": {
-            "A": "Incorrect. 'a & b' is not right.",
-            "B": "Correct. 'a + b' is the right answer.",
-            "C": "Incorrect. 'a, b' is not right.",
-            "D": "Incorrect. 'a.concat(b)' is not right."
+            "A": "Incorrect. & is bitwise AND, not string concatenation.",
+            "B": "Correct! The + operator concatenates strings: a + b.",
+            "C": "Incorrect. a, b creates a tuple, not a concatenation.",
+            "D": "Incorrect. Strings have no .concat() method in Python."
         }
     },
     {
@@ -1620,10 +1620,10 @@
         },
         "correct": "D",
         "explanations": {
-            "A": "Incorrect. '.' is not right.",
-            "B": "Incorrect. 'x' is not right.",
-            "C": "Incorrect. 'X' is not right.",
-            "D": "Correct. '*' is the right answer."
+            "A": "Incorrect. '.' is attribute access, not multiplication.",
+            "B": "Incorrect. 'x' is a variable name, not an operator.",
+            "C": "Incorrect. 'X' is not an operator.",
+            "D": "Correct! * is the multiplication operator."
         }
     },
     {
@@ -1637,10 +1637,10 @@
         },
         "correct": "C",
         "explanations": {
-            "A": "Incorrect. 'len(lst)' is not right.",
-            "B": "Incorrect. '0' is not right.",
-            "C": "Correct. '-1' is the right answer.",
-            "D": "Incorrect. 'lst.length' is not right."
+            "A": "Incorrect. len(lst) gives the count; the last valid index is len(lst) - 1.",
+            "B": "Incorrect. 0 is the first element.",
+            "C": "Correct! -1 accesses the last element via negative indexing.",
+            "D": "Incorrect. Lists have no .length attribute."
         }
     }
 ];
